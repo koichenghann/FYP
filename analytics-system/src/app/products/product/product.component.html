@@ -1,0 +1,136 @@
+<side-nav-cts>
+  <div id="main">
+
+    <div class="main-wrapper">
+      <div  fxLayout="row">
+        <div class="custom-page-header">
+          <a [routerLink]="['/products']">Products</a>
+          / {{product.name}}
+
+        </div>
+        <div class="filler"></div>
+        <div class="custom-date-range">
+          from: <input type="date" name="" value="2020-11-12">
+          &nbsp;&nbsp;&nbsp;
+          to: <input type="date" name="" value="2020-11-18">
+        </div>
+      </div>
+    </div>
+
+    <!-- test {{productId | json}} -->
+    <!-- mini card array row -->
+
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div id="card-1" class="mini-card-wrapper">
+          <app-mini-card label="Revenue" [total]="commulativeRevenue" suffix="MYR" [percentage]="revenuePercentage" colorTheme="#03bf00" [data]="revenueData"></app-mini-card>
+        </div>
+        <div id="card-2" class="mini-card-wrapper">
+          <app-mini-card label="Item Sold" [total]="commulativeItemSold" suffix="" [percentage]="itemSoldPercentage" colorTheme="#03bf00" [data]="itemSoldData"></app-mini-card>
+        </div>
+        <div id="card-2" class="mini-card-wrapper">
+          <app-mini-card label="Views" [total]="commulativeViews" suffix="" [percentage]="viewPercentage" colorTheme="#03bf00" [data]="viewData"></app-mini-card>
+        </div>
+        <div id="card-1" class="mini-card-wrapper">
+          <app-mini-card label="Instock" suffix="" [percentage]="inStockPercentage" colorTheme='#1441c9' [data]="inStockData" hideIcon='true'></app-mini-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- product revenue/sold and sales through rate -->
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div class="medium-card-wrapper">
+         <app-product-revenue></app-product-revenue>
+        </div>
+        <div class="medium-card-wrapper">
+          <app-sell-through></app-sell-through>
+        </div>
+      </div>
+    </div>
+
+    <!-- product's order list -->
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div class="large-card-wrapper">
+          <mat-card id="table-card">
+
+            <div fxLayout="row" class="header-row">
+              <!-- Card Header -->
+              <div class="table-title">
+                Recent Orders
+              </div>
+
+              <!-- space filler -->
+              <div class="filler"></div>
+
+              <!-- Filter -->
+              <mat-form-field class="filter-form-field">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input class="filter-input">
+              </mat-form-field>
+            </div>
+
+
+            <!-- Table -->
+            <div class="mat-elevation-0">
+              <table mat-table [dataSource]="dataSource" matSort matSortActive="orderId" matSortDirection="desc">
+
+                <!-- Order Id Column -->
+                <ng-container matColumnDef="orderId">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Order Id </th>
+                  <td mat-cell *matCellDef="let element"> {{element.orderId}} </td>
+                </ng-container>
+
+                <!-- Customer Id Column -->
+                <!-- <ng-container matColumnDef="customerId">
+                  <th mat-header-cell *matHeaderCellDef class="header-cell"> Customer Id </th>
+                  <td mat-cell *matCellDef="let element"> {{element.customerId}} </td>
+                </ng-container> -->
+
+                <!-- Customer Name Column -->
+                <ng-container matColumnDef="customerName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Customer Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef  mat-sort-header class="header-cell"> Date and Time </th>
+                  <td mat-cell *matCellDef="let element"> {{element.date}} - {{element.time}} </td>
+                </ng-container>
+
+                <!-- Time Column -->
+                <ng-container matColumnDef="time">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Time </th>
+                  <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+                </ng-container>
+
+                <!-- Order Ammount Column -->
+                <ng-container matColumnDef="orderAmmount">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Order Ammount </th>
+                  <td mat-cell *matCellDef="let element"> {{element.orderAmmount}} </td>
+                </ng-container>
+
+                <!-- Revenue -->
+                <ng-container matColumnDef="revenue">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Revenue </th>
+                  <td mat-cell *matCellDef="let element"> RM {{element.revenue}} </td>
+                </ng-container>
+
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</side-nav-cts>

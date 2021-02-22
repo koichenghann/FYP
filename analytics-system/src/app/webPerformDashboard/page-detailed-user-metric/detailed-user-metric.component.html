@@ -1,0 +1,47 @@
+<side-navbar>
+  <mat-grid-list cols="1" rowsHeight="1:1">
+
+      <!--Page header-->
+      <div class="margin-1">
+        <h1 class="page-title">User behavior Reports</h1>
+        <h3 class="page-subtitle">Website: www.helpemerhandising.com.my</h3>
+      </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between-center" fxLayoutGap="1em" class="stats-cards-2 margin-1">
+    <mat-card class="summary-top-card mat-elevation-z2" fxFlex="40">
+
+      <mat-card-content>
+        <app-line-user-metric></app-line-user-metric>
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card class="summary-top-card mat-elevation-z2" fxFlex="60">
+
+      <mat-card-content>
+        <app-column-user-behavior></app-column-user-behavior>
+      </mat-card-content>
+    </mat-card>
+
+    </div>
+
+
+    <!--Second Row-->
+
+    <mat-card class="summary-top-card mat-elevation-z2 margin-1">
+      <mat-card-content>
+        <app-user-behavior-table></app-user-behavior-table>
+      </mat-card-content>
+    </mat-card>
+
+    <!--Third Row-->
+    <mat-card class="summary-top-card mat-elevation-z2 margin-1">
+      <mat-card-content>
+        <app-user-metric-table></app-user-metric-table>
+      </mat-card-content>
+    </mat-card>
+
+
+  </mat-grid-list>
+</side-navbar>
+

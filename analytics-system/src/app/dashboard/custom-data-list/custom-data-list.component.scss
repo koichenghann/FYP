@@ -1,0 +1,113 @@
+$header-background-color: #40c4de;
+
+
+
+.wrapper-card{
+  /* background-color: #439F9E; */
+  height: 100%;
+  width: 100%;
+  // padding: 1.5em 3em 0 1.5em !important;
+  // background-color: green;
+  box-sizing:border-box !important;
+  // padding: 1em;
+  padding: 1.5em 3em 3em 1.5em;
+}
+
+.left{
+  // background-color: yellow;
+  height: 100%;
+  width: 50%;
+  display: inline-block;
+  // overflow: hidden;
+}
+.right{
+  // background-color: blue;
+  height: 100%;
+  width: 50%;
+  display: inline-block;
+  // overflow: hidden;
+}
+.left mat-card:nth-child(1){
+  height: calc(50% - 3.8em);
+  width: calc(100% - 3.8em);
+  margin-bottom: 3em;
+}
+.left mat-card:nth-child(2){
+  height: calc(50% - 3.8em);
+  width: calc(100% - 3.8em);
+  margin-bottom: 3em;
+
+}
+.right mat-card:nth-child(1){
+  height: calc(50% - 3.8em);
+  width: calc(100% - 3.8em);
+  margin-bottom: 3em;
+  margin-left: 1.5em;
+}
+.right mat-card:nth-child(2){
+  height: calc(50% - 3.8em);
+  width: calc(100% - 3.8em);
+  margin-bottom: 3em;
+  margin-left: 1.5em;
+}
+// mat-card:nth-child(2){
+//   height: calc(50% - 3.8em);
+//   margin-top: 3em;
+// }
+// mat-card{
+//   margin: 0 auto;
+//   padding: 0;
+//   width: 100%;
+//   height: 100%;
+//   display: block;
+// }
+// mat-card-header{
+//   background-color: $header-background-color;
+//   background-image: url("/assets/image/Teal_gradient_background_3.jpg");
+//   border-radius: 4px 4px 0 0;
+//   padding: 1em 0 0.2em 1em;
+// }
+// mat-card-title{
+//   color: white;
+// }
+// mat-card-content{
+//   padding: 2em;
+// }
+
+.header-button-group{
+  position: sticky;
+  margin-right: 2em;
+  padding-top: 0em;
+}
+.header-button-group a{
+  text-decoration: none;
+  z-index: 10;
+  color: white;
+}
+.header-button-group a:hover{
+  color: black;
+}
+.searchbar{
+  margin-right: -2em;
+  margin-top: -0.1em;
+  padding-top: 0em;
+}
+.searchbar input{
+  background-color: green;
+  background: none;
+  border: solid 1px white;
+  padding: 5px;
+  height: 1.1em;
+  width: 10em;
+}
+.searchbar input:focus{
+  outline: none;
+}
+.searchicon{
+  margin-right: 2em;
+  padding-top: 0.1em;
+  color: white;
+}
+.searchicon span{
+  font-size: 1.5em;
+}

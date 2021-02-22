@@ -1,0 +1,49 @@
+<side-navbar>
+  <mat-grid-list cols="1" rowsHeight="1:1">
+    <!--Page header-->
+    <div class="margin-1">
+      <h1 class="page-title">Web Traffic Reports</h1>
+      <h3 class="page-subtitle">Website: www.helpemerhandising.com.my</h3>
+    </div>
+
+    <!--First Row-->
+    <div fxLayout="row" fxLayoutAlign="space-between-center" fxLayoutGap="1em" class="stats-cards-2 margin-1">
+      <mat-card class=" mat-elevation-z2 " fxFlex="50">
+        <bar-traffic-source></bar-traffic-source>
+      </mat-card>
+
+      <mat-card class=" mat-elevation-z2" fxFlex="50">
+        <app-widget-pie-channel></app-widget-pie-channel>
+      </mat-card>
+    </div>
+
+    <!--Second Row-->
+    <mat-card class="summary-top-card mat-elevation-z2 margin-1">
+      <mat-card-content>
+        <div class="margin-1">
+          <app-alltraffic-table></app-alltraffic-table>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <!--Third Row-->
+    <mat-card class="summary-top-card mat-elevation-z2 margin-1">
+      <mat-card-content>
+        <div class="margin-1">
+          <app-websource-table></app-websource-table>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+
+
+
+
+
+
+
+
+    </mat-grid-list>
+</side-navbar>

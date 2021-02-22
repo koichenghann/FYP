@@ -1,0 +1,70 @@
+
+
+  <div fxLayout="row" class="header-row">
+
+
+    <!-- Filter -->
+
+    <div class="main-wrapper">
+      <div  fxLayout="row">
+        <!-- Card Header -->
+        <div class="table-title">
+          Detailed User Activity Analysis
+        </div>
+        <div class="filler"></div>
+        <div class="custom-date-range">
+          from: <input type="date" name="" value="2020-11-12">
+          &nbsp;&nbsp;&nbsp;
+          to: <input type="date" name="" value="2020-11-18">
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <!-- Table -->
+
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="spending" matSortDirection="desc">
+
+      <!-- Channel Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      </ng-container>
+
+      <!-- Sessions Column -->
+      <ng-container matColumnDef="visitors">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Visitors </th>
+        <td mat-cell *matCellDef="let element"> {{element.visitors}} </td>
+      </ng-container>
+
+      <!-- Percentage of Traffic Column -->
+      <ng-container matColumnDef="sessions">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header class="header-cell"> Sessions </th>
+        <td mat-cell *matCellDef="let element"> {{element.sessions}} </td>
+      </ng-container>
+
+      <!-- Change Column -->
+      <ng-container matColumnDef="pageView">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Page Views </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.pageView}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="signup">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Signed-up  </th>
+        <td mat-cell *matCellDef="let element">
+           {{element.signup}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+
+

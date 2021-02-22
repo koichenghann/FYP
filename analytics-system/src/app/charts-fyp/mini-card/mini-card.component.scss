@@ -1,0 +1,49 @@
+mat-card{
+  width: calc(100% - 4em);
+  margin: 0;
+  padding: 2em;
+}
+
+mat-card-title{
+  color: #a3a3a3;
+  font-size: 15px;
+  padding-bottom: 0.5em;
+}
+
+h4{
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.total{
+  font-size: 2.5em;
+}
+
+.mat-icon {
+  // color: green !important;
+  font-size: 20px !important;
+}
+.description {
+  // color: #03bf00 !important;
+  font-size: 14px !important;
+}
+
+.mat-icon{
+  // color: #03bf00 !important;
+  position: relative;
+  padding: 0;
+  top: 5px;
+}
+
+.stats{
+  // background-color: yellow;
+  width: 60%;
+  margin: 0 0 0 0 !important;
+}
+.widget{
+  // background-color: green;
+  width: 40%;
+  height: 0;
+  text-align: right;
+  margin-top: -0.5em;
+}

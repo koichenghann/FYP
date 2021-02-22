@@ -1,0 +1,36 @@
+.wrapper{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.wrapper-1{
+  // background-color: #d1d1d1;
+  width: 100%;
+  height: 50% !important;
+  min-height: 50% !important;
+  display: inline-block;
+  box-sizing:border-box !important;
+  // overflow:hidden;
+}
+.wrapper-2{
+  // background-color: #adadad;
+  width: 50%;
+  max-width: 50%;
+  height: 50%;
+  max-height: 50% !important;
+  display: inline-block;
+  box-sizing:border-box !important;
+  overflow:hidden;
+
+}
+.wrapper-3{
+  // margin: 0 !important;
+  // margin-top: -10em !important;
+  // background-color: #8f8f8f;
+  width: 50%;
+  height: 50%;
+  display: inline-block;
+  box-sizing:border-box !important;
+  overflow:hidden;
+}

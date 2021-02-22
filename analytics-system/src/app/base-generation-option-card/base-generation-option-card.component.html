@@ -1,0 +1,63 @@
+<mat-card class="generation-option mat-elevation-z3">
+  <mat-card-header>
+    <mat-card-title>Report Range Option</mat-card-title>
+    <div fxFlex></div>
+    <!-- <div class="searchbar">
+      <input #searchbar matInput placeholder="search" type="text">
+    </div>
+    <div class="searchicon">
+      <span  class="material-icons">search</span>
+    </div> -->
+    <!-- <div class="header-button-group">
+       <a routerLink="/test-kit-table/form"><span class="material-icons">add</span></a>
+    </div> -->
+  </mat-card-header>
+  <!-- Start of top bar -->
+    <div class="top-bar">
+      <div class="wrapper-3-1" >
+        <span>From: </span>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Year</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let year of years" [value]="year">
+              {{year}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Month</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let month of months" [value]="month">
+              {{month}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <span class="to">To: </span>
+        <mat-form-field appearance="outline">
+          <mat-label>Year</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let year of years" [value]="year">
+              {{year}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Month</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let month of months" [value]="month">
+              {{month}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="wrapper-3-2" >
+        <button mat-raised-button color="primary" class="custom-generate-button">Generate</button>
+      </div>
+    </div>
+  <!-- End of top bar -->
+</mat-card>

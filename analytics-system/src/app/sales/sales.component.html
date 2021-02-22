@@ -1,0 +1,61 @@
+<side-nav-cts>
+  <div id="main">
+
+    <div class="main-wrapper">
+      <div  fxLayout="row">
+        <div class="custom-page-header">
+          Sales and Orders
+        </div>
+        <div class="filler"></div>
+        <div class="custom-date-range">
+          from: <input type="date" name="" value="2020-11-12">
+          &nbsp;&nbsp;&nbsp;
+          to: <input type="date" name="" value="2020-11-18">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div id="card-1" class="mini-card-wrapper">
+          <app-mini-card label="Revenue" suffix="MYR" [percentage]="revenuePercentage" colorTheme="#03bf00" [data]="revenueData"></app-mini-card>
+        </div>
+        <div id="card-2" class="mini-card-wrapper">
+          <app-mini-card label="Orders" [percentage]="ordersPercentage" colorTheme="#03bf00" [data]="ordersData"></app-mini-card>
+        </div>
+        <div id="card-2" class="mini-card-wrapper">
+          <app-mini-card label="Sales Growth"  suffix="%" [percentage]="salesGrowthPercentage" colorTheme="#03bf00" [data]="salesGrowthData"></app-mini-card>
+        </div>
+        <div id="card-1" class="mini-card-wrapper">
+          <app-mini-card label="Avg. Orders val"  suffix="MYR" [percentage]="avgOrdersValuePercentage" colorTheme='#1441c9' [data]="avgOrdersValueData"></app-mini-card>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- product revenue/sold and sales through rate -->
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div class="large-card-wrapper">
+         <app-sales-orders></app-sales-orders>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- product revenue/sold and sales through rate -->
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div class="large-card-wrapper">
+          <app-order-table></app-order-table>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</side-nav-cts>

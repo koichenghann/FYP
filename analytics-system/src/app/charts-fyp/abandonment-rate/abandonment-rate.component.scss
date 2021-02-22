@@ -1,0 +1,52 @@
+mat-card{
+  // background-color: green;
+  padding: 2em 2em 2em 2em;
+  height: calc(400px - 1em);
+}
+
+.chart-wrapper{
+  // background-color: green;
+  // text-align: center !important;
+  // align-items: center;
+  padding-top: 1em;
+}
+.filler{
+  flex: 1;
+}
+.description-list{
+  width: 100%;
+  padding: 2em 0 0 0;
+  // background-color: green;
+
+}
+.description{
+  padding-bottom: 1.1em;
+}
+.icon{
+  padding:0 1em;
+  color: #828282;
+}
+.label{
+  color: black;
+  padding-bottom: 0.3em;
+}
+.data{
+  color: grey;
+}
+hr{
+  margin-top: 2em;
+  border: 1px solid #e3e3e3;
+}
+
+.filler{
+  flex: 1;
+}
+.header-row{
+  // background-color: green;
+  margin-top: -1em !important;
+}
+.table-title{
+  padding-top: 1em;
+  padding-bottom: 1.3em;
+  font-size: 18px;
+}

@@ -1,0 +1,87 @@
+.sidenav-container {
+  height: 100%;
+}
+
+mat-toolbar {
+  color: white;
+}
+
+mat-nav-list a{
+  color: white;
+}
+
+mat-nav-list a:hover{
+  color: whitesmoke;
+}
+.sidenav {
+  width: 16rem;
+  background-color: var(--customSidenavBackgroundColor1);
+
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+  background-color:var(--customSidenavBackgroundColor1);
+
+}
+
+.toolbar_2 .mat-toolbar{
+  background: inherit;
+  background-color: #ffffff;  /*--customSidenavBackgroundColor2*/
+  display: none;
+  color: #233348 !important;
+}
+
+.mat-toolbar.mat-primary {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  background-color: var(--customSidenavBackgroundColor1);
+  color: #233348;
+}
+
+.fa-chart-bar{
+  color: #ffc178  !important;
+}
+
+.spacer {
+  flex:1 1 auto;
+  text-align: center;
+}
+
+.logo_icon{
+  font-style: italic;
+  font-family:"Trebuchet MS";
+}
+
+@media(max-width:980px){
+  .mat-toolbar.mat-primary {
+    display: none;
+    }
+    .toolbar_2 .mat-toolbar{
+
+      display: inline-flex;
+
+    }
+}
+
+
+
+@media(max-width:768px){
+  .mat-toolbar.mat-primary {
+    display: none;
+    }
+    .toolbar_2 .mat-toolbar{
+
+      display: inline-flex;
+
+    }
+}
+
+
+.active-link {
+  background-color: var(--customSidenavActiveBackgroundColor);
+}
+.active-link:hover {
+  background-color: var(--customSidenavActiveBackgroundColor);
+}

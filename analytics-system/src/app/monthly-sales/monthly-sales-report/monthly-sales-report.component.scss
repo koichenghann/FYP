@@ -1,0 +1,37 @@
+.top-bar{
+  height: 5em;
+  // background-color: green;
+  text-align: right;
+  padding: 1.5em 3em 0.5em 0;
+}
+.top-bar mat-form-field{
+  padding: 0 0 0 1.5em;
+}
+.top-bar span{
+  color: grey;
+}
+.wrapper{
+  width: calc(100% - 6em);
+  height: calc(100% - 8.5em);
+  padding: 1em 3em 0 3em;
+  overflow: scroll;
+  // background-color: yellow;
+}
+mat-accordion{
+  // margin-left: 3em;
+}
+mat-expansion-panel{
+  // background-color: green;
+  width: calc(100%);
+}
+mat-expansion-panel-header{
+  padding: 0.4em 1em;
+}
+ .stats-cards{
+   margin: 1.5em 1em;
+ }
+mat-panel-description{
+  color: black;
+  font-size: 1.6em;
+  margin-left: 5em;
+}

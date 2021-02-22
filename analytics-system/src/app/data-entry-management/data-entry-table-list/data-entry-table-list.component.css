@@ -1,0 +1,285 @@
+
+.custom-delete-button {
+  background:var(--customButtonBackgroundColor) !important; /*#40c4de;*/
+  color:'#ffffff';
+}
+.custom-view-button {
+  background:var(--customButtonBackgroundColor) !important; /*#40c4de;*/
+  color:'#ffffff';
+}
+
+
+
+.card-form{
+  margin:1em;
+  display: block;
+}
+.card-form-header{
+ background-color: #102b54;
+  /*background-image: url("/assets/image/Teal_gradient_background_3.jpg");*/
+  border-radius: 4px 4px 0 0;
+  padding: 1em 0 0.2em 1em;
+  font-style: italic;
+}
+
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+    color: var(--customHeaderBackgroundColor) !important; /*#40c4de;*/
+ }
+
+ ::ng-deep.mat-form-field-outline {
+  /*change color of underline*/
+    color: var(--customHeaderBackgroundColor) !important; /*#40c4de;*/
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+    color: var(--customHeaderBackgroundColor) !important; /*#40c4de;*/
+}
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+  background-color: var(--customHeaderBackgroundColor) !important; /*#40c4de;*/
+  color: var(--customHeaderBackgroundColor) !important; /*#40c4de;*/
+}
+
+::ng-deep.mat-select-panel{
+  color:  var(--customHeaderBackgroundColor) !important; /*#40c4de;*/
+}
+
+::ng-deep.mat-select-value-text {
+  color: var(--customHeaderBackgroundColor) !important; /*#40c4de;*/
+}
+
+
+.full-width{
+  width: 100%;
+}
+.symptoms-section{
+
+  align-content: center;
+  align-items: center;
+}
+
+/*.symptoms-margin{
+  margin-left: 1em;
+  margin-right:1em;
+  margin-bottom: 1em;
+}*/
+
+.form-button-group{
+  text-align: right;
+}
+
+.input-username{
+  width: 100%;
+}
+
+.input-date{
+  width: 100%;
+
+}
+
+.input-result{
+  width: 100%;
+}
+
+.noSymptom{
+  font-style: italic;
+}
+
+
+
+
+
+
+
+.wrapper{
+  height: calc(100% - 6em);
+  max-height: 100%;
+  width: calc(100%);
+  padding: 3em 3em 3em 3em !important;
+  /* background-color: green; */
+  overflow: hidden;
+}
+.wrapper-2{
+  height: 100%;
+  width: calc(100%);
+  padding: 3em 3em 3em 3em !important;
+  /* background-color: green; */
+}
+
+
+mat-card{
+  /* margin: 0 auto; */
+  margin-top: 0;
+  padding: 0;
+  width: calc(100% - 6em);
+  /* height: 100%; */
+  display: block;
+}
+.mat_card_table_1{
+  height: calc(35%);
+  overflow: hidden;
+}
+.mat_card_table_2{
+  height: calc(65% - 3em);
+  margin-top: 3em;
+  overflow: hidden;
+}
+
+
+/* .mat_card_table{
+  margin: 1em auto;
+  padding: 0;
+  width: 90%;
+  max-width: 60em;
+  display: block;
+} */
+.mat_card_header{
+  background-color:  var(--customHeaderBackgroundColor) !important; /*#40c4de;*/
+  /*background-image: url("/assets/image/Teal_gradient_background_3.jpg");*/
+  border-radius: 4px 4px 0 0;
+  padding: 1em 0 0.2em 1em;
+  font-style: italic;
+}
+mat-card-title{
+  /* font-size: 2.5em !important; */
+  color: white; /*#1200b5;*/ /*#006e7a*/
+}
+mat-card-subtitle{
+  margin-top: 1em !important;
+  color: #f5f5f5; /*#006e7a*/
+}
+.header-button-group{
+  position: sticky;
+  margin-right: 2em;
+  padding-top: 0em;
+}
+.header-button-group a{
+  text-decoration: none;
+  z-index: 10;
+  color: white;
+}
+.header-button-group a:hover{
+  color: whitesmoke;
+}
+.searchbar{
+  margin-right: -2em;
+  margin-top: -0.1em;
+  padding-top: 0em;
+}
+.searchbar input{
+  background-color: #102b54;
+  background: none;
+  border: solid 1px white;
+  padding: 5px;
+  height: 1.1em;
+  width: 10em;
+}
+.searchbar input:focus{
+  outline: none;
+}
+.searchicon{
+  margin-right: 2em;
+  padding-top: 0.1em;
+  color: white;
+}
+.searchicon span{
+  font-size: 1.5em;
+}
+mat-card-content{
+  padding: 0;
+  height: 100%;
+  overflow: scroll;
+}
+
+
+.btn_action{
+  margin-right: 5px;
+}
+
+.table-container {
+  height: 100%;
+  overflow: auto;
+  /* background-color: green; */
+  border-radius: 0 0 4px 4px;
+  }
+.table-container-2 {
+  height: 100%;
+  overflow: auto;
+  /* background-color: green; */
+  border-radius: 0 0 4px 4px;
+  }
+  table {
+  width: 100%;
+  }
+th{
+  height: 1em !important;
+}
+
+
+/* css from google, change it later */
+/**/
+/* css from google, change it later */
+/* table td:nth-child(1), table th:nth-child(1){
+
+}
+table td:nth-child(2), table th:nth-child(2){
+
+}
+table td:nth-child(3), table th:nth-child(3){
+
+}
+table td:nth-child(4), table th:nth-child(4){
+  width: 5em;
+  text-align: center;
+}
+table td:nth-child(4) span:nth-child(1){
+  margin-right: 0.5em;
+  color: lightblue;
+}
+table td:nth-child(4) span:nth-child(2){
+  color: pink;
+} */
+/* table td:nth-child(4) span:nth-child(1):hover{
+  color: blue;
+}
+table td:nth-child(4) span:nth-child(2):hover{
+  color: red;
+} */
+
+
+
+
+
+
+@media (max-width: 991.98px) {
+  .card-form{
+
+    margin-left:5%;
+
+  }
+
+  .input-username{
+    width: 100%;
+
+  }
+}
+
+@media (max-width: 768px) {
+  .card-form{
+
+    margin-left:5%;
+
+  }
+}
+
+@media (max-width: 576px) {
+  .card-form{
+
+    margin-left:5%;
+
+  }
+}

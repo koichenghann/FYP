@@ -1,0 +1,34 @@
+<mat-drawer-container class="mat-drawer-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side" >
+    <p>current route: {{currentRoute}}</p>
+    Main Features:
+    <ol>
+      <li><a routerLink="/login">Login</a></li>
+      <li><a routerLink="/singup">Signup</a></li>
+      <li><a routerLink="/dashboard">Dashboard</a></li>
+      <li><a routerLink="/product-category-sales-report">Product Category Sales Report</a></li>
+      <li><a routerLink="/monthly-sales-report">Monthly Sales Report</a></li>
+      <li><a routerLink="/data-entry-management">Data Entry Management</a></li>
+      <li><a routerLink="/detailed-report">Detailed Report</a></li>
+      <li><a routerLink="/forecast-report">Forecast Report</a></li>
+    </ol>
+
+    <br>
+    Test Area:
+    <ol>
+      <li><a routerLink="/test-area-1">Test Area 1</a></li>
+      <li><a routerLink="/posts">Posts</a></li>
+    </ol>
+
+
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <router-outlet></router-outlet>
+    <!-- <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button> -->
+
+  </div>
+
+</mat-drawer-container>

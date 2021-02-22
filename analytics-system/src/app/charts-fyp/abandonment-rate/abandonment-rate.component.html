@@ -1,0 +1,74 @@
+<mat-card>
+  <div fxLayout="row" class="header-row">
+    <!-- Card Header -->
+    <div class="table-title">
+      Cart
+    </div>
+
+    <!-- <div class="filler"></div>
+
+    <mat-form-field class="filter-form-field">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input class="filter-input">
+    </mat-form-field> -->
+  </div>
+
+  <div fxLayout="row" class="chart-wrapper">
+    <div class="filler"></div>
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="chartOptions"
+      style="width: 200px; height: 200px; display: block;"
+    ></highcharts-chart>
+    <div class="filler"></div>
+  </div>
+
+  <!-- <hr> -->
+
+  <div fxLayout="row" class="chart-wrapper">
+    <div class="filler"></div>
+    <div class="description-list">
+
+      <!-- <div class="description">
+        <div class="label">
+          Stock at beginning
+        </div>
+        <div class="data">
+          100
+        </div>
+      </div> -->
+
+      <div fxLayout="row" class="description">
+
+        <div class="label">
+          Abandoned Cart
+        </div>
+        <div class="filler"></div>
+        <div class="data">
+          70
+        </div>
+
+
+      </div>
+
+      <div fxLayout="row" class="description">
+
+        <div class="label">
+          Abandoned Revenue
+        </div>
+        <div class="filler"></div>
+        <div class="data">
+          900 MYR
+        </div>
+
+
+      </div>
+
+
+    </div>
+    <div class="filler"></div>
+  </div>
+
+</mat-card>
+
+<!-- <div   class="card-array-wrapper"> -->

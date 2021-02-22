@@ -1,0 +1,46 @@
+.wrapper-card{
+  /* background-color: #439F9E; */
+  // height: 100%;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  // padding: 3em 3em 3em 3em !important;
+  // background-color: green;
+}
+
+mat-card{
+  margin: 3em 3em 3em 3em;
+  /* margin: 10% auto; */
+  padding: 0;
+  width: calc(100% - 6em);
+  height: 100%;
+  /* max-height: 100%; */
+  display: block;
+}
+mat-card-header{
+  background-color: var(--customHeaderBackgroundColor);
+  background-image: url("/assets/image/Teal_gradient_background_3.jpg");
+  border-radius: 4px 4px 0 0;
+  padding: 1em 0 0.2em 1em;
+}
+mat-card-title{
+  /* font-size: 2.5em !important; */
+  color: white; /*#1200b5;*/ /*#006e7a*/
+}
+mat-card-content{
+  padding: 2em;
+}
+
+.header-button-group{
+  position: sticky;
+  margin-right: 2em;
+  padding-top: 0em;
+}
+.header-button-group a{
+  text-decoration: none;
+  z-index: 10;
+  color: white;
+}
+.header-button-group a:hover{
+  color: black;
+}

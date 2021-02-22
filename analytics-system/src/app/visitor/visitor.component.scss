@@ -1,0 +1,58 @@
+#main{
+  padding: 0 0 2em 0;
+}
+.main-wrapper{
+  width: calc(100% - 4em);
+  // background-color: purple;
+  padding: 2em 2em 0 2em;
+}
+.custom-page-header{
+  font-size: 28px;
+  padding: 0.5em 0;
+}
+.custom-date-range{
+  // font-size: 28px;
+  padding: 0.9em 1em 0.5em 1em;
+  // background-color: white;
+  opacity: 0.4;
+}
+.filler{
+  flex: 1;
+}
+
+
+
+//style for structuring card
+.card-array-wrapper{
+}
+.mini-card-wrapper{
+  width: 25%;
+}
+//2em padding between each card while all card have equal width
+.mini-card-wrapper:nth-child(1){
+  padding-right: 1.5em;
+}
+.mini-card-wrapper:nth-child(2){
+  padding: 0 1em 0 0.5em;
+}
+.mini-card-wrapper:nth-child(3){
+  padding: 0 0.5em 0 1em;
+}
+.mini-card-wrapper:nth-child(4){
+  padding-left: 1.5em;
+}
+.medium-card-wrapper{
+  // width: 25%;
+}
+//2em padding between each card while all card have equal width
+.medium-card-wrapper:nth-child(1){
+  width: calc(50% - 1em);
+  padding-right: 1em;
+}
+.medium-card-wrapper:nth-child(2){
+  width: calc(50% - 1em);
+  padding-left: 1em;
+}
+.large-card-wrapper{
+  width: 100%;
+}

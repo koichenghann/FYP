@@ -1,0 +1,71 @@
+<side-nav-cts>
+  <div class="top-bar">
+    <span>Filter: </span>
+    <mat-form-field appearance="outline">
+      <mat-label>Year</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let year of years" [value]="year">
+          {{year}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Month</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let month of months" [value]="month">
+          {{month}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Enter search criteria">
+      <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  </div>
+
+
+
+  <div class="wrapper">
+    <mat-accordion>
+
+      <mat-expansion-panel (opened)="report.open = true" (closed)="report.open = false" *ngFor="let report of datasource">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <!-- {{report.year}} - {{report.month}} -->
+            {{report.open ? '' : report.year + ' - ' + report.month}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{report.open ? 'Monthly Sales Report of ' + report.month + ' ' + report.year : ''}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+
+        <app-monthly-sales-report-chart [month]="report.month" [year]="report.year"></app-monthly-sales-report-chart>
+
+        <div fxLayout="row" fxLayoutAlign="space-between-center" fxLayoutGap="3em" class="stats-cards">
+          <mat-card  fxFlex="25" class="mat-elevation-z3">
+              <app-card-area-chart label="Sales" total="18k" percentage="50" hidechart="true"></app-card-area-chart>
+          </mat-card>
+          <mat-card  fxFlex="25" class="mat-elevation-z3">
+              <app-card-area-chart label="Revenue" total="18k" percentage="50" hidechart="true"></app-card-area-chart>
+          </mat-card>
+          <mat-card  fxFlex="25" class="mat-elevation-z3">
+              <app-card-area-chart label="New Customer" total="18k" percentage="50" hidechart="true"></app-card-area-chart>
+          </mat-card>
+          <mat-card  fxFlex="25" class="mat-elevation-z3">
+              <app-card-area-chart label="Returning Customer" total="18k" percentage="50" hidechart="true"></app-card-area-chart>
+          </mat-card>
+        </div>
+
+      </mat-expansion-panel>
+
+
+
+
+    </mat-accordion>
+  </div>
+</side-nav-cts>

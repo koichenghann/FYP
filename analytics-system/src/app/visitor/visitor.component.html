@@ -1,0 +1,65 @@
+<side-nav-cts>
+  <div id="main">
+
+    <div class="main-wrapper">
+      <div  fxLayout="row">
+        <div class="custom-page-header">
+          Visitors and Customers
+        </div>
+        <div class="filler"></div>
+        <div class="custom-date-range">
+          from: <input type="date" name="" value="2020-11-12">
+          &nbsp;&nbsp;&nbsp;
+          to: <input type="date" name="" value="2020-11-18">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div id="card-1" class="mini-card-wrapper">
+          <app-mini-card label="Visitors" [percentage]="visitorsPercentage" colorTheme="#03bf00" [data]="visitorsData"></app-mini-card>
+        </div>
+        <div id="card-2" class="mini-card-wrapper">
+          <app-mini-card label="Customer" [percentage]="customersPercentage" colorTheme="#03bf00" [data]="customersData"></app-mini-card>
+        </div>
+        <div id="card-2" class="mini-card-wrapper">
+          <app-mini-card label="Conversion rate"  suffix="%" [percentage]="conversionRatePercentage" colorTheme="#03bf00" [data]="conversionRateData"></app-mini-card>
+        </div>
+        <div id="card-1" class="mini-card-wrapper">
+          <app-mini-card label="Bounce rate"  suffix="%" [percentage]="bounceRatePercentage" colorTheme='#03bf00' [data]="bounceRateData"></app-mini-card>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- product revenue/sold and sales through rate -->
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div class="large-card-wrapper">
+         <app-visitors-customers></app-visitors-customers>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- product revenue/sold and sales through rate -->
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div class="medium-card-wrapper">
+          <app-customer-table></app-customer-table>
+        </div>
+
+        <div class="medium-card-wrapper">
+          <app-visitors-table></app-visitors-table>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</side-nav-cts>

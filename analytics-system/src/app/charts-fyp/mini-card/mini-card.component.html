@@ -1,0 +1,36 @@
+<mat-card>
+  <!-- <mat-card-title>mini card</mat-card-title> -->
+
+  <div class="text">
+    <!-- <h4 class="label">{{ label }}</h4> -->
+    <!-- <span class="total">{{ total }}</span> -->
+    <!-- <span >
+      <mat-icon class="mat-icon">trending_up</mat-icon>
+    </span>
+    <span class="description">
+      {{ percentage }}%
+    </span> -->
+    <!-- <span> of target </span> -->
+  </div>
+
+  <div  fxLayout="row" class="card-array-wrapper">
+    <div class="stats">
+      <mat-card-title>{{ label }}</mat-card-title>
+      <span class="total">{{ total ? total : data[3] }}</span> <span>{{ suffix }}</span>
+    </div>
+    <div *ngIf="!hidechart && percentage != 0" class="widget" id="widget">
+      <span *ngIf="!hideIcon">
+        <mat-icon class="mat-icon" [ngStyle]="{'color': customColor}"> {{percentage > 0 ?  'trending_up' : 'trending_down' }}</mat-icon>
+      </span>
+      <span class="description" [ngStyle]="{'color': customColor}">
+        {{ displayPercent }}%
+      </span>
+      <highcharts-chart
+        [Highcharts]="Highcharts"
+        [options]="chartOptions"
+        style="width: 100%; height: 60px; display: block;"
+      ></highcharts-chart>
+    </div>
+  </div>
+
+</mat-card>

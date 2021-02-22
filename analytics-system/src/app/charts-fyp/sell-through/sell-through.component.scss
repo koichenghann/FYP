@@ -1,0 +1,38 @@
+mat-card{
+  // background-color: green;
+  padding: 2em 2em 2em 2em;
+  height: calc(400px - 1em);
+}
+
+.chart-wrapper{
+  // background-color: green;
+  // text-align: center !important;
+  // align-items: center;
+}
+.filler{
+  flex: 1;
+}
+.description-list{
+  width: 100%;
+  padding: 1.9em 1em 0 0.2em;
+  // background-color: green;
+
+}
+.description{
+  padding-bottom: 1.3em;
+}
+.icon{
+  padding:0 1em;
+  color: #828282;
+}
+.label{
+  color: black;
+  padding-bottom: 0.3em;
+}
+.data{
+  color: grey;
+}
+hr{
+  margin-top: 2em;
+  border: 1px solid #e3e3e3;
+}

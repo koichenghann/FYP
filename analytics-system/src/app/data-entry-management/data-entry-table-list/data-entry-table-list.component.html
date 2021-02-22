@@ -1,0 +1,154 @@
+<!-- <mat-grid-list cols="1" rowsHeight="1:1">
+  <div class="content" fxLayout="row wrap"> -->
+
+
+
+    <div class="wrapper">
+      <mat-card class="form-card mat-elevation-z10 mat_card_table_1">
+        <mat-card-header class="mat_card_header">
+          <mat-card-title>List of Data Entries</mat-card-title>
+          <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+          <div fxFlex></div>
+          <div  class="searchbar">
+            <input #searchbar matInput placeholder="search" type="text">
+          </div>
+          <div class="searchicon">
+            <span class="material-icons">search</span>
+          </div>
+
+          <div class="header-button-group">
+             <a  routerLink="/data-entry-management/new-data"><span class="material-icons">add</span></a>
+          </div>
+
+        </mat-card-header>
+
+        <mat-card-content>
+        <!--  <div  id="noEntryMessage">
+            No test recorded. Click <a routerLink="/test-kit-table/form">here</a> to add new test kit.
+          </div>
+        -->
+          <div class="table-container mat-elevation-z0">
+            <table mat-table [dataSource]="dataSource">
+
+              <ng-container matColumnDef="fileType">
+                <th mat-header-cell *matHeaderCellDef> File type </th>
+                <td mat-cell *matCellDef="let data"><i class="{{data.fileType}}"></i></td>
+
+                <!--<mat-icon>{{data.fileType}}</mat-icon>-->
+              </ng-container>
+
+              <ng-container matColumnDef="fileName">
+                <th mat-header-cell *matHeaderCellDef> File name </th>
+                <td mat-cell *matCellDef="let data"> {{data.fileName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="format">
+                <th mat-header-cell *matHeaderCellDef> Format </th>
+                <td mat-cell *matCellDef="let data"> {{data.format}} </td>
+              </ng-container>
+
+
+
+              <ng-container matColumnDef="fileSize">
+                <th mat-header-cell *matHeaderCellDef> File size </th>
+                <td mat-cell *matCellDef="let data"> {{data.fileSize}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="dateCreated">
+                <th mat-header-cell *matHeaderCellDef> Date created </th>
+                <td mat-cell *matCellDef="let data"> {{data.dateCreated}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let data"> {{data.description}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let data" >
+                  <button class="btn_action custom-view-button"  routerLink='tester-update-test/details' mat-raised-button>View</button>
+
+                <!--  <button mat-raised-button
+                    [ngStyle]="{background:'#439F9E' , color:'#ffffff'}">Delete</button>-->
+
+                    <button mat-mini-fab class="custom-delete-button"> <!-- [ngStyle]="{background:'#40c4de' , color:'#ffffff'}"> -->
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    <!-- </div> -->
+
+
+
+  <!-- </div>
+</mat-grid-list>
+
+
+<mat-grid-list cols="1" rowsHeight="1:1">
+  <div class="content" fxLayout="row wrap"> -->
+    <!-- <div class="wrapper-2" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px"> -->
+
+      <mat-card class="mat-elevation-z10 mat_card_table_2">
+        <mat-card-header class="mat_card_header">
+          <mat-card-title>File name: customer_data_2019</mat-card-title>
+          <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+        </mat-card-header>
+
+
+        <mat-card-content>
+          <div class="table-container-2 mat-elevation-z0">
+          <table mat-table [dataSource]="dataSourceInfo" class=" table-2">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="customerID">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.customerID}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="contact">
+              <th mat-header-cell *matHeaderCellDef> Contact </th>
+              <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="address">
+              <th mat-header-cell *matHeaderCellDef> Address </th>
+              <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsInfo; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsInfo;"></tr>
+          </table>
+          </div>
+
+          <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>
+
+        </mat-card-content>
+      </mat-card>
+
+
+
+  </div>
+  <!-- </div>
+</mat-grid-list> -->

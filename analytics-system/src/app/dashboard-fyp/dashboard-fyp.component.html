@@ -1,0 +1,66 @@
+<side-nav-cts>
+  <div id="main">
+
+    <div class="main-wrapper">
+      <div  fxLayout="row">
+        <div class="custom-page-header">
+          Dashboard
+        </div>
+        <div class="filler"></div>
+        <div class="custom-date-range">
+          from: <input type="date" name="" value="2020-11-12">
+          &nbsp;&nbsp;&nbsp;
+          to: <input type="date" name="" value="2020-11-18">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="main-wrapper">
+      <div  fxLayout="row" class="card-array-wrapper">
+        <div id="card-1" class="mini-card-wrapper">
+          <app-mini-card label="Revenue" suffix="MYR" [percentage]="revenuePercentage" colorTheme="#03bf00" [data]="revenueData"></app-mini-card>
+        </div>
+        <div id="card-2" class="mini-card-wrapper">
+          <app-mini-card label="Orders" [percentage]="ordersPercentage" colorTheme="#03bf00" [data]="ordersData"></app-mini-card>
+        </div>
+        <div id="card-2" class="mini-card-wrapper">
+          <app-mini-card label="Visitors"  suffix="" [percentage]="salesGrowthPercentage" colorTheme="#03bf00" [data]="salesGrowthData"></app-mini-card>
+        </div>
+        <div id="card-1" class="mini-card-wrapper">
+          <app-mini-card label="Conversion Rate"  suffix="%" [percentage]="avgOrdersValuePercentage" colorTheme='#1441c9' [data]="avgOrdersValueData"></app-mini-card>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- product revenue/sold and sales through rate -->
+    <div class="main-wrapper">
+      <div  fxLayout="row">
+        <div class="medium-card-wrapper">
+         <app-combined-data></app-combined-data>
+        </div>
+        <div class="medium-card-wrapper">
+          <app-abandonment-rate></app-abandonment-rate>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- product revenue/sold and sales through rate -->
+    <div class="main-wrapper">
+      <div  fxLayout="row">
+        <div class="medium-card-wrapper">
+          <app-top-products-table></app-top-products-table>
+        </div>
+        <div class="medium-card-wrapper">
+          <app-kpi-list-table></app-kpi-list-table>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</side-nav-cts>

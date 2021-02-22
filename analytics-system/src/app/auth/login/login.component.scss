@@ -1,0 +1,59 @@
+$theme-color:#40c4de;
+
+
+.card-wrapper{
+  // background-color: #439F9E;/*#A5C5C3*/
+  height: 100%;
+  width: 100% !important;
+  max-width: 100%;
+  display: flex;
+  justify-content: center !important;
+}
+mat-card{
+  margin: auto;
+  /* margin: 10% auto; */
+  padding: 0;
+  max-width: 35em;
+  display: block;
+}
+mat-card-header{
+  // background-color: grey;
+  background-color: var(--customHeaderBackgroundColor);
+  // background-image: url("/assets/image/Teal_gradient_background_3.jpg");
+  border-radius: 4px 4px 0 0;
+  padding: 4em 0 2.4em 1em;
+}
+mat-card-title{
+  font-size: 2.5em !important;
+  color: white; /*#1200b5;*/ /*#006e7a*/
+}
+mat-card-subtitle{
+  margin-top: 1em !important;
+  color: #f5f5f5; /*#006e7a*/
+}
+mat-card-content{
+  padding: 3em 2em 2em 2em;
+}
+mat-form-field{
+  width: 100%;
+}
+.form-button-group{
+  text-align: center;
+  padding-top: 0.2em !important;
+}
+.form-button-group button{
+  width: 100%;
+  max-width: 100% !important;
+  background-color: var(--customButtonBackgroundColor) !important;
+}
+a{
+   color: white;
+ }
+// a{
+//   color: blue;
+//   text-decoration: none;
+// }
+// a:hover{
+//   color: blue;
+//   text-decoration: underline;
+// }

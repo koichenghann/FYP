@@ -1,0 +1,64 @@
+<mat-card>
+  <div fxLayout="row" class="chart-wrapper">
+    <div class="filler"></div>
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="chartOptions"
+      style="width: 200px; height: 200px; display: block;"
+    ></highcharts-chart>
+    <div class="filler"></div>
+  </div>
+
+  <hr>
+
+  <div fxLayout="row" class="chart-wrapper">
+    <div class="filler"></div>
+    <div class="description-list">
+
+      <!-- <div class="description">
+        <div class="label">
+          Stock at beginning
+        </div>
+        <div class="data">
+          100
+        </div>
+      </div> -->
+
+      <div fxLayout="row" class="description">
+        <div class="icon">
+          <span class="material-icons">folder_open</span>
+        </div>
+        <div class="">
+          <div class="label">
+            In Stock
+          </div>
+          <div class="data">
+            70
+          </div>
+        </div>
+
+      </div>
+
+      <div fxLayout="row" class="description">
+        <div class="icon">
+          <span class="material-icons">shopping_cart</span>
+        </div>
+        <div class="">
+          <div class="label">
+            Sold
+          </div>
+          <div class="data">
+            30
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="filler"></div>
+  </div>
+
+</mat-card>
+
+<!-- <div   class="card-array-wrapper"> -->

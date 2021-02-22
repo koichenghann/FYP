@@ -1,0 +1,117 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+    fixedInViewport="false"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    <mat-toolbar><span class="logo_icon"><i class="far fa-chart-bar"></i> StaticMach</span> </mat-toolbar>
+<mat-divider></mat-divider>
+    <mat-nav-list>
+      <a mat-list-item
+        routerLink="/dashboard-fyp"
+        routerLinkActive="active-link">
+        <i class="fas fa-tachometer-alt"></i> &nbsp;&nbsp; Dashboard</a>
+
+      <a mat-list-item
+        routerLink="/products"
+        routerLinkActive="active-link">
+        <i class="fas fa-boxes"></i> &nbsp;&nbsp; Products</a>
+
+      <!-- <a mat-list-item
+        routerLink="/products/product"
+        routerLinkActive="active-link">
+        <i class="fas fa-boxes"></i> &nbsp;&nbsp; Product</a> -->
+
+      <a mat-list-item
+        routerLink="/sales"
+        routerLinkActive="active-link">
+        &nbsp;<i class="fas fa-dollar-sign"></i> &nbsp;&nbsp;&nbsp; Sales Performance</a>
+
+      <a mat-list-item
+        routerLink="/visitors"
+        routerLinkActive="active-link">
+        <i class="fas fa-users"></i> &nbsp;&nbsp; Visitors</a>
+
+
+
+
+      <!-- <a mat-list-item  routerLink="/login" routerLinkActive="active-link"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp; Login</a>
+      <a mat-list-item  routerLink="/signup" routerLinkActive="active-link"><i class="fas fa-user-plus"></i>&nbsp;&nbsp; Sign Up</a>
+      <a mat-list-item  routerLink="/dashboard" routerLinkActive="active-link"><i class="fas fa-columns"></i>&nbsp;&nbsp; Dashboard</a>
+
+      <a mat-list-item
+        routerLink="/product-category-sales-report"
+        routerLinkActive="active-link">
+        <i class="fas fa-boxes"></i> &nbsp;&nbsp; Product Category Sales<br>&nbsp; &nbsp;Report</a>
+
+      <a mat-list-item
+        routerLink="/monthly-sales-report"
+        routerLinkActive="active-link"><i class="fas fa-calendar-alt"></i> &nbsp;&nbsp; Monthly Sales Report</a>
+
+      <a mat-list-item
+        routerLink="/data-entry-management"
+        routerLinkActive="active-link"><i class="fas fa-database"></i> &nbsp;&nbsp; Data Entry Management</a>
+
+      <a mat-list-item
+        routerLink="/detailed-report"
+        routerLinkActive="active-link"><i class="fas fa-file-invoice"></i> &nbsp;&nbsp; Detailed Report</a>
+
+      <a mat-list-item
+        routerLink="/forecast-report"
+        routerLinkActive="active-link"><i class="fas fa-chart-line"></i> &nbsp;&nbsp; Forecast Report</a>
+
+<mat-divider></mat-divider>
+      <a mat-list-item
+        routerLink="/profile"
+        routerLinkActive="active-link"><i class="fas fa-user-circle"></i> &nbsp;&nbsp; Profile</a> -->
+
+      <!-- <a mat-list-item
+        routerLink="/subscription"
+        routerLinkActive="active-link"><i class="fas fa-chart-line"></i> &nbsp;&nbsp; Subscription</a> -->
+<!-- <mat-divider></mat-divider> -->
+
+      <!---
+      <a mat-list-item [routerLink]="route4" routerLinkActive="active-link"><i class="fas fa-calendar-check"></i> &nbsp; {{ list_item_4 }}</a>
+      <a mat-list-item [routerLink]="route5" routerLinkActive="active-link"><i class="fas fa-plus-circle"></i> &nbsp; {{ list_item_5 }}</a>
+    -->
+      <a (click)="logout()" routerLink="/login" routerLinkActive="active-link" mat-list-item href="#"><i class="fas fa-sign-out-alt"></i> &nbsp; &nbsp; {{ list_item_6 }}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="toolbar_2">
+      <mat-toolbar style="color:white">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+
+        <span class="spacer">
+          <span class="logo_icon"><i class="far fa-chart-bar"></i> StaticMach</span>
+        </span>
+
+      <div class="account_menu">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="account menu button">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+
+         <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+     </div>
+    </mat-toolbar>
+  </div>
+    <ng-content></ng-content>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
