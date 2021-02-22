@@ -28,7 +28,7 @@ import { DetailedReportComponent } from './detailed-report/detailed-report/detai
 import { ForecastReportComponent } from './forecast-report/forecast-report/forecast-report.component';
 import { SideNavComponent } from './shared/side-nav/side-nav.component';
 import { SideNavCtsComponent } from './shared/side-nav-cts/side-nav-cts.component'
-import { BaseCardTemplateComponent } from './base-card-template/base-card-template.component';
+// import { BaseCardTemplateComponent } from './base-card-template/base-card-template.component';
 import { HeaderComponent } from './shared/header/header.component';
 
 
@@ -129,7 +129,7 @@ import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kp
     DetailedReportComponent,
     ForecastReportComponent,
     SideNavComponent,
-    BaseCardTemplateComponent,
+    // BaseCardTemplateComponent,
     HeaderComponent,
     SalesReportComponent,
     ProductSalesDistributionReportComponent,
