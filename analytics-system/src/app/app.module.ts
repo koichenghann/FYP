@@ -70,8 +70,8 @@ import { ForecastProductSalesChartComponent } from './forecast-report/forecast-p
 import { BaseGenerationOptionCardComponent } from './base-generation-option-card/base-generation-option-card.component';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { SubscriptionComponent } from './auth/subscription/subscription.component';
-import { ProductsComponent } from './products/products.component';
-import { ProductComponent } from './products/product/product.component';
+import { ProductsComponent } from './sellers/products/products.component';
+import { ProductComponent } from './sellers/products/product/product.component';
 import { MiniCardComponent } from './charts-fyp/mini-card/mini-card.component';
 
 // import { PieComponent } from './test-area/widgets/pie/pie.component';
@@ -99,18 +99,18 @@ import { WebPerformDashboardComponent } from './webPerformDashboard/web-perform-
 import { ProductRevenueComponent } from './charts-fyp/product-revenue/product-revenue.component';
 import { SellThroughComponent } from './charts-fyp/sell-through/sell-through.component';
 import { ProductOrderComponent } from './tables-fyp/product-order/product-order.component';
-import { VisitorComponent } from './visitor/visitor.component';
-import { SalesComponent } from './sales/sales.component';
-import { VisitorsTableComponent } from './visitor/visitors-table/visitors-table.component';
-import { CustomerTableComponent } from './visitor/customer-table/customer-table.component';
-import { OrderTableComponent } from './sales/order-table/order-table.component';
+import { VisitorComponent } from './sellers/visitor/visitor.component';
+import { SalesComponent } from './sellers/sales/sales.component';
+import { VisitorsTableComponent } from './sellers/visitor/visitors-table/visitors-table.component';
+import { CustomerTableComponent } from './sellers/visitor/customer-table/customer-table.component';
+import { OrderTableComponent } from './sellers/sales/order-table/order-table.component';
 import { VisitorsCustomersComponent } from './charts-fyp/visitors-customers/visitors-customers.component';
 import { SalesOrdersComponent } from './charts-fyp/sales-orders/sales-orders.component';
 import { CombinedDataComponent } from './charts-fyp/combined-data/combined-data.component';
 import { AbandonmentRateComponent } from './charts-fyp/abandonment-rate/abandonment-rate.component';
-import { DashboardFypComponent } from './dashboard-fyp/dashboard-fyp.component';
-import { TopProductsTableComponent } from './dashboard-fyp/top-products-table/top-products-table.component';
-import { KpiListTableComponent } from './dashboard-fyp/kpi-list-table/kpi-list-table.component';
+import { DashboardFypComponent } from './sellers/dashboard-fyp/dashboard-fyp.component';
+import { TopProductsTableComponent } from './sellers/dashboard-fyp/top-products-table/top-products-table.component';
+import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kpi-list-table.component';
 
 @NgModule({
   declarations: [

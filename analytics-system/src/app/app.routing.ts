@@ -13,11 +13,11 @@ import { PostsComponent } from './test-area/posts/posts.component';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { SubscriptionComponent } from './auth/subscription/subscription.component';
 
-import { ProductsComponent } from './products/products.component';
-import { ProductComponent } from './products/product/product.component';
-import { VisitorComponent } from './visitor/visitor.component';
-import { SalesComponent } from './sales/sales.component';
-import { DashboardFypComponent } from './dashboard-fyp/dashboard-fyp.component';
+import { ProductsComponent } from './sellers/products/products.component';
+import { ProductComponent } from './sellers/products/product/product.component';
+import { VisitorComponent } from './sellers/visitor/visitor.component';
+import { SalesComponent } from './sellers/sales/sales.component';
+import { DashboardFypComponent } from './sellers/dashboard-fyp/dashboard-fyp.component';
 
 import { PageWebTrafficComponent } from './webPerformDashboard/page-web-traffic/detailed-web-traffic.component';
 import { PageUserMetricComponent } from './webPerformDashboard/page-detailed-user-metric/detailed-user-metric.component';
