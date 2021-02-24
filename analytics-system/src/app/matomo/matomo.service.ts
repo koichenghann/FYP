@@ -12,16 +12,16 @@ export class MatomoService {
 
   getDevices(){
     var data
-    this.http.get<any>('http://localhost/matomo/?module=API&method=DevicesDetection.getModel&idSite=1&period=month&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    this.http.get('http://localhost/matomo/?module=API&method=DevicesDetection.getModel&idSite=1&period=month&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
     .subscribe({
       next: response => {
         response = data;
+        console.log(response);
       },
       error: error =>{
         console.error('There was an error!', error.message);
       }
     })
-    return data;
   }
 
 }

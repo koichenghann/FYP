@@ -14,6 +14,7 @@ export class UserTrackComponent implements OnInit{
   ngOnInit(): void{
 
     console.log(this.matomoService.getDevices());
+
   }
 
 
