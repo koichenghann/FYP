@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { DefaultModule } from './test-area/default/default.module';
@@ -31,8 +32,6 @@ import { SideNavCtsComponent } from './shared/side-nav-cts/side-nav-cts.componen
 // import { BaseCardTemplateComponent } from './base-card-template/base-card-template.component';
 import { HeaderComponent } from './shared/header/header.component';
 
-
-
 //angular material
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -56,6 +55,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 
+import { MatomoService } from './matomo/matomo.service';
 
 import { SideNavService } from './shared/side-nav/side-nav.service';
 // import { AreaComponent } from './test-area/widgets/area/area.component';
@@ -222,9 +222,11 @@ import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kp
     MatSortModule,
 
 
+
+    HttpClientModule,
     HighchartsChartModule
   ],
-  providers: [SideNavService],
+  providers: [SideNavService,MatomoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

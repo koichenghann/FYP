@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 
+import { MatomoService } from '../../matomo/matomo.service';
 
 @Component({
   selector:'user-track',
@@ -7,6 +8,13 @@ import { Component, OnInit} from '@angular/core';
   styleUrls: ['user-track.component.scss'],
 })
 
-export class UserTrackComponent {
+export class UserTrackComponent implements OnInit{
+  constructor(private matomoService:MatomoService){}
+
+  ngOnInit(): void{
+
+    console.log(this.matomoService.getDevices());
+  }
+
 
 }
