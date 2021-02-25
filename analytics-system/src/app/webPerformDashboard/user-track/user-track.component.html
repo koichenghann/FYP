@@ -4,6 +4,7 @@
       <mat-card-header>
         <mat-card-title>HELP e-merchandising plaform site's summary of today</mat-card-title>
         <mat-card-subtitle>Website: www.helpemerhandising.com.my</mat-card-subtitle>
+        <mat-card-subtitle>Latest Update: {{todayDate}}</mat-card-subtitle>
       </mat-card-header>
 
 
@@ -14,9 +15,9 @@
         <mat-card-content>
           <div class="top-card-1-content ">
             <h2>Number of Visitors</h2>
-            <h2 class="top-card-1-content-number">1,526</h2>
-            <p class="percentage-number"><i class="fas fa-caret-up"></i> 47.3%</p>
-            <p class="prev-number">vs 1,038 (prev.)</p>
+            <h2 class="top-card-1-content-number">{{ todayVisitor }}</h2>
+            <p class="percentage-number"><i [class]="arrow"></i> {{ visitPercent }}%</p>
+            <p class="prev-number">vs {{ yesterdayVisitor }} (ytd.)</p>
 
           </div>
 
@@ -27,10 +28,10 @@
         <mat-card class="top-card-1 mat-elevation-z0" fxFlex="30">
           <mat-card-content>
             <div class="top-card-1-content">
-              <h2>Number of Sessions</h2>
-              <h2 class="top-card-1-content-number">658</h2>
-              <p class="percentage-number"><i class="fas fa-caret-up"></i> 28.9%</p>
-              <p class="prev-number">vs 511 (prev.)</p>
+              <h2>Number of Actions</h2>
+              <h2 class="top-card-1-content-number">{{todayAction}}</h2>
+              <p class="percentage-number"><i [class]="arrowAct"></i> {{ actionPercent }}%</p>
+              <p class="prev-number">vs {{yesterdayAction}} (ytd.)</p>
 
             </div>
             <app-widget-area-line-sessions></app-widget-area-line-sessions>

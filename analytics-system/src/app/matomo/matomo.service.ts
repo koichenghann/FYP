@@ -9,20 +9,77 @@ import { Router} from '@angular/router';
 export class MatomoService {
   constructor(private http: HttpClient, private router:Router) { }
 
+  private todayVisitsRetrievedListener = new Subject<any>();
+  private yesterdayVisitsRetrievedListener = new Subject<any>();
+  private todayActionsRetrievedListener = new Subject<any>();
+  private yesterdayActionsRetrievedListener = new Subject<any>();
+
+  numOfVisitors: number;
+
+
 
   getDevices(){
-    var data
-    this.http.get('http://localhost/matomo/?module=API&method=DevicesDetection.getModel&idSite=1&period=month&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
-    .subscribe({
-      next: response => {
-        response = data;
+    this.http.get<any>('http://localhost/matomo/?module=API&method=DevicesDetection.getModel&idSite=1&period=month&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    .subscribe(response => {
         console.log(response);
-      },
-      error: error =>{
-        console.error('There was an error!', error.message);
-      }
+    })
+
+  }
+
+  getTodayVisits(){
+    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getVisits&idSite=1&period=day&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    .subscribe(res => {
+      console.log(res['value']);
+      this.todayVisitsRetrievedListener.next(res['value']);
     })
   }
+
+  getYesterdayVisits(){
+    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getVisits&idSite=1&period=day&date=yesterday&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    .subscribe(res => {
+      console.log(res['value']);
+      this.yesterdayVisitsRetrievedListener.next(res['value']);
+    })
+  }
+
+  getTodayActions(){
+    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getActions&idSite=1&period=day&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    .subscribe(res => {
+      console.log(res['value']);
+      this.todayActionsRetrievedListener.next(res['value']);
+    })
+  }
+
+  getYesterdayActions(){
+    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getActions&idSite=1&period=day&date=yesterday&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    .subscribe(res => {
+      console.log(res['value']);
+      this.yesterdayActionsRetrievedListener.next(res['value']);
+    })
+  }
+
+  getTodayVisitsRetrievedListener() {
+    return this.todayVisitsRetrievedListener.asObservable();
+  }
+
+  getYesterdayVisitsRetrievedListener() {
+    return this.yesterdayVisitsRetrievedListener.asObservable();
+  }
+
+  getTodayActionsRetrievedListener() {
+    return this.todayActionsRetrievedListener.asObservable();
+  }
+
+  getYesterdayActionsRetrievedListener() {
+    return this.yesterdayActionsRetrievedListener.asObservable();
+  }
+
+
+
+
+
+
+
 
 }
 

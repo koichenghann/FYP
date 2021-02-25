@@ -45,7 +45,7 @@ export class AreaLineSessionsComponent implements OnInit {
         }
       },
       series: [{
-          name: "Sessions",
+          name: "Actions",
           data: [4500, 3750, 5670, 6350, 7200, 6880]
       }]
   }
