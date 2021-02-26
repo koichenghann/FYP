@@ -1,5 +1,9 @@
 $theme-color:#40c4de;
 
+.spacer {
+  flex:1 1 auto;
+  text-align: center;
+}
 
 .card-wrapper{
   // background-color: #439F9E;/*#A5C5C3*/
@@ -18,7 +22,7 @@ mat-card{
 }
 mat-card-header{
   // background-color: grey;
-  background-color: var(--customHeaderBackgroundColor);
+  background-color: #233348;
   // background-image: url("/assets/image/Teal_gradient_background_3.jpg");
   border-radius: 4px 4px 0 0;
   padding: 4em 0 2.4em 1em;
@@ -44,7 +48,7 @@ mat-form-field{
 .form-button-group button{
   width: 100%;
   max-width: 100% !important;
-  background-color: var(--customButtonBackgroundColor) !important;
+  background-color: #233348 !important;
 }
 a{
    color: white;

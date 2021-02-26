@@ -1,8 +1,16 @@
+
+
 <div class="card-wrapper" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <mat-toolbar style="color:#233348">
+
+    <span class="spacer">
+      <span class="logo_icon"><i class="far fa-chart-bar"></i> StaticMach</span>
+    </span>
+  </mat-toolbar>
   <mat-card class="form-card mat-elevation-z10">
     <mat-card-header>
       <mat-card-title>Login</mat-card-title>
-      <mat-card-subtitle>Don't have an account? click <a routerLink="/signup">here</a> to register</mat-card-subtitle>
+      <mat-card-subtitle>Lost your password? click <a routerLink="/signup">here</a> to reset</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
@@ -34,7 +42,7 @@
         </mat-form-field>
 
         <div class="form-button-group" fxFlex="100%">
-            <button mat-raised-button color="primary" type="submit" id="submitButton" routerLink="/dashboard">Login</button>
+            <button mat-raised-button color="primary" type="submit" id="submitButton" routerLink="/web-performance/dashboard">Login</button>
         </div>
 
       </form>

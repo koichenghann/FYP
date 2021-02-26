@@ -55,8 +55,8 @@ export class SemiPieComponent implements OnInit{
         name: 'Plaform share',
         innerSize: '60%',
         data: [
-            ['Desktop', 62.2],
-            ['Mobile', 27.8],
+            ['Desktop', 100],
+            ['Mobile', 0],
         ],
         dataLabels: {
           enabled: true,

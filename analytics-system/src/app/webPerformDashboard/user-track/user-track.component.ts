@@ -4,6 +4,7 @@ import { MatomoService } from '../../matomo/matomo.service';
 import { TodayVisitor } from '../../matomo/todayVisitor.model';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector:'user-track',
   templateUrl:'user-track.component.html',
@@ -18,6 +19,7 @@ export class UserTrackComponent implements OnInit{
   yesterdayVisitorSub: Subscription;
   todayActionsSub: Subscription;
   yesterdayActionsSub: Subscription;
+  behaviorSub: Subscription;
 
 
   //todayVisitor: TodayVisitor[] = [];
@@ -25,6 +27,20 @@ export class UserTrackComponent implements OnInit{
   yesterdayVisitor: number;
   todayAction: number;
   yesterdayAction: number;
+
+  todayBehaviorList: BehaviorList[] =[];
+  yesterdayBehaviorList: BehaviorList[] =[];
+
+  //today user behavior summary
+  todayBounceRate;
+  todayExitRate;
+  todayAvgTimeOnPage;
+  todayConvrtRate;
+
+  yesterdayBounceRate;
+  yesterdayExitRate;
+  yesterdayAvgTimeOnPage;
+  yesterdayConvrtRate;
 
   ytdVisitVal: number;
   tdyVisitVal: number;
@@ -50,13 +66,15 @@ export class UserTrackComponent implements OnInit{
     this.matomoService.getTodayActions();
     this.matomoService.getYesterdayActions();
 
+    this.getBounceVal;
+
     this.todayVisitorSub = this.matomoService.getTodayVisitsRetrievedListener()
     .subscribe( (response: number) => {
       console.log("Today's Visitor:" + response);
       this.todayVisitor = response;
       this.tdyVisitVal = this.todayVisitor;
       this.setTdyVisit(response);
-
+      this.calVisitorPercent();
       //console.log(this.todayVisitor);
 
     });
@@ -67,7 +85,7 @@ export class UserTrackComponent implements OnInit{
       this.yesterdayVisitor = response;
       this.setYtdVisit(response);
       this.ytdVisitVal = this.yesterdayVisitor;
-      this.calVisitorPercent();
+
       //console.log(this.ytdVisitVal);
     });
 
@@ -91,6 +109,60 @@ export class UserTrackComponent implements OnInit{
       this.calActionPercent();
       console.log(this.yesterdayAction);
     });
+
+
+
+
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    var formattedDate = [year, month, day].join('-');
+    console.log(formattedDate);
+
+    this.matomoService.getBehaviors(formattedDate);
+    this.behaviorSub = this.matomoService.getBehaviorsRetrivedListener()
+    .subscribe( (response) => {
+      //this.dataSource = new MatTableDataSource<BehaviorList>(response);
+      this.todayBehaviorList = response;
+
+      //assign value to each metric
+      this.setBounceVal(this.todayBehaviorList[0].bounce_rate);
+
+
+      this.todayAvgTimeOnPage = this.todayBehaviorList[0].avg_time_on_page;
+      this.todayExitRate = this.todayBehaviorList[0].exit_rate;
+
+      //console.log("Today Index Page:" , this.behaviorList[0].bounce_rate);
+      //this.setBehaviorData(response);
+
+    });
+
+    var yesterdayDate = "2021-02-26";
+    this.matomoService.getBehaviors(yesterdayDate);
+    this.behaviorSub = this.matomoService.getBehaviorsRetrivedListener()
+    .subscribe( (response) => {
+      //this.dataSource = new MatTableDataSource<BehaviorList>(response);
+      this.yesterdayBehaviorList = response;
+
+      //assign value to each metric
+      this.yesterdayBounceRate =this.yesterdayBehaviorList[1].bounce_rate;
+      this.yesterdayAvgTimeOnPage = this.yesterdayBehaviorList[1].avg_time_on_page;
+      this.yesterdayExitRate = this.yesterdayBehaviorList[1].exit_rate;
+
+      //console.log("Yesterday Index Page:" , this.behaviorList[1].bounce_rate);
+      //this.setBehaviorData(response);
+
+    });
+
+
+
 
 
 
@@ -136,8 +208,21 @@ export class UserTrackComponent implements OnInit{
     return this.tdyVisitVal;
   }
 
+
+  //getter for each metric
+
+
+  //setter for each metric
+  setBounceVal(data){
+    this.todayBounceRate = data;
+  }
+
+  getBounceVal(){
+    return this.todayBounceRate;
+  }
+
   calVisitorPercent(){
-     var a =  this.getTydAction();
+     var a =  this.getTydVisit();
      var b = this.getYtdVisit();
      var c = (a/b * 100) - 100
      this.visitPercent = c.toFixed(1);
@@ -151,9 +236,6 @@ export class UserTrackComponent implements OnInit{
      else{
       this.arrow="";
      }
-
-
-
 
     console.log("Calculated: ",this.visitPercent);
 
@@ -175,9 +257,7 @@ export class UserTrackComponent implements OnInit{
     else{
      this.arrowAct="";
     }
-
    console.log("Calculated action: ",this.actionPercent);
-
  }
 
 
@@ -185,10 +265,36 @@ export class UserTrackComponent implements OnInit{
   ngOnDestroy() {
     this.todayVisitorSub.unsubscribe();
     this.yesterdayVisitorSub.unsubscribe();
+    this.behaviorSub.unsubscribe();
   }
 
 
 
 
 
+}
+
+export interface BehaviorList{
+  avg_page_load_time: number,
+  avg_time_on_page: number,
+  avg_time_server: number,
+  bounce_rate: string,
+  entry_bounce_count: string,
+  entry_nb_actions: string,
+  entry_nb_uniq_visitors: string,
+  entry_nb_visits: string,
+  entry_sum_visit_length: string,
+  exit_nb_uniq_visitors: string,
+  exit_nb_visits: string,
+  exit_rate: string,
+  label: string,
+  max_time_server: string,
+  min_time_server: string,
+  nb_hits: number,
+  nb_hits_with_time_server: string,
+  nb_uniq_visitors: number,
+  nb_visits: number,
+  segment: string,
+  sum_time_spent: number,
+  url: string,
 }
