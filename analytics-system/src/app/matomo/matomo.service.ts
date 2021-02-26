@@ -14,7 +14,7 @@ export class MatomoService {
   private todayActionsRetrievedListener = new Subject<any>();
   private yesterdayActionsRetrievedListener = new Subject<any>();
 
-  numOfVisitors: number;
+  private behavioursRetrievedListener = new Subject<any>();
 
 
 
@@ -74,6 +74,22 @@ export class MatomoService {
     return this.yesterdayActionsRetrievedListener.asObservable();
   }
 
+  //Get Action (Behavior)
+  getBehaviors(selectedDate){
+
+
+
+    this.http.get<any>('http://localhost/matomo/index.php?module=API&method=Actions.getPageUrls&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    .subscribe(res => {
+      console.log(res);
+      this.behavioursRetrievedListener.next(res);
+    })
+
+  }
+
+  getBehaviorsRetrivedListener(){
+    return this.behavioursRetrievedListener.asObservable();
+  }
 
 
 

@@ -10,6 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 
 
+
 import { DefaultModule } from './test-area/default/default.module';
 // import { SideNavService }
 
@@ -54,6 +55,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { MatomoService } from './matomo/matomo.service';
 
@@ -220,6 +223,8 @@ import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kp
     MatSlideToggleModule,
     MatDialogModule,
     MatSortModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
 
 
 
