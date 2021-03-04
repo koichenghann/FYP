@@ -76,9 +76,6 @@ export class MatomoService {
 
   //Get Action (Behavior)
   getBehaviors(selectedDate){
-
-
-
     this.http.get<any>('http://localhost/matomo/index.php?module=API&method=Actions.getPageUrls&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
     .subscribe(res => {
       console.log(res);
@@ -89,6 +86,11 @@ export class MatomoService {
 
   getBehaviorsRetrivedListener(){
     return this.behavioursRetrievedListener.asObservable();
+  }
+
+  updateBehaviors(url: string, bounce_rate: string, ){
+
+
   }
 
 
