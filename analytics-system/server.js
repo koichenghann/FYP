@@ -1,3 +1,20 @@
+const http = route = require ('http');
+const app = require('./backend/app');
+const port = 3000;
+
+app.set('port', port)
+
+const server = http.createServer(app);
+
+// const server = http.createServer((req, res) => {
+//   res.end('This is my first response')
+// });
+
+// server.listen(3000);
+
+server.listen(port);
+
+/*
 const http = require('http');
 const debug = require('debug')('node-angular');
 const app = require('./backend/app');
@@ -55,3 +72,4 @@ const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);
+*/
