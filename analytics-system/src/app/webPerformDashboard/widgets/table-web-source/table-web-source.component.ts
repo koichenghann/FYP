@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
+import { MatomoService } from '../../../matomo/matomo.service';
+import { FormControl, FormBuilder} from '@angular/forms';
+
 
 @Component({
   selector: 'app-websource-table',
@@ -10,10 +14,17 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TableWebSourceComponent implements OnInit {
 
-  constructor() { }
+  constructor(private matomoService:MatomoService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
   }
+
+
+  date = new FormControl(new Date());
+
+  dateForm = this.formBuilder.group({
+    date: ''
+  });
 
   displayedColumns: string[] = ['channel', 'sessions', 'percentOfTraffic', 'change'];
   dataSource = new MatTableDataSource<Traffic>(traffics);
@@ -33,6 +44,10 @@ export class TableWebSourceComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  setSelectedDate(){
+
   }
 
 }

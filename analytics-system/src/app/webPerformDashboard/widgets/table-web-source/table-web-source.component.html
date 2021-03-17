@@ -12,10 +12,23 @@
          All Traffic Sources
         </div>
         <div class="filler"></div>
-        <div class="custom-date-range">
-          from: <input type="date" name="" value="2020-11-12">
+        <div>
+          <form [formGroup]="dateForm">
+          <mat-form-field>
+            <mat-label>Selected Date</mat-label>
+            <input matInput [matDatepicker]="dob" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+            <mat-datepicker #dob>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button (click)="setSelectedDate()" mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+        </form>
           &nbsp;&nbsp;&nbsp;
-          to: <input type="date" name="" value="2020-11-18">
+          <!--Select Date: <input type="date" name="">-->
+
         </div>
       </div>
     </div>

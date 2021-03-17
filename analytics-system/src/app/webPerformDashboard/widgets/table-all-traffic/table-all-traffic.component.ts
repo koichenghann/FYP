@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatomoService } from '../../../matomo/matomo.service';
+import { FormControl, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-alltraffic-table',
@@ -10,10 +12,16 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TableAllTrafficComponent implements OnInit {
 
-  constructor() { }
+  constructor(private matomoService:MatomoService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
   }
+
+  date = new FormControl(new Date());
+
+  dateForm = this.formBuilder.group({
+    date: ''
+  });
 
   displayedColumns: string[] = ['referrer', 'sessions', 'percentOfTraffic', 'change', 'ipAddress'];
   dataSource = new MatTableDataSource<Source>(sources);
@@ -33,6 +41,10 @@ export class TableAllTrafficComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  setSelectedDate() {
+
   }
 
 }
