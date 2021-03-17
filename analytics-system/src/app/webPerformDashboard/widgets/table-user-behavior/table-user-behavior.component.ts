@@ -29,7 +29,10 @@ export class TableUserBehaviorComponent implements OnInit {
 
   dateForm = this.formBuilder.group({
     date: ''
-  })
+  });
+
+  isLoading = true;
+  dataSource = null;
 
   /*
   behaviorList: {
@@ -58,6 +61,7 @@ export class TableUserBehaviorComponent implements OnInit {
 
   }[]
   */
+
 
 
 
@@ -97,18 +101,25 @@ export class TableUserBehaviorComponent implements OnInit {
     this.matomoService.getBehaviors(formattedDate);
     this.behaviorSub = this.matomoService.getBehaviorsRetrivedListener()
     .subscribe( (response: BehaviorList[]) => {
+      this.isLoading = false;
       this.dataSource = new MatTableDataSource<BehaviorList>(response);
       console.log("Data Retrived:" ,response);
+
       //this.setBehaviorData(response);
 
-    });
+    },
+    error => {
+      this.isLoading = true;
+    }
+    );
 
   }
 
 
 
   displayedColumns: string[] = ['url', 'bounce_rate', 'exit_rate', 'avg_time_on_page', 'avg_page_load_time'];
-  dataSource = new MatTableDataSource<BehaviorList>();
+  //dataSource = new MatTableDataSource<BehaviorList>();
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

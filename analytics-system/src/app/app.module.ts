@@ -57,6 +57,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { MatomoService } from './matomo/matomo.service';
 
@@ -225,6 +226,7 @@ import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kp
     MatSortModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatProgressSpinnerModule,
 
 
 

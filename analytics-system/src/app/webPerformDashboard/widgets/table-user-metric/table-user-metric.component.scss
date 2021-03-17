@@ -18,6 +18,14 @@
   flex: 1;
 }
 
+.date-block{
+  display: flex;
+}
+.date-block__list{
+  flex-basis: 150px;
+  margin-right: 15px;
+}
+
 
 
 // table related

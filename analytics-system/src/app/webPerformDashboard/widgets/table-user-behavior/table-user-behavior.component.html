@@ -12,7 +12,8 @@
          Detailed User Behavior Analysis
         </div>
         <div class="filler"></div>
-        <div class="custom-date-range">
+        <!--class="custom-date-range"-->
+        <div>
           <form [formGroup]="dateForm">
           <mat-form-field>
             <mat-label>Selected Date</mat-label>
@@ -75,9 +76,21 @@
       </ng-container>
 
 
+
+
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <div *ngIf="isLoading"
+          style="display: flex;
+          justify-content: center;
+          align-items: center;
+          background: white;">
+        <mat-spinner></mat-spinner>
+    </div>
+
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 

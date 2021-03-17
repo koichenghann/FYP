@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DatePipe } from '@angular/common';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-user-metric-table',
@@ -10,13 +12,78 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TableUserMetricComponent implements OnInit {
 
-  constructor() { }
+    filterForm = new FormGroup({
+      fromDate: new FormControl(),
+      toDate: new FormControl(),
+  });
+
+  get fromDate() {
+    var d = new Date(this.filterForm.get('fromDate').value),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    var formattedDate = [year, month, day].join('-');
+
+    return formattedDate;
+  }
+
+  get toDate() {
+    var d = new Date(this.filterForm.get('toDate').value),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    var formattedDate = [year, month, day].join('-');
+
+    return formattedDate;
+  }
+
+
+
+  constructor() {
+    this.pipe = new DatePipe('en');
+    this.dataSource.filterPredicate = (data, filter) =>{
+      if (this.fromDate && this.toDate) {
+        return data.date >= this.fromDate && data.date <= this.toDate;
+      }
+      return true;
+    }
+  }
+
+  applyFilter() {
+    this.dataSource.filter = ''+Math.random();
+  }
+
+
 
   ngOnInit(): void {
+
   }
+
+
+
+
+
+
 
   displayedColumns: string[] = ['date', 'visitors', 'sessions', 'pageView', 'signup'];
   dataSource = new MatTableDataSource<Source>(sources);
+  pipe: DatePipe;
+
+
+
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -26,6 +93,7 @@ export class TableUserMetricComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  /*
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -33,9 +101,17 @@ export class TableUserMetricComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
+  }*/
+
+
+
+
+
+
+
 
 }
+
 
 
 
@@ -60,3 +136,4 @@ const sources: Source[] = [
 
 
 ];
+
