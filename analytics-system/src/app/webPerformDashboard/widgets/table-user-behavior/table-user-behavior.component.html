@@ -1,5 +1,5 @@
 
-
+<div class="main-table-content">
   <div fxLayout="row" class="header-row">
 
 
@@ -10,6 +10,7 @@
         <!-- Card Header -->
         <div class="table-title">
          Detailed User Behavior Analysis
+         <h5 class="span_url_website">Website: http://localhost:4200</h5>
         </div>
         <div class="filler"></div>
         <!--class="custom-date-range"-->
@@ -40,13 +41,17 @@
 
   <!-- Table -->
 
-    <table mat-table [dataSource]="dataSource" matSort matSortActive="spending" matSortDirection="desc">
+    <table mat-table
+          [dataSource]="dataSource" multiTemplateDataRows
+          matSort matSortActive="spending" matSortDirection="desc">
 
       <!-- Channel Page URL -->
       <ng-container matColumnDef="url">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Page URL </th>
-        <td mat-cell *matCellDef="let element"> {{element.url}} </td>
+        <th class="th_url" mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Page URL </th>
+        <td mat-cell *matCellDef="let element"> {{element.label}} </td>
       </ng-container>
+
+
 
       <!-- Sessions Bounce Rate -->
       <ng-container matColumnDef="bounce_rate">
@@ -80,7 +85,8 @@
 
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
     </table>
 
     <div *ngIf="isLoading"
@@ -88,11 +94,21 @@
           justify-content: center;
           align-items: center;
           background: white;">
-        <mat-spinner></mat-spinner>
+        <mat-spinner [diameter]="25"></mat-spinner>
     </div>
 
+    <div *ngIf="!dataSource.data.length"
+          style="display: flex;
+          padding-top: 8em;
+          justify-content: center;
+          align-items: center;
+          background: white;">
+          <p>No Data has recorded on this date. Try another date.</p>
+    </div>
 
+</div>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
 
 
 

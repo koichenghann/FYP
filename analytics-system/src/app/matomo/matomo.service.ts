@@ -76,13 +76,16 @@ export class MatomoService {
 
   //Get Action (Behavior)
   getBehaviors(selectedDate){
-    this.http.get<any>('http://localhost/matomo/index.php?module=API&method=Actions.getPageUrls&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    this.http.get<any>('http://localhost/matomo/index.php?date='+selectedDate+'&filter_limit=-1&flat=1&format=JSON&idSite=1&method=Actions.getPageUrls&module=API&period=day&segment=&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
     .subscribe(res => {
       console.log(res);
       this.behavioursRetrievedListener.next(res);
     })
 
   }
+
+  //'http://localhost/matomo/index.php?date='+selectedDate+'&filter_limit=-1&flat=1&force_api_session=1&format=JSON&idSite=1&method=Actions.getPageUrls&module=API&period=day&segment=&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+  //'http://localhost/matomo/index.php?module=API&method=Actions.getPageUrls&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
 
   getBehaviorsRetrivedListener(){
     return this.behavioursRetrievedListener.asObservable();

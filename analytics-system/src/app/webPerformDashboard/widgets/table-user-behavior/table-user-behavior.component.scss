@@ -4,6 +4,10 @@
   // background-color: purple;
 
 }
+
+.main-table-content{
+  height: 28em;
+}
 .custom-page-header{
   font-size: 28px;
   padding: 0.5em 0;
@@ -17,7 +21,6 @@
 .filler{
   flex: 1;
 }
-
 
 
 // table related
@@ -44,7 +47,7 @@ th.mat-sort-header-sorted {
 }
 .table-title{
   padding-top: 1em;
-  padding-bottom: 1.5em;
+  //padding-bottom: 0.5em;
   font-size: 150%;
 }
 .filler{
@@ -68,4 +71,10 @@ th.mat-sort-header-sorted {
 
 .fa-caret-down{
   color:red;
+}
+
+.span_url_website{
+  padding-top: 0.5em;
+  padding-left: 1em;
+  color: grey !important;
 }

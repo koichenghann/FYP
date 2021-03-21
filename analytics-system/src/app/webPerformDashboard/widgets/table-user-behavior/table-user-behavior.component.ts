@@ -9,6 +9,7 @@ import { FormControl, FormBuilder} from '@angular/forms';
 
 
 
+
 @Component({
   selector: 'app-user-behavior-table',
   templateUrl: './table-user-behavior.component.html',
@@ -32,7 +33,8 @@ export class TableUserBehaviorComponent implements OnInit {
   });
 
   isLoading = true;
-  dataSource = null;
+  isEmpty = false;
+  //dataSource = null;
 
   /*
   behaviorList: {
@@ -71,8 +73,13 @@ export class TableUserBehaviorComponent implements OnInit {
     //console.log(this.date.value);
     this.setSelectedDate();
 
+    //Catch Pagination
+    this.sortAndPaginator();
+
+
 
   }
+
 
   ngOnDestroy() {
     this.behaviorSub.unsubscribe();
@@ -83,8 +90,12 @@ export class TableUserBehaviorComponent implements OnInit {
   }
 
   setSelectedDate(){
-    console.log(this.date.value);
+    this.isLoading = true;
+    //this.isEmpty = true;
 
+    //console.log(this.date.value);
+
+    //Constuct data format for query
     var d = new Date(this.date.value),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -98,13 +109,17 @@ export class TableUserBehaviorComponent implements OnInit {
     var formattedDate = [year, month, day].join('-');
     console.log(formattedDate);
 
+    //get Behaviour data with selected date
     this.matomoService.getBehaviors(formattedDate);
     this.behaviorSub = this.matomoService.getBehaviorsRetrivedListener()
     .subscribe( (response: BehaviorList[]) => {
       this.isLoading = false;
       this.dataSource = new MatTableDataSource<BehaviorList>(response);
       console.log("Data Retrived:" ,response);
-
+      if (response.length < 1){
+        this.isEmpty = true;
+      }
+      this.sortAndPaginator();
       //this.setBehaviorData(response);
 
     },
@@ -115,10 +130,8 @@ export class TableUserBehaviorComponent implements OnInit {
 
   }
 
-
-
   displayedColumns: string[] = ['url', 'bounce_rate', 'exit_rate', 'avg_time_on_page', 'avg_page_load_time'];
-  //dataSource = new MatTableDataSource<BehaviorList>();
+  dataSource = new MatTableDataSource<BehaviorList>();
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -129,6 +142,13 @@ export class TableUserBehaviorComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  sortAndPaginator() {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+    setTimeout(() => this.dataSource.sort = this.sort);
+  }
+
+
+  /*
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -137,7 +157,7 @@ export class TableUserBehaviorComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
+  */
 
   setBehaviorData(response){
     this.behaviorListData = response;

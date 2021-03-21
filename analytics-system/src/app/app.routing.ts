@@ -24,7 +24,7 @@ import { PageUserMetricComponent } from './webPerformDashboard/page-detailed-use
 import { WebPerformDashboardComponent } from './webPerformDashboard/web-perform-dashboard.component';
 
 const APP_ROUTES: Routes = [
-  {path:'', redirectTo: '/dashboard-fyp', pathMatch: 'full'},
+  {path:'', redirectTo: '/login', pathMatch: 'full'},
   {path:'login', component: LoginComponent},
   {path:'signup', component: SignupComponent},
   // {path:'dashboard', component: DashboardComponent},

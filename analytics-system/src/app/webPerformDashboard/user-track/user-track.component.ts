@@ -17,14 +17,19 @@ export class UserTrackComponent implements OnInit{
   //numOfVisitors;
   todayVisitorSub: Subscription;
   yesterdayVisitorSub: Subscription;
+
   todayActionsSub: Subscription;
   yesterdayActionsSub: Subscription;
+
   behaviorSub: Subscription;
 
 
   //todayVisitor: TodayVisitor[] = [];
+  //Number of Today and Yesterday Visitor
   todayVisitor: number;
   yesterdayVisitor: number;
+
+   //Number of Today and Yesterday Action
   todayAction: number;
   yesterdayAction: number;
 
@@ -63,8 +68,11 @@ export class UserTrackComponent implements OnInit{
 
     this.matomoService.getTodayVisits();
     this.matomoService.getYesterdayVisits();
+
     this.matomoService.getTodayActions();
     this.matomoService.getYesterdayActions();
+
+
 
     this.getBounceVal;
 
@@ -72,9 +80,11 @@ export class UserTrackComponent implements OnInit{
     .subscribe( (response: number) => {
       console.log("Today's Visitor:" + response);
       this.todayVisitor = response;
-      this.tdyVisitVal = this.todayVisitor;
-      this.setTdyVisit(response);
-      this.calVisitorPercent();
+
+      setTimeout(() => this.todayVisitor  = this.todayVisitor);
+      //this.tdyVisitVal = this.todayVisitor;
+      //this.setTdyVisit(response);
+
       //console.log(this.todayVisitor);
 
     });
@@ -83,18 +93,22 @@ export class UserTrackComponent implements OnInit{
     .subscribe( (response: number) => {
       console.log("Yesterday's Visitor:" + response);
       this.yesterdayVisitor = response;
-      this.setYtdVisit(response);
-      this.ytdVisitVal = this.yesterdayVisitor;
+      //this.setYtdVisit(response);
+
+      setTimeout(() => this.yesterdayVisitor = this.yesterdayVisitor);
+      //this.ytdVisitVal = this.yesterdayVisitor;
 
       //console.log(this.ytdVisitVal);
+      this.calVisitorPercent();
     });
 
     this.todayActionsSub = this.matomoService.getTodayActionsRetrievedListener()
     .subscribe( (response: number) => {
       console.log("Today's Action:" + response);
       this.todayAction = response;
-      this.tdyActionVal = this.todayAction;
-      this.setTdyAction(response);
+      setTimeout(() => this.todayAction= this.todayAction);
+      //this.tdyActionVal = this.todayAction;
+      //this.setTdyAction(response);
 
 
       //console.log(this.todayAction);
@@ -104,8 +118,10 @@ export class UserTrackComponent implements OnInit{
     .subscribe( (response: number) => {
       console.log("Yesterday's Action:" + response);
       this.yesterdayAction = response;
-      this.ytdActionVal = this.yesterdayAction;
-      this.setYtdAction(response);
+      setTimeout(() => this.yesterdayAction= this.yesterdayAction);
+     // this.ytdActionVal = this.yesterdayAction;
+      //this.setYtdAction(response);
+      setTimeout(() => this.yesterdayAction= this.yesterdayAction);
       this.calActionPercent();
       console.log(this.yesterdayAction);
     });
@@ -161,20 +177,9 @@ export class UserTrackComponent implements OnInit{
 
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
+
+  /*
 
   setYtdAction(data){
     this.ytdActionVal = data;
@@ -208,6 +213,7 @@ export class UserTrackComponent implements OnInit{
     return this.tdyVisitVal;
   }
 
+  */
 
   //getter for each metric
 
@@ -217,13 +223,17 @@ export class UserTrackComponent implements OnInit{
     this.todayBounceRate = data;
   }
 
+
   getBounceVal(){
     return this.todayBounceRate;
   }
 
+  //Calculate for Visitor Percentage
   calVisitorPercent(){
-     var a =  this.getTydVisit();
-     var b = this.getYtdVisit();
+     //var a =  this.getTydVisit();
+     //var b = this.getYtdVisit();
+     var a = this.todayVisitor;
+     var b = this.yesterdayVisitor;
      var c = (a/b * 100) - 100
      this.visitPercent = c.toFixed(1);
 
@@ -241,10 +251,12 @@ export class UserTrackComponent implements OnInit{
 
   }
 
-
+  //Calculate for Action Percentage
   calActionPercent(){
-    var a =  this.getTydAction();
-    var b = this.getYtdAction();
+    //var a =  this.getTydAction();
+    //var b = this.getYtdAction();
+    var a = this.todayAction;
+    var b = this.yesterdayAction;
     var c = (a/b * 100) - 100
     this.actionPercent = c.toFixed(1);
 
