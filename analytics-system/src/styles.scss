@@ -3,6 +3,9 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
 
 //#40c4de; <- eye killing light blue
 //Card Header - Background Color
@@ -23,3 +26,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .highcharts-credits{
   visibility: hidden;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -59,6 +59,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+//Adding Bootstrap4 to Angular
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 import { MatomoService } from './matomo/matomo.service';
 
 import { SideNavService } from './shared/side-nav/side-nav.service';
@@ -231,7 +235,10 @@ import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kp
 
 
     HttpClientModule,
-    HighchartsChartModule
+    NgbModule,
+    HighchartsChartModule,
+
+
   ],
   providers: [SideNavService,MatomoService],
   bootstrap: [AppComponent]

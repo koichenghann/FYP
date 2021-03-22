@@ -84,7 +84,7 @@ export class UserTrackComponent implements OnInit{
       setTimeout(() => this.todayVisitor  = this.todayVisitor);
       //this.tdyVisitVal = this.todayVisitor;
       //this.setTdyVisit(response);
-
+      this.calVisitorPercent();
       //console.log(this.todayVisitor);
 
     });
@@ -99,7 +99,6 @@ export class UserTrackComponent implements OnInit{
       //this.ytdVisitVal = this.yesterdayVisitor;
 
       //console.log(this.ytdVisitVal);
-      this.calVisitorPercent();
     });
 
     this.todayActionsSub = this.matomoService.getTodayActionsRetrievedListener()
@@ -121,7 +120,7 @@ export class UserTrackComponent implements OnInit{
       setTimeout(() => this.yesterdayAction= this.yesterdayAction);
      // this.ytdActionVal = this.yesterdayAction;
       //this.setYtdAction(response);
-      setTimeout(() => this.yesterdayAction= this.yesterdayAction);
+
       this.calActionPercent();
       console.log(this.yesterdayAction);
     });
