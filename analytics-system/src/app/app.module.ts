@@ -58,12 +58,14 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 //Adding Bootstrap4 to Angular
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
+//service
 import { MatomoService } from './matomo/matomo.service';
+import { UserActivityService } from './webPerformDashboard/service/userActivity.service';
 
 import { SideNavService } from './shared/side-nav/side-nav.service';
 // import { AreaComponent } from './test-area/widgets/area/area.component';
@@ -231,6 +233,7 @@ import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kp
     MatNativeDateModule,
     MatDatepickerModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
 
 
 
@@ -240,7 +243,10 @@ import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kp
 
 
   ],
-  providers: [SideNavService,MatomoService],
+  providers: [
+    SideNavService,
+    MatomoService,
+    UserActivityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

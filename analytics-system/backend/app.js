@@ -3,7 +3,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { reduce } = require('highcharts');
 
+var cors = require('cors');
+
 const userBehaviorRoutes = require('./routes/user-behavior.js');
+const userActivityRoutes = require('./routes/user-activity.js');
 
 
 const bcrypt = require('bcrypt');
@@ -22,17 +25,22 @@ mongoose.connect("mongodb+srv://martin:Password123@cluster0.jfx6h.mongodb.net/an
   });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+//app.use(bodyParser.urlencoded({ extended: false}));
 
+app.use(cors());
+
+/*
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS, PUT");
   next();
 });
+*/
 
 //routes
 app.use("/api/user-behavior", userBehaviorRoutes);
+app.use("/api/user-activity", userActivityRoutes);
 
 
 app.get("/test", (req, res, next) => {

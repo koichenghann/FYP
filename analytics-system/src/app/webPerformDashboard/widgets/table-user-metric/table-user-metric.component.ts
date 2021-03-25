@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 import {FormControl, FormGroup} from '@angular/forms';
+import { MatomoService } from '../../../matomo/matomo.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-metric-table',
@@ -51,7 +53,7 @@ export class TableUserMetricComponent implements OnInit {
 
 
 
-  constructor() {
+  constructor(private matomoService :MatomoService) {
     this.pipe = new DatePipe('en');
     this.dataSource.filterPredicate = (data, filter) =>{
       if (this.fromDate && this.toDate) {
@@ -70,6 +72,13 @@ export class TableUserMetricComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+
+  ngOnDestroy() {
+    //this.behaviorSub.unsubscribe();
+  }
+
+
 
 
 
