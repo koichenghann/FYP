@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/getAllUserActivities", UserActivityController.getAllUserActivities);
-router.post("/getUserActivitiesByDate/:date", UserActivityController.getUserActivityByDate);
+router.post("/getUserActivitiesByDate", UserActivityController.getUserActivityByDate);
 router.post("/createUserActivity", UserActivityController.createUserActivity);
 router.put("/updateUserActivity/:date", UserActivityController.updateUserActivity);
 

@@ -27,8 +27,6 @@ export class TableUserBehaviorComponent implements OnInit {
 
   userActivityByDateSub: Subscription;
   userActivityUpdateSub: Subscription;
-
-  //Listener subscription listener
   allUserActivitySub: Subscription;
 
   userActivities: UserActivity[] = [];
@@ -85,7 +83,7 @@ export class TableUserBehaviorComponent implements OnInit {
     this.actionsSub.unsubscribe();
     this.activeUsersSub.unsubscribe();
     this.visitActionsSub.unsubscribe();
-    this.userActivityByDateSub.unsubscribe();
+    //this.userActivityByDateSub.unsubscribe();
   }
 
   getSelectedDate(){
@@ -188,12 +186,16 @@ export class TableUserBehaviorComponent implements OnInit {
     console.log('VisitActions: ', this.visitActionData);
     console.log('Visitors:', this.newSignup);
 
+    /*
     this.userActivityService.getUserActivitiesByDate(this.activityDateData);
     this.userActivityByDateSub = this.userActivityService.getUserActivitiesByDateListener()
     .subscribe((response)=>{
-      this.userActivities = response;
-      console.log(this.userActivities);
+      //this.userActivities = response;
+      console.log('User Activity by date of ',this.activityDateData,'. Result: ',response);
     })
+    */
+
+
 
 
     //Add new activity data if no exisiting data

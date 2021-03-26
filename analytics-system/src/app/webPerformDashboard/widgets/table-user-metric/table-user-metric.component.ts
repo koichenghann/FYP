@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 import {FormControl, FormGroup} from '@angular/forms';
 import { MatomoService } from '../../../matomo/matomo.service';
 import { Subscription } from 'rxjs';
+import { UserActivityService } from '../../service/userActivity.service';
+import { UserActivity } from '../../model/userActivity.model';
 
 @Component({
   selector: 'app-user-metric-table',
@@ -51,31 +53,62 @@ export class TableUserMetricComponent implements OnInit {
     return formattedDate;
   }
 
+  //variables
+  allUserActivitySub: Subscription;
+  userActivities: UserActivity[] = [];
 
 
-  constructor(private matomoService :MatomoService) {
-    this.pipe = new DatePipe('en');
-    this.dataSource.filterPredicate = (data, filter) =>{
-      if (this.fromDate && this.toDate) {
-        return data.date >= this.fromDate && data.date <= this.toDate;
-      }
-      return true;
-    }
+  constructor(private matomoService :MatomoService, private userActivityService:UserActivityService) {
+
   }
 
   applyFilter() {
-    this.dataSource.filter = ''+Math.random();
+    this.userActivityService.getAllUserActivities();
+    this.allUserActivitySub = this.userActivityService.getUserActivityRetrievedListener()
+    .subscribe((res: UserActivity[])=>{
+      console.log('All user activity data retrived: ', res);
+      //this.dataSource = new MatTableDataSource<UserActivity>(res);
+      this.userActivities = res;
+      this.dataSource = new MatTableDataSource<UserActivity>(this.userActivities);
+
+      this.pipe = new DatePipe('en');
+      this.dataSource.filterPredicate = (data, filter) =>{
+        if (this.fromDate && this.toDate) {
+          return data.date >= this.fromDate && data.date <= this.toDate;
+        }
+        return true;
+      }
+      this.dataSource.filter = ''+Math.random();
+    })
+
   }
 
 
 
   ngOnInit(): void {
+    this.userActivityService.getAllUserActivities();
+    this.allUserActivitySub = this.userActivityService.getUserActivityRetrievedListener()
+    .subscribe((res: UserActivity[])=>{
+      console.log('All user activity data retrived: ', res);
+      //this.dataSource = new MatTableDataSource<UserActivity>(res);
+      this.userActivities = res;
+      this.dataSource = new MatTableDataSource<UserActivity>(this.userActivities);
+
+      //this.dataSource.sort = this.sort;
+      //this.dataSource.paginator = this.paginator;
+    })
+
+
+
+
 
   }
 
 
   ngOnDestroy() {
     //this.behaviorSub.unsubscribe();
+    this.allUserActivitySub.unsubscribe();
+    this.allUserActivitySub.unsubscribe();
   }
 
 
@@ -86,10 +119,9 @@ export class TableUserMetricComponent implements OnInit {
 
 
 
-  displayedColumns: string[] = ['date', 'visitors', 'sessions', 'pageView', 'signup'];
-  dataSource = new MatTableDataSource<Source>(sources);
+  displayedColumns: string[] = ['date','users', 'visitors', 'actions', 'pageViews', 'uniquePageViews', 'newSignup'];
+  dataSource = new MatTableDataSource<UserActivity>();
   pipe: DatePipe;
-
 
 
 
@@ -121,9 +153,20 @@ export class TableUserMetricComponent implements OnInit {
 
 }
 
+/*
+export interface userActivity{
+  activityDate: string,
+  users: string,
+  pageView: string,
+  uniquePageView: string,
+  activeUsers: string,
+  visitors: string,
+  newSignUp: string,
+}
+*/
 
 
-
+/*
 
 export interface Source {
   date:  string,
@@ -145,4 +188,6 @@ const sources: Source[] = [
 
 
 ];
+
+*/
 

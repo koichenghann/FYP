@@ -9,13 +9,12 @@ exports.test = ( req, res, next ) => {
 
 
 exports.getUserActivityByDate = (req, res, next) => {
-  UserActivity.findOne({date: req.params.date}).then(response =>{
+  UserActivity.findOne({date: req.body.date}).populate('date').then(response =>{
     if ( !response ){
       res.status(401).json({
         message: 'no user activity found on this date ',
       })
     }
-
     return res.status(201).json({
       message: 'user activity retrieved on date ',
       userActivity: response
@@ -33,7 +32,7 @@ exports.getUserActivityByDate = (req, res, next) => {
 exports.getAllUserActivities = (req, res, next) => {
   UserActivity.find().then( allUserActivity =>{
     res.status(200).json({
-      message: "All user activities fetched!",
+      message: 'All user activities fetched!',
       userActivities: allUserActivity
     });
   });

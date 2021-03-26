@@ -43,15 +43,15 @@ export class UserActivityService {
       )
       .subscribe( userActivitiesData =>{
         this.userActivities = userActivitiesData.userActivities;
-        this.userActivitiesUpdated.next([...this.userActivities]);
+        this.userActivitiesRetrievedListener.next([...this.userActivities]);
       })
   }
 
 
   getUserActivitiesByDate(date: string){
     console.log('The targetted date received by service: ',date);
-    this.http.post<{message: string, userActivities: UserActivity[]}>('http://localhost:3000/api/user-activity/getUserActivitiesByDate/'+ date, {date: date})
-
+    this.http.post<{message: string, userActivities: any}>('http://localhost:3000/api/user-activity/getUserActivitiesByDate', {date: date})
+    /*
     .pipe(map(data =>{
       return data.userActivities.map ( userActivities =>{
        return{
@@ -65,8 +65,9 @@ export class UserActivityService {
         }
       })
     }))
+    */
     .subscribe((responseData) =>{
-      this.userActivities = responseData;
+      this.userActivities = responseData.userActivities;
       this.userActivitiesByDateListener.next([...this.userActivities]);
       console.log('From service, getUserActivitiesByDate function',this.userActivitiesByDateListener.next([...this.userActivities]));
     }, error => {
