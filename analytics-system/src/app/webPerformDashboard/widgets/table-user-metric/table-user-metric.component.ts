@@ -8,6 +8,7 @@ import { MatomoService } from '../../../matomo/matomo.service';
 import { Subscription } from 'rxjs';
 import { UserActivityService } from '../../service/userActivity.service';
 import { UserActivity } from '../../model/userActivity.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-metric-table',
@@ -58,41 +59,68 @@ export class TableUserMetricComponent implements OnInit {
   userActivities: UserActivity[] = [];
 
 
-  constructor(private matomoService :MatomoService, private userActivityService:UserActivityService) {
+  constructor(private matomoService :MatomoService, private userActivityService:UserActivityService, private _snackBar: MatSnackBar) {
 
   }
 
   applyFilter() {
+    this.isLoading = true;
+    this.firstLoad = true;
+
     this.userActivityService.getAllUserActivities();
     this.allUserActivitySub = this.userActivityService.getUserActivityRetrievedListener()
     .subscribe((res: UserActivity[])=>{
       console.log('All user activity data retrived: ', res);
       //this.dataSource = new MatTableDataSource<UserActivity>(res);
+      this.isLoading = false;
       this.userActivities = res;
       this.dataSource = new MatTableDataSource<UserActivity>(this.userActivities);
 
       this.pipe = new DatePipe('en');
       this.dataSource.filterPredicate = (data, filter) =>{
+
+        console.log('filter log: ',data.date >= this.fromDate && data.date <= this.toDate);
         if (this.fromDate && this.toDate) {
+
+          if((data.date >= this.fromDate && data.date <= this.toDate)){
+            this.gotNoDataAfterFilter = true;
+            this.firstLoad = true;
+          }
           return data.date >= this.fromDate && data.date <= this.toDate;
         }
         return true;
       }
       this.dataSource.filter = ''+Math.random();
+      console.log('Filter: ', this.dataSource.filter);
+    },
+    error => {
+      this.isLoading = true;
     })
 
   }
 
+  isLoading = true;
+  gotNoDataAfterFilter = true;
+  firstLoad = false;
+
+
 
 
   ngOnInit(): void {
+    this.gotNoDataAfterFilter = true;
     this.userActivityService.getAllUserActivities();
     this.allUserActivitySub = this.userActivityService.getUserActivityRetrievedListener()
     .subscribe((res: UserActivity[])=>{
       console.log('All user activity data retrived: ', res);
+      this.isLoading = false;
+      if(res.length>0){
+        this.gotNoDataAfterFilter = false;
+      }
+
       //this.dataSource = new MatTableDataSource<UserActivity>(res);
       this.userActivities = res;
       this.dataSource = new MatTableDataSource<UserActivity>(this.userActivities);
+
 
       //this.dataSource.sort = this.sort;
       //this.dataSource.paginator = this.paginator;

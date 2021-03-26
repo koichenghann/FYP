@@ -100,6 +100,25 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
+    <div *ngIf="isLoading"
+          style="display: flex;
+          justify-content: center;
+          align-items: center;
+          background: white;">
+        <mat-spinner [diameter]="25"></mat-spinner>
+    </div>
+
+    <div class="container" *ngIf="firstLoad">
+      <div *ngIf="!gotNoDataAfterFilter"
+            style="display: flex;
+            padding-top: 8em;
+            justify-content: center;
+            align-items: center;
+            background: white;">
+            <p>No Data has recorded in between the two selected dates. Try another date.</p>
+      </div>
+    </div>
+
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 
