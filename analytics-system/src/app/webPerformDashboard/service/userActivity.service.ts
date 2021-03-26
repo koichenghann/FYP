@@ -67,9 +67,11 @@ export class UserActivityService {
     }))
     */
     .subscribe((responseData) =>{
+      console.log('Res data: ',responseData.userActivities);
+      console.log('Message from server: ', responseData.message);
       this.userActivities = responseData.userActivities;
-      this.userActivitiesByDateListener.next([...this.userActivities]);
-      console.log('From service, getUserActivitiesByDate function',this.userActivitiesByDateListener.next([...this.userActivities]));
+      this.userActivitiesByDateListener.next(this.userActivities);
+
     }, error => {
       console.log('get User Activity failed');
     })

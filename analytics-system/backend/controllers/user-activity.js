@@ -1,3 +1,4 @@
+const { response } = require("../app");
 const UserActivity = require("../models/user-activity");
 
 
@@ -9,32 +10,44 @@ exports.test = ( req, res, next ) => {
 
 
 exports.getUserActivityByDate = (req, res, next) => {
-  UserActivity.findOne({date: req.body.date}).populate('date').then(response =>{
+  UserActivity.find({date: req.body.date}).then( response=>{
+    console.log('Get User Acvitity by date: ', req.body.date, 'ran!');
     if ( !response ){
       res.status(401).json({
-        message: 'no user activity found on this date ',
+        message: 'user activity retrieved on date ',
+        userActivities: []
       })
+      console.log('User Acvitity by date: ', req.body.date ,'No record!');
     }
+
     return res.status(201).json({
-      message: 'user activity retrieved on date ',
-      userActivity: response
+      message: 'User activity retrieved from database',
+      userActivities: response
     })
   })
   .catch ( err => {
     res.status(500).json({
-      message: 'error occured on getting user activity on this date',
+      message: 'error occured on getting UserActivities',
       error: err
     })
   });
+
+
+
 }
 
 
 exports.getAllUserActivities = (req, res, next) => {
   UserActivity.find().then( allUserActivity =>{
-    res.status(200).json({
-      message: 'All user activities fetched!',
-      userActivities: allUserActivity
-    });
+    if(allUserActivity){
+      res.status(200).json({
+        message: 'All user activities fetched!',
+        userActivities: allUserActivity
+      });
+      console.log('All user activities fetched!');
+    }
+
+
   });
 }
 

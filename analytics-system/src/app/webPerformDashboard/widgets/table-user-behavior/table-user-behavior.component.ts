@@ -178,7 +178,7 @@ export class TableUserBehaviorComponent implements OnInit {
 
     this.visitorsData = '2';
 
-    console.log('DateData:', this.activityDateData);
+    console.log('DateData:', selectedDate);
     console.log('Visitors: ', this.visitorsData);
     console.log('ActiveUser: ', this.activeUserData);
     console.log('pageViewData:', this.pageViewData);
@@ -186,22 +186,33 @@ export class TableUserBehaviorComponent implements OnInit {
     console.log('VisitActions: ', this.visitActionData);
     console.log('Visitors:', this.newSignup);
 
-    /*
-    this.userActivityService.getUserActivitiesByDate(this.activityDateData);
+
+
     this.userActivityByDateSub = this.userActivityService.getUserActivitiesByDateListener()
     .subscribe((response)=>{
+      console.log('User activity record of ',selectedDate, ' found!');
       //this.userActivities = response;
-      console.log('User Activity by date of ',this.activityDateData,'. Result: ',response);
+      console.log('User Activity by date of ',selectedDate,'. Result: ', JSON.stringify(response));
+      this.createOrUpdateUserActivity(response);
     })
-    */
+    this.userActivityService.getUserActivitiesByDate(selectedDate);
 
 
 
 
-    //Add new activity data if no exisiting data
-    if(this.userActivities==null){
 
-      console.log('No User Activity found on date ',this.activityDateData);
+
+
+
+
+
+  }
+
+  createOrUpdateUserActivity(responseData){
+    if(responseData.length==0){
+      //Add new activity data if no exisiting data
+      console.log('No User Activity found on selected date!');
+      console.log('Creating new user activity data')
       /*
       this.userActivityService.addUserActivity(
         this.activityDateData,
@@ -210,11 +221,12 @@ export class TableUserBehaviorComponent implements OnInit {
         this.pageViewData,
         this.uniquePageViewData,
         this.visitActionData
-        );*/
+        );
+        */
     }
     else{
       //update activity data for the targetted date
-      console.log('Proceed to update user activity data')
+      console.log('Proceed to update user activity data!')
       /*
       this.userActivityService.updateUserActivity(
         this.activityDateData,
@@ -226,10 +238,8 @@ export class TableUserBehaviorComponent implements OnInit {
         this.newSignup
       );
       */
+
     }
-
-
-
   }
 
 

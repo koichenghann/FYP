@@ -92,6 +92,8 @@ export class TableUserMetricComponent implements OnInit {
       }
       this.dataSource.filter = ''+Math.random();
       console.log('Filter: ', this.dataSource.filter);
+
+      this.sortAndPaginator();
     },
     error => {
       this.isLoading = true;
@@ -120,6 +122,7 @@ export class TableUserMetricComponent implements OnInit {
       //this.dataSource = new MatTableDataSource<UserActivity>(res);
       this.userActivities = res;
       this.dataSource = new MatTableDataSource<UserActivity>(this.userActivities);
+      this.sortAndPaginator();
 
 
       //this.dataSource.sort = this.sort;
@@ -160,6 +163,11 @@ export class TableUserMetricComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  sortAndPaginator() {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+    setTimeout(() => this.dataSource.sort = this.sort);
   }
 
   /*
