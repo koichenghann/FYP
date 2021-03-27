@@ -105,7 +105,7 @@ export class UserActivityService {
     //this.userActivities.push(userActivity);
   }
 
-  updateUserActivity(date: string, visitors: string, users: string, pageViews: string, uniquePageViews: string
+  updateUserActivity(id: string, date: string, visitors: string, users: string, pageViews: string, uniquePageViews: string
     ,actions: string, newSignup: string) {
       const userActivity: UserActivity = {
         date: date,
@@ -117,7 +117,7 @@ export class UserActivityService {
         newSignup: newSignup,
       };
 
-    this.http.put('http://localhost:3000/api/user-activity/updateUserActivity/' + date, userActivity)
+    this.http.put('http://localhost:3000/api/user-activity/updateUserActivity/' + id, userActivity)
     .subscribe(response =>{
       console.log(response);
       this.userActivities[this.userActivities.indexOf(this.userActivities.find(useractivity => useractivity.date == date))]= userActivity;

@@ -87,13 +87,13 @@ exports.updateUserActivity = (req, res, next) =>{
     newSignup: req.body.newSignup,
     actions: req.body.actions
   }
-  UserActivity.updateOne({date: req.params.date}, updatedUserActivity).then( response => {
-      console.log("User Activity updated: " + response);
-      res.status(200).json({message: " User Activity Updated successfully for date "+ date})
+  UserActivity.updateOne({_id: req.params.id}, updatedUserActivity).then( response => {
+      console.log("User Activity updated: " + JSON.stringify(response));
+      res.status(200).json({message: " User Activity Updated successfully for date "+ req.body.date})
     })
     .catch( error => {
       res.status(500).json({
-        message: 'Error occured at update user activity for date '+ date,
+        message: 'Error occured at update user activity for date '+ req.body.date,
         error: error
       })
     });

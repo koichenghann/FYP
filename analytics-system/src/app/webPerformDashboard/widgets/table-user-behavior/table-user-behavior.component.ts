@@ -176,7 +176,7 @@ export class TableUserBehaviorComponent implements OnInit {
 
     })
 
-    this.visitorsData = '2';
+    this.visitorsData = '3';
 
     console.log('DateData:', selectedDate);
     console.log('Visitors: ', this.visitorsData);
@@ -193,7 +193,8 @@ export class TableUserBehaviorComponent implements OnInit {
       console.log('User activity record of ',selectedDate, ' found!');
       //this.userActivities = response;
       console.log('User Activity by date of ',selectedDate,'. Result: ', JSON.stringify(response));
-      this.createOrUpdateUserActivity(response);
+      //console.log('user activity id: ', JSON.stringify(response._id));
+      this.createOrUpdateUserActivity(response, selectedDate, this.visitorsData, this.activeUserData,this.pageViewData,this.uniquePageViewData,this.visitActionData);
     })
     this.userActivityService.getUserActivitiesByDate(selectedDate);
 
@@ -208,11 +209,12 @@ export class TableUserBehaviorComponent implements OnInit {
 
   }
 
-  createOrUpdateUserActivity(responseData){
+  createOrUpdateUserActivity(responseData, selectedDate, visitorsData, activieUserData, pageViewData, uniquePageViewData, visitActionData){
     if(responseData.length==0){
       //Add new activity data if no exisiting data
       console.log('No User Activity found on selected date!');
-      console.log('Creating new user activity data')
+      console.log('Creating new user activity data');
+
       /*
       this.userActivityService.addUserActivity(
         this.activityDateData,
@@ -226,18 +228,22 @@ export class TableUserBehaviorComponent implements OnInit {
     }
     else{
       //update activity data for the targetted date
-      console.log('Proceed to update user activity data!')
-      /*
+      console.log('Proceed to update user activity data!');
+      console.log('ID received: ',responseData[0]._id);
+      //console.log('user activity id: ', JSON.stringify(responseData._id));
+
       this.userActivityService.updateUserActivity(
-        this.activityDateData,
-        this.visitorsData,
-        this.activeUserData,
-        this.pageViewData,
-        this.uniquePageViewData,
-        this.visitActionData,
+        responseData[0]._id,
+        selectedDate,
+        visitorsData,
+        activieUserData,
+        pageViewData,
+        uniquePageViewData,
+        visitActionData,
         this.newSignup
       );
-      */
+
+
 
     }
   }
@@ -328,14 +334,16 @@ export interface visitAction{
   value: number
 }
 
-export interface userActivity{
-  activityDate: string,
+export interface UserActivityFromDatabase{
+  _id: string,
+  date: string,
+  visitors: string,
   users: string,
   pageView: string,
   uniquePageView: string,
-  activeUsers: string,
-  visitors: string,
-  //newSignUp: string,
+  newSignUp: string,
+  actions: string,
+  _v: string
 }
 
 
