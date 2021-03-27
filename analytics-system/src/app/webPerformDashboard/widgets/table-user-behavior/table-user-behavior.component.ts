@@ -9,6 +9,7 @@ import { FormControl, FormBuilder} from '@angular/forms';
 import { MatomoService } from '../../../matomo/matomo.service';
 import { UserActivityService } from '../../service/userActivity.service';
 import { UserActivity } from '../../model/userActivity.model';
+import { AllUserMetric } from '../../model/allUserMetric.model';
 
 
 @Component({
@@ -18,16 +19,19 @@ import { UserActivity } from '../../model/userActivity.model';
 })
 export class TableUserBehaviorComponent implements OnInit {
 
+
   constructor(private matomoService:MatomoService, private userActivityService:UserActivityService, private formBuilder: FormBuilder) {}
 
   behaviorSub: Subscription;
   actionsSub: Subscription;
   activeUsersSub: Subscription;
   visitActionsSub: Subscription;
+  allUserMetricByDateSub: Subscription;
 
   userActivityByDateSub: Subscription;
   userActivityUpdateSub: Subscription;
   allUserActivitySub: Subscription;
+
 
   userActivities: UserActivity[] = [];
 
@@ -46,6 +50,9 @@ export class TableUserBehaviorComponent implements OnInit {
   //object
   userActivityData;
 
+
+  //isDone
+  pageViewAndUniqIsDone;
 
 
 
@@ -68,7 +75,27 @@ export class TableUserBehaviorComponent implements OnInit {
     //this.getSelectedDate();
 
     //console.log(this.date.value);
-    this.setSelectedDate();
+    //this.setSelectedDate();
+    this.getUserActivityMatomo(this.todayData());
+
+    //get Behaviour data with selected date
+    this.matomoService.getBehaviors(this.todayData());
+    this.behaviorSub = this.matomoService.getBehaviorsRetrivedListener()
+    .subscribe( (response: BehaviorList[]) => {
+      this.isLoading = false;
+      this.dataSource = new MatTableDataSource<BehaviorList>(response);
+      console.log("Data Retrived:" ,response);
+      if (response.length < 1){
+        this.isEmpty = true;
+      }
+      this.sortAndPaginator();
+      //this.setBehaviorData(response);
+
+    },
+    error => {
+      this.isLoading = true;
+    }
+    );
 
     //Catch Pagination
     this.sortAndPaginator();
@@ -90,6 +117,22 @@ export class TableUserBehaviorComponent implements OnInit {
     return console.log(this.date.value);
   }
 
+  todayData(){
+    var today = new Date(),
+    month = '' + (today.getMonth() + 1),
+    day = '' + today.getDate(),
+    year = today.getFullYear();
+
+    if (month.length < 2)
+    month = '0' + month;
+    if (day.length < 2)
+    day = '0' + day;
+
+    var formattedDate = [year, month, day].join('-');
+    console.log('today Date:',formattedDate);
+    return formattedDate;
+  }
+
   setSelectedDate(){
     this.isLoading = true;
     //this.isEmpty = true;
@@ -108,7 +151,7 @@ export class TableUserBehaviorComponent implements OnInit {
         day = '0' + day;
 
     var formattedDate = [year, month, day].join('-');
-    console.log(formattedDate);
+    console.log('Selected Data:',formattedDate);
 
     //get Behaviour data with selected date
     this.matomoService.getBehaviors(formattedDate);
@@ -134,88 +177,127 @@ export class TableUserBehaviorComponent implements OnInit {
 
 
   getUserActivityMatomo(selectedDate){
-    //const selectedDate = '2021-03-22';
 
+    /*Get user actions related metric from matomo (pageView and uniquePageView) */
+
+    /*
     this.matomoService.getActions(selectedDate);
     this.actionsSub = this.matomoService.getActionsRetrivedListener()
     .subscribe( (response: Action)=>{
-      console.log('Pageviews: ', response.nb_pageviews);
-      console.log('Unique Pageviews: ', response.nb_uniq_pageviews);
-      console.log(JSON.stringify(response.nb_pageviews));
+      //console.log('Pageviews: ', response.nb_pageviews);
+      //console.log('Unique Pageviews: ', response.nb_uniq_pageviews);
+      //console.log(JSON.stringify(response.nb_pageviews));
 
-      //set response data
-      this.pageViewData = response.nb_pageviews;
-      this.uniquePageViewData = response.nb_uniq_pageviews;
-      this.activityDateData = selectedDate;
+        //set response data
+        this.pageViewData = response.nb_pageviews;
+        this.uniquePageViewData = response.nb_uniq_pageviews;
 
+        if(this.pageViewData!=undefined && this.uniquePageViewData!=undefined){
+          this.pageViewAndUniqIsDone = true;
+          console.log('PageViewData and UniquePageViewData set!');
+          console.log(this.pageViewData, this.uniquePageViewData);
+        }
+        });
+        */
+
+      /*
       if(this.pageViewData!=null){
         localStorage.setItem('pagaViews', JSON.stringify(this.pageViewData.toString()));
         console.log('pageviewdata saved to localStorage');
       }
+      */
 
       //localStorage.setItem('testVal', JSON.stringify('Test 1'));
       //console.log('Test Localstorage. Show: ',  JSON.parse(localStorage.getItem('testVal')));
 
 
+    //get active users from matomo
+    /*
+      this.matomoService.getActiveUsers(selectedDate);
+      this.activeUsersSub = this.matomoService.getActiveUsersRetrivedListener()
+      .subscribe((response: activeUser)=>{
 
-    })
+        //localStorage.setItem('activeUser', JSON.stringify(response.value));
+          this.activeUserData = response.value;
 
-    this.matomoService.getActiveUsers(selectedDate);
-    this.activeUsersSub = this.matomoService.getActiveUsersRetrivedListener()
-    .subscribe((response: activeUser)=>{
+      });
 
-      //localStorage.setItem('activeUser', JSON.stringify(response.value));
-      this.activeUserData = response.value;
-
-    })
-
-    this.matomoService.getVisitActions(selectedDate);
-    this.visitActionsSub = this.matomoService.getVisitActionsRetrivedListener()
-    .subscribe((response: activeUser)=>{
-      this.visitActionData = response.value;
-
-    })
-
-    this.visitorsData = '3';
-
-    console.log('DateData:', selectedDate);
-    console.log('Visitors: ', this.visitorsData);
-    console.log('ActiveUser: ', this.activeUserData);
-    console.log('pageViewData:', this.pageViewData);
-    console.log('uniqPageViewData:', this.uniquePageViewData);
-    console.log('VisitActions: ', this.visitActionData);
-    console.log('Visitors:', this.newSignup);
+      //get actions value from matomo
+      this.matomoService.getVisitActions(selectedDate);
+      this.visitActionsSub = this.matomoService.getVisitActionsRetrivedListener()
+      .subscribe((response: activeUser)=>{
+        this.visitActionData = response.value;
+       });
 
 
+       //get number of visitor from matomo
 
+
+      if(this.pageViewAndUniqIsDone){
+        console.log('Date:', selectedDate);
+        console.log('Visitors: ', this.visitorsData);
+        console.log('Users: ', this.activeUserData);
+        console.log('PageViewData:', this.pageViewData);
+        console.log('UniqPageView:', this.uniquePageViewData);
+        console.log('Actions: ', this.visitActionData);
+        console.log('newSignup:', this.newSignup);
+      }
+      */
+
+
+      this.activityDateData = selectedDate;
+      //this.visitorsData = '3';
+
+      this.matomoService.getAllUserMetricByDate(selectedDate);
+      this.allUserMetricByDateSub = this.matomoService.getAllUserMetricByDateListener()
+      .subscribe((response:AllUserMetric)=>{
+        console.log('All User Metric Data of ',selectedDate,': ', response);
+        console.log('Page Views:', response.nb_pageviews);
+        console.log('Uniq Page Views:', response.nb_uniq_pageviews);
+        console.log('Users:', response.nb_users);
+        console.log('Visitors:', response.nb_visits);
+        console.log('Max Action:',response.max_actions);
+        console.log('Avg time on site',response.avg_time_on_site);
+
+        this.visitorsData = response.nb_visits;
+        this.activeUserData = response.nb_users;
+        this.pageViewData = response.nb_pageviews;
+        this.uniquePageViewData = response.nb_uniq_pageviews;
+        this.visitActionData = response.max_actions;
+
+
+
+      });
+
+      this.createOrUpdateUserActivity(selectedDate, this.visitorsData, this.activeUserData,this.pageViewData,this.uniquePageViewData,this.visitActionData);
+
+  }//end of getUserActivityMatomo method
+
+
+  /*auto create or update existing user activity record into database*/
+  createOrUpdateUserActivity(selectedDate, visitorsData, activeUserData, pageViewData, uniquePageViewData, visitActionData){
+    /*Get user activiy record by date from database*/
+    this.userActivityService.getUserActivitiesByDate(selectedDate);
     this.userActivityByDateSub = this.userActivityService.getUserActivitiesByDateListener()
-    .subscribe((response)=>{
+    .subscribe((responseData)=>{
       console.log('User activity record of ',selectedDate, ' found!');
       //this.userActivities = response;
-      console.log('User Activity by date of ',selectedDate,'. Result: ', JSON.stringify(response));
+      console.log('User Activity by date of ',selectedDate,'. Result: ', JSON.stringify(responseData));
       //console.log('user activity id: ', JSON.stringify(response._id));
-      this.createOrUpdateUserActivity(response, selectedDate, this.visitorsData, this.activeUserData,this.pageViewData,this.uniquePageViewData,this.visitActionData);
-    })
-    this.userActivityService.getUserActivitiesByDate(selectedDate);
+
+      /*
+      if(response && selectedDate && this.visitorsData && this.activeUserData && this.pageViewData && this.uniquePageViewData && this.visitActionData){
+          this.createOrUpdateUserActivity(response, selectedDate, this.visitorsData, this.activeUserData,this.pageViewData,this.uniquePageViewData,this.visitActionData);
+      }
+      */
 
 
-
-
-
-
-
-
-
-
-  }
-
-  createOrUpdateUserActivity(responseData, selectedDate, visitorsData, activieUserData, pageViewData, uniquePageViewData, visitActionData){
     if(responseData.length==0){
       //Add new activity data if no exisiting data
       console.log('No User Activity found on selected date!');
       console.log('Creating new user activity data');
 
-      /*
+
       this.userActivityService.addUserActivity(
         this.activityDateData,
         this.visitorsData,
@@ -224,7 +306,7 @@ export class TableUserBehaviorComponent implements OnInit {
         this.uniquePageViewData,
         this.visitActionData
         );
-        */
+
     }
     else{
       //update activity data for the targetted date
@@ -232,20 +314,28 @@ export class TableUserBehaviorComponent implements OnInit {
       console.log('ID received: ',responseData[0]._id);
       //console.log('user activity id: ', JSON.stringify(responseData._id));
 
+      console.log('Checking before update. Selected data:', selectedDate, 'Visitors: ', visitorsData
+      ,'Users: ', activeUserData, 'Page View: ', pageViewData, 'Uniq Page view: ', pageViewData, 'Max Action:'
+      , visitActionData);
       this.userActivityService.updateUserActivity(
         responseData[0]._id,
         selectedDate,
         visitorsData,
-        activieUserData,
+        activeUserData,
         pageViewData,
         uniquePageViewData,
         visitActionData,
         this.newSignup
       );
-
-
-
     }
+
+
+    });
+
+
+
+
+
   }
 
 
@@ -263,7 +353,10 @@ export class TableUserBehaviorComponent implements OnInit {
   }
 
   sortAndPaginator() {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator
+    }
+    );
     setTimeout(() => this.dataSource.sort = this.sort);
   }
 
@@ -345,7 +438,6 @@ export interface UserActivityFromDatabase{
   actions: string,
   _v: string
 }
-
 
 
 

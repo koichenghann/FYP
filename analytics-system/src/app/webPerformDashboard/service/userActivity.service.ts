@@ -5,16 +5,18 @@ import { Router} from '@angular/router';
 import { map } from 'rxjs/operators';
 import { UserActivity } from '../model/userActivity.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserActivityFromDatabase } from '../model/userActivityFromDatabase.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserActivityService {
   private userActivities: UserActivity[] = [];
+  private userActivityFromDatabase: UserActivityFromDatabase[] = [];
   private userActivitiesUpdated = new Subject<UserActivity[]>();
 
   private userActivitiesRetrievedListener = new Subject<UserActivity[]>();
-  private userActivitiesByDateListener = new Subject<UserActivity[]>();
+  private userActivitiesByDateListener = new Subject<UserActivityFromDatabase[]>();
   private userActivitiesCreatedListener = new Subject<UserActivity[]>();
   private userActivitiesUpdatedListener = new Subject<UserActivity[]>();
 
@@ -69,8 +71,8 @@ export class UserActivityService {
     .subscribe((responseData) =>{
       console.log('Res data: ',responseData.userActivities);
       console.log('Message from server: ', responseData.message);
-      this.userActivities = responseData.userActivities;
-      this.userActivitiesByDateListener.next(this.userActivities);
+      this.userActivityFromDatabase = responseData.userActivities;
+      this.userActivitiesByDateListener.next(this.userActivityFromDatabase);
 
     }, error => {
       console.log('get User Activity failed');
