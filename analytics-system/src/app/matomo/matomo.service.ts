@@ -146,6 +146,7 @@ export class MatomoService {
       'http://localhost/matomo/index.php?date='+selectedDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=1&method=API.get&module=API&period=day&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
       ).subscribe(res => {
         console.log('Visitor Actions:', res);
+
         this.allUserMetricByDateListener.next(res);
     })
   }
