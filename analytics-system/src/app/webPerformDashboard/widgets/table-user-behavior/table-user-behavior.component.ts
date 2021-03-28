@@ -52,6 +52,8 @@ export class TableUserBehaviorComponent implements OnInit {
   visitActionData;
   newSignup ='0';
 
+  getUserActivityByDateDataID;
+
   //object
   userActivityData;
 
@@ -83,7 +85,10 @@ export class TableUserBehaviorComponent implements OnInit {
 
     //console.log(this.date.value);
     //this.setSelectedDate();
+
+    /* HERE TO UNLOCK
     this.getUserActivityMatomo(this.todayData());
+    */
 
     //get Behaviour data with selected date
     this.matomoService.getBehaviors(this.todayData());
@@ -181,7 +186,9 @@ export class TableUserBehaviorComponent implements OnInit {
     }
     );
 
-    //this.getUserActivityMatomo(formattedDate);
+    /* HERE TO UNLOCK*/
+      this.getUserActivityMatomo(formattedDate);
+
   }
 
 
@@ -277,16 +284,20 @@ export class TableUserBehaviorComponent implements OnInit {
 
       });
 
+      this.createOrUpdateUserActivity(
+        selectedDate,
+        this.visitorsData,
+        this.activeUserData,
+        this.pageViewData,
+        this.uniquePageViewData,
+         this.visitActionData);
+
       if(this.getMetricIsDone){
         console.log('Get Metrics data is done!');
 
-        this.createOrUpdateUserActivity(
-          selectedDate,
-          this.visitorsData,
-          this.activeUserData,
-          this.pageViewData,
-          this.uniquePageViewData,
-          this.visitActionData);
+
+
+          //this.getMetricIsDone = false;
 
       }
 
@@ -329,8 +340,9 @@ export class TableUserBehaviorComponent implements OnInit {
       console.log('User activity record of ',selectedDate, ' found!');
       //this.userActivities = response;
       console.log('User Activity by date of ',selectedDate,'. Result: ', JSON.stringify(responseData));
-      //console.log('user activity id: ', JSON.stringify(response._id));
+      console.log('user activity id: ', JSON.stringify(responseData[0]._id));
 
+      this.getUserActivityByDateDataID = responseData[0]._id;
       this.getUserActivityByDateData = responseData;
       this.getUAisDone = true;
 
@@ -345,15 +357,24 @@ export class TableUserBehaviorComponent implements OnInit {
 
     });
 
+    console.log('Get UA is done. Proceed to AddOrUpdate record.');
+        this.AddOrUpdateResolver(
+          this.getUserActivityByDateData,
+          selectedDate,
+          visitorsData,
+          activeUserData,
+          pageViewData,
+          uniquePageViewData,
+          visitActionData);
+          //this.getUAisDone=false;
 
 
+          /*
     if(this.getUAisDone){
 
-        console.log('Get UA is done. Proceed to AddOrUpdate record.');
-        this.AddOrUpdateResolver(this.getUserActivityByDateData,selectedDate, visitorsData, activeUserData, pageViewData, uniquePageViewData, visitActionData);
-          //getUAisDone=true;
 
-    }
+
+    }*/
 
   }
 
@@ -387,7 +408,7 @@ export class TableUserBehaviorComponent implements OnInit {
       ,'Users: ', activeUserData, 'Page View: ', pageViewData, 'Uniq Page view: ', pageViewData, 'Max Action:'
       , visitActionData);
       this.userActivityService.updateUserActivity(
-        getUserActivityByDateData._id,
+        this.getUserActivityByDateDataID,
         selectedDate,
         visitorsData,
         activeUserData,

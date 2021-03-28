@@ -78,6 +78,8 @@ console.log('createUserAcvitity method ran!')
 }
 
 exports.updateUserActivity = (req, res, next) =>{
+  var updated = false;
+
   const updatedUserActivity = {
     date: req.body.date,
     visitors: req.body.visitors,
@@ -90,6 +92,7 @@ exports.updateUserActivity = (req, res, next) =>{
   UserActivity.updateOne({_id: req.params.id}, updatedUserActivity).then( response => {
       console.log("User Activity updated: " + JSON.stringify(response));
       res.status(200).json({message: " User Activity Updated successfully for date "+ req.body.date})
+      updated = true;
     })
     .catch( error => {
       res.status(500).json({
@@ -97,4 +100,9 @@ exports.updateUserActivity = (req, res, next) =>{
         error: error
       })
     });
+
+  if(updated){
+    console.log(" User Activity Updated successfully for date "+ req.body.date);
   }
+
+}

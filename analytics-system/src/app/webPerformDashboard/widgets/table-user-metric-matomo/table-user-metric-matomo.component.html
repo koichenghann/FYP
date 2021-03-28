@@ -1,0 +1,125 @@
+
+
+  <div fxLayout="row" class="header-row">
+
+
+    <!-- Filter -->
+
+    <div class="main-wrapper">
+      <div  fxLayout="row">
+        <!-- Card Header -->
+        <div class="table-title">
+          Detailed User Activity Analysis
+        </div>
+        <div class="filler"></div>
+
+        <div>
+          <form class="date-block" [formGroup]="filterForm">
+            <div class="date-block__list">
+              <mat-form-field>
+                <input matInput
+                  [matDatepicker]="fromDate"
+                  placeholder="From Date"
+                  formControlName="fromDate">
+                <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+              <div class="date-block__list">
+              <mat-form-field>
+                <input matInput
+                  [matDatepicker]="toDate"
+                  placeholder="To Date"
+                  formControlName="toDate">
+                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                <mat-datepicker #toDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+             <button mat-button color="primary" class="primary" (click)="applyFilter()">Filter</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+
+  <!-- Table -->
+
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="spending" matSortDirection="desc">
+
+      <!-- Channel Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      </ng-container>
+
+      <!-- Sessions Column -->
+      <ng-container matColumnDef="visitors">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Visitors </th>
+        <td mat-cell *matCellDef="let element"> {{element.visitors}} </td>
+      </ng-container>
+
+       <!-- Sessions Column -->
+       <ng-container matColumnDef="users">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Users </th>
+        <td mat-cell *matCellDef="let element"> {{element.users}} </td>
+      </ng-container>
+
+      <!-- Sessions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Actions </th>
+        <td mat-cell *matCellDef="let element"> {{element.actions}} </td>
+      </ng-container>
+
+      <!-- Percentage of Traffic Column -->
+      <ng-container matColumnDef="pageViews">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header class="header-cell"> Page Views </th>
+        <td mat-cell *matCellDef="let element"> {{element.pageViews}} </td>
+      </ng-container>
+
+      <!-- Change Column -->
+      <ng-container matColumnDef="uniquePageViews">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Uniq. Page views </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.uniquePageViews}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="newSignup">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Signed-up  </th>
+        <td mat-cell *matCellDef="let element">
+           {{element.newSignup}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div *ngIf="isLoading"
+          style="display: flex;
+          justify-content: center;
+          align-items: center;
+          background: white;">
+        <mat-spinner [diameter]="25"></mat-spinner>
+    </div>
+
+    <div class="container" *ngIf="firstLoad">
+      <div *ngIf="!gotNoDataAfterFilter"
+            style="display: flex;
+            padding-top: 8em;
+            justify-content: center;
+            align-items: center;
+            background: white;">
+            <p>No Data has recorded in between the two selected dates. Try another date.</p>
+      </div>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+
+

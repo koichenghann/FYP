@@ -21,6 +21,8 @@ export class MatomoService {
 
   private allUserMetricByDateListener = new Subject<any>();
 
+  private allUserMetricByMatomoListener = new Subject<any>();
+
 
 
   /*Device Platform Metric */
@@ -153,6 +155,21 @@ export class MatomoService {
 
   getAllUserMetricByDateListener(){
     return this.allUserMetricByDateListener.asObservable();
+  }
+
+
+  getAllUserMetricByMatomo(fromDate, toDate){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?date='+fromDate+','+toDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=1&method=API.get&module=API&period=day&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      ).subscribe(res => {
+        console.log('Visitor Actions:', res);
+
+        this.allUserMetricByMatomoListener.next(res);
+    })
+  }
+
+  getAllUserMetricByMatomoListener(){
+    return this.allUserMetricByMatomoListener.asObservable();
   }
 
 
