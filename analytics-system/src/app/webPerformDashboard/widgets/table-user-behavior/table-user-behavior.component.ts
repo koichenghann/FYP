@@ -86,9 +86,9 @@ export class TableUserBehaviorComponent implements OnInit {
     //console.log(this.date.value);
     //this.setSelectedDate();
 
-    /* HERE TO UNLOCK
-    this.getUserActivityMatomo(this.todayData());
-    */
+    /* HERE TO UNLOCK*/
+
+
 
     //get Behaviour data with selected date
     this.matomoService.getBehaviors(this.todayData());
@@ -111,6 +111,9 @@ export class TableUserBehaviorComponent implements OnInit {
 
     //Catch Pagination
     this.sortAndPaginator();
+
+
+    this.getUserActivityMatomo(this.todayData());
 
 
 
@@ -186,9 +189,9 @@ export class TableUserBehaviorComponent implements OnInit {
     }
     );
 
-    /* HERE TO UNLOCK*/
+    /* HERE TO UNLOCK
       this.getUserActivityMatomo(formattedDate);
-
+    */
   }
 
 
