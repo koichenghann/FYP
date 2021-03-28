@@ -9,6 +9,7 @@ import { Router} from '@angular/router';
 export class MatomoService {
   constructor(private http: HttpClient, private router:Router) { }
 
+  /**User */
   private todayVisitsRetrievedListener = new Subject<any>();
   private yesterdayVisitsRetrievedListener = new Subject<any>();
   private todayActionsRetrievedListener = new Subject<any>();
@@ -20,8 +21,10 @@ export class MatomoService {
   private visitActionsRetrievedListener = new Subject<any>();
 
   private allUserMetricByDateListener = new Subject<any>();
-
   private allUserMetricByMatomoListener = new Subject<any>();
+
+  /**Traffic */
+  private trafficSourceListener = new Subject<any>();
 
 
 
@@ -170,6 +173,22 @@ export class MatomoService {
 
   getAllUserMetricByMatomoListener(){
     return this.allUserMetricByMatomoListener.asObservable();
+  }
+
+
+  /**Traffic Source area */
+  getTrafficSourceChannel(selectedDate){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?date='+selectedDate+'&expanded=1&filter_limit=-1&format=JSON&idSite=1&method=Referrers.getReferrerType&module=API&period=day&segment=&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      ).subscribe(res => {
+        console.log('Traffic Channel got from service:', res);
+
+        this.trafficSourceListener.next(res);
+    })
+  }
+
+  getTrafficSourceChannelListener(){
+    return this.trafficSourceListener.asObservable();
   }
 
 

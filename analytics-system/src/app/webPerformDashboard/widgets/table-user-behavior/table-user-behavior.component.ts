@@ -77,9 +77,6 @@ export class TableUserBehaviorComponent implements OnInit {
   isEmpty = false;
   //dataSource = null;
 
-
-
-
   ngOnInit(): void {
     //this.getSelectedDate();
 
@@ -87,8 +84,6 @@ export class TableUserBehaviorComponent implements OnInit {
     //this.setSelectedDate();
 
     /* HERE TO UNLOCK*/
-
-
 
     //get Behaviour data with selected date
     this.matomoService.getBehaviors(this.todayData());
@@ -112,10 +107,8 @@ export class TableUserBehaviorComponent implements OnInit {
     //Catch Pagination
     this.sortAndPaginator();
 
-
+    /*UNLOCK HERE */
     this.getUserActivityMatomo(this.todayData());
-
-
 
   }
 
