@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { UserActivityService } from '../../service/userActivity.service';
 import { UserActivity } from '../../model/userActivity.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AllUserMetricMatomo } from '../../model/userActivityFromMatomo.model';
 
 @Component({
   selector: 'app-user-metric-matomo-table',
@@ -16,6 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./table-user-metric-matomo.component.scss']
 })
 export class TableUserMetricMatomoComponent implements OnInit {
+
 
     filterForm = new FormGroup({
       fromDate: new FormControl(),
@@ -57,6 +59,7 @@ export class TableUserMetricMatomoComponent implements OnInit {
   //variables
   allUserActivityMatomoSub: Subscription;
   userActivities: UserActivity[] = [];
+  allUserMetricMatomo: AllUserMetricMatomo[] = [];
 
 
   constructor(private matomoService :MatomoService, private userActivityService:UserActivityService, private _snackBar: MatSnackBar) {
@@ -70,7 +73,7 @@ export class TableUserMetricMatomoComponent implements OnInit {
     this.matomoService.getAllUserMetricByMatomo(this.fromDate, this.toDate);
     this.allUserActivityMatomoSub = this.matomoService.getAllUserMetricByMatomoListener()
     .subscribe((res)=>{
-      console.log('All User Activity Data from Matomo: ', JSON.stringify(res));
+      console.log('All User Activity Data from Matomo: ', res);
       console.log(Object.keys(res));
       console.log(res['2021-03-22']);
 
@@ -80,14 +83,48 @@ export class TableUserMetricMatomoComponent implements OnInit {
 
         var keyOfUA = Object.keys(res);
 
+        var dateWithRecord = [];
+        var exisitingUserActivity = []
+
         for(var i in res){
+
           userActivityModified.push(res[i]);
-          userActivityModified[i].date = res;
+
         }
 
-        console.log('After Modified: ',userActivityModified);
+        for(var i in userActivityModified){
+          if(!Array.isArray(userActivityModified[i])){
+            dateWithRecord.push(keyOfUA[i]);
+          }
+        }
 
-        console.log('Converted of Key:', keyOfUA);
+        for (var i in userActivityModified){
+          if(!Array.isArray(userActivityModified[i])){
+
+            console.log('Adding Item:',userActivityModified[i]);
+            exisitingUserActivity.push(userActivityModified[i]);
+            //exisitingUserActivity[i].data['date'] =  keyOfUA[i];
+          }
+
+        }
+
+        for (var i in exisitingUserActivity){
+          exisitingUserActivity[i] = Object.assign(exisitingUserActivity[i], {date:dateWithRecord[i]});
+        }
+
+        this.dataSource = new MatTableDataSource<AllUserMetricMatomo>(exisitingUserActivity);
+        this.sortAndPaginator();
+
+
+
+
+
+        //console.log('After Modified: ',userActivityModified);
+        //console.log('Converted of Key:', keyOfUA);
+        //console.log('First item of Data:',keyOfUA[0]);
+        //console.log('Remove empty array record:', exisitingUserActivity);
+        //console.log('Date with Record: ', dateWithRecord);
+        //console.log('Detect Array:',Array.isArray(userActivityModified[2]));
 
 
 
@@ -153,6 +190,56 @@ export class TableUserMetricMatomoComponent implements OnInit {
   ngOnInit(): void {
     this.gotNoDataAfterFilter = true;
 
+
+    this.matomoService.getAllUserMetricByMatomo('2021-02-01', this.matomoService.getTodayDate());
+    this.allUserActivityMatomoSub = this.matomoService.getAllUserMetricByMatomoListener()
+    .subscribe((res)=>{
+      console.log('All User Activity Data from Matomo: ', res);
+      console.log(Object.keys(res));
+      console.log(res['2021-03-22']);
+
+      if(res!=undefined){
+        this.isLoading = false;
+
+        var userActivityModified = [];
+
+        var keyOfUA = Object.keys(res);
+
+        var dateWithRecord = [];
+        var exisitingUserActivity = []
+
+        for(var i in res){
+
+          userActivityModified.push(res[i]);
+
+        }
+
+        for(var i in userActivityModified){
+          if(!Array.isArray(userActivityModified[i])){
+            dateWithRecord.push(keyOfUA[i]);
+          }
+        }
+
+        for (var i in userActivityModified){
+          if(!Array.isArray(userActivityModified[i])){
+
+            console.log('Adding Item:',userActivityModified[i]);
+            exisitingUserActivity.push(userActivityModified[i]);
+            //exisitingUserActivity[i].data['date'] =  keyOfUA[i];
+          }
+
+        }
+
+        for (var i in exisitingUserActivity){
+          exisitingUserActivity[i] = Object.assign(exisitingUserActivity[i], {date:dateWithRecord[i]});
+        }
+
+        this.dataSource = new MatTableDataSource<AllUserMetricMatomo>(exisitingUserActivity);
+        this.sortAndPaginator();
+
+      }
+    });
+
     /*
     this.userActivityService.getAllUserActivities();
     this.allUserActivitySub = this.userActivityService.getUserActivityRetrievedListener()
@@ -194,8 +281,8 @@ export class TableUserMetricMatomoComponent implements OnInit {
 
 
 
-  displayedColumns: string[] = ['date','users', 'visitors', 'actions', 'pageViews', 'uniquePageViews', 'newSignup'];
-  dataSource = new MatTableDataSource<UserActivity>();
+  displayedColumns: string[] = ['date','users', 'visitors', 'actions', 'pageViews', /*'uniquePageViews',*/'avgTimeOnSite', 'newSignup'];
+  dataSource = new MatTableDataSource<AllUserMetricMatomo>();
   pipe: DatePipe;
 
 

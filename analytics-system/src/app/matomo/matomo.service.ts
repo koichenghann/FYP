@@ -28,11 +28,61 @@ export class MatomoService {
 
 
 
+  /* Return today's date */
+  getTodayDate(){
+    var today = new Date(),
+    month = '' + (today.getMonth() + 1),
+    day = '' + today.getDate(),
+    year = today.getFullYear();
+
+    if (month.length < 2)
+    month = '0' + month;
+    if (day.length < 2)
+    day = '0' + day;
+
+    var formattedDate = [year, month, day].join('-');
+    console.log('today Date:',formattedDate);
+    return formattedDate;
+  }
+
+  /* Return yesterday's date */
+  getYesterdayDate(){
+    var today = new Date();
+    var yesterday =  new Date();
+    yesterday.setDate(today.getDate() - 1)
+
+    var date =  new Date(),
+    month = '' + (yesterday.getMonth() + 1),
+    day = '' + yesterday.getDate(),
+    year = yesterday.getFullYear();
+
+    if (month.length < 2)
+    month = '0' + month;
+    if (day.length < 2)
+    day = '0' + day;
+
+    var formattedDate = [year, month, day].join('-');
+    console.log('Yesterday Date:',formattedDate);
+    return formattedDate;
+
+  }
+
   /*Device Platform Metric */
   getDevices(){
     this.http.get<any>('http://localhost/matomo/?module=API&method=DevicesDetection.getModel&idSite=1&period=month&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
     .subscribe(response => {
         console.log(response);
+    })
+  }
+
+  /*Get all main metric from today to yesterday */
+  getAllMainMetric(fromDate,toDate){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?date='+fromDate+','+toDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=1&method=API.get&module=API&period=day&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      ).subscribe(res => {
+        console.log('Visitor Actions:', res);
+
+        this.allUserMetricByDateListener.next(res);
     })
   }
 
@@ -190,6 +240,8 @@ export class MatomoService {
   getTrafficSourceChannelListener(){
     return this.trafficSourceListener.asObservable();
   }
+
+
 
 
 

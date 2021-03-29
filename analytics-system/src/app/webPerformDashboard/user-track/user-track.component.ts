@@ -24,6 +24,9 @@ export class UserTrackComponent implements OnInit{
   behaviorSub: Subscription;
 
 
+
+
+
   //todayVisitor: TodayVisitor[] = [];
   //Number of Today and Yesterday Visitor
   todayVisitor: number;
@@ -159,7 +162,7 @@ export class UserTrackComponent implements OnInit{
 
     });
 
-    var yesterdayDate = "2021-02-26";
+    var yesterdayDate = this.matomoService.getYesterdayDate();
     this.matomoService.getBehaviors(yesterdayDate);
     this.behaviorSub = this.matomoService.getBehaviorsRetrivedListener()
     .subscribe( (response) => {
@@ -175,6 +178,11 @@ export class UserTrackComponent implements OnInit{
       //this.setBehaviorData(response);
 
     });
+
+
+
+    console.log('Yesterday date:' ,this.matomoService.getYesterdayDate());
+
 
   }
 

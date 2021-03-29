@@ -61,38 +61,47 @@
       <!-- Sessions Column -->
       <ng-container matColumnDef="visitors">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Visitors </th>
-        <td mat-cell *matCellDef="let element"> {{element.visitors}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.nb_visits}} </td>
       </ng-container>
 
        <!-- Sessions Column -->
        <ng-container matColumnDef="users">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Users </th>
-        <td mat-cell *matCellDef="let element"> {{element.users}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.nb_users}} </td>
       </ng-container>
 
       <!-- Sessions Column -->
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Actions </th>
-        <td mat-cell *matCellDef="let element"> {{element.actions}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Actions (per Visit) </th>
+        <td mat-cell *matCellDef="let element"> {{element.nb_actions_per_visit}} </td>
       </ng-container>
 
       <!-- Percentage of Traffic Column -->
       <ng-container matColumnDef="pageViews">
         <th mat-header-cell *matHeaderCellDef  mat-sort-header class="header-cell"> Page Views </th>
-        <td mat-cell *matCellDef="let element"> {{element.pageViews}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.nb_pageviews}} </td>
       </ng-container>
 
+
       <!-- Change Column -->
+      <!--
       <ng-container matColumnDef="uniquePageViews">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Uniq. Page views </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Uniq. Page Views</th>
         <td mat-cell *matCellDef="let element">
-          {{element.uniquePageViews}} </td>
+          {{element.nb_uniq_pageviews}} </td>
+      </ng-container>
+      -->
+
+      <ng-container matColumnDef="avgTimeOnSite">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Avg. Time-on-site</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.avg_time_on_site}} </td>
       </ng-container>
 
       <ng-container matColumnDef="newSignup">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Signed-up  </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> New Signed-up  </th>
         <td mat-cell *matCellDef="let element">
-           {{element.newSignup}} </td>
+           {{element.nb_users_new}} </td>
       </ng-container>
 
 
