@@ -3,6 +3,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatomoService } from '../../matomo/matomo.service';
 import { TodayVisitor } from '../../matomo/todayVisitor.model';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { DatePipe } from '@angular/common';
+
 
 
 @Component({
@@ -12,7 +18,11 @@ import { Subscription } from 'rxjs';
 })
 
 export class UserTrackComponent implements OnInit{
-  constructor(private matomoService:MatomoService, private http: HttpClient){}
+  constructor(private matomoService:MatomoService, private http: HttpClient, public dialog: MatDialog){ }
+
+  openDialog() {
+    this.dialog.open(DialogPlatform);
+  }
 
   //numOfVisitors;
 
@@ -20,6 +30,8 @@ export class UserTrackComponent implements OnInit{
   /*Subscription Variables */
   allUserActivityMatomoSub: Subscription;
   behaviorSub: Subscription;
+  platformBrowser: Subscription;
+  platformOS: Subscription;
 
 
   /*Number of Today and Yesterday Visitor*/
@@ -40,28 +52,36 @@ export class UserTrackComponent implements OnInit{
 
   /*Variable of today's user behavior summary*/
   todayBounceRate;
-  todayExitRate;
-  todayAvgTimeOnPage;
+  todayDirectEntry;
+  todayAvgTimeOnSite;
 
   /*Variable of yesterday's user behavior summary*/
   yesterdayBounceRate;
-  yesterdayExitRate;
-  yesterdayAvgTimeOnPage;
+  yesterdayDirectEntry;
+  yesterdayAvgTimeOnSite;
 
   /*Calculated Percentange */
   visitPercent: string;
   actionPercent: string;
   signedUpPercent: string;
   bouncePercent: string;
+  directPercent: string;
+  onSitePercent: string;
 
   /* Icon dynamically */
   arrow: string;
   arrowAct: string;
   arrowSignup: string;
   arrowBounce: string;
+  arrowDirect: string;
+  arrowOnSite: string;
 
   /*Get today date */
   todayDate: Date = new Date();
+
+  /**Spinner */
+  isLoading = true;
+
 
   ngOnDestroy() {
     //this.todayVisitorSub.unsubscribe();
@@ -84,6 +104,8 @@ export class UserTrackComponent implements OnInit{
 
   }
 
+
+
   getMetricData(){
     this.matomoService.getAllUserMetricByMatomo(this.matomoService.getYesterdayDate(), this.matomoService.getTodayDate());
     this.allUserActivityMatomoSub = this.matomoService.getAllUserMetricByMatomoListener()
@@ -93,6 +115,7 @@ export class UserTrackComponent implements OnInit{
       //console.log(res['2021-03-22']);
 
       if(res!=undefined){
+        this.isLoading = false;
 
         var userActivityModified = [];
 
@@ -166,12 +189,16 @@ export class UserTrackComponent implements OnInit{
         /*Bounce rate */
         this.todayBounceRate = exisitingUserActivity[1].bounce_rate;
         this.yesterdayBounceRate = exisitingUserActivity[0].bounce_rate;
-        console.log(exisitingUserActivity[1].bounce_rate);
-        console.log(exisitingUserActivity[0].bounce_rate);
+        //console.log(exisitingUserActivity[1].bounce_rate);
+        //console.log(exisitingUserActivity[0].bounce_rate);
 
-        //this.todayNewSignedUp = exisitingUserActivity[1].nb_users_new;
-        //this.yesterdayNewSignedUp = exisitingUserActivity[0].nb_users_new;
+        /*Direct Entry */
+        this.todayDirectEntry = exisitingUserActivity[1].Referrers_visitorsFromDirectEntry_percent;
+        this.yesterdayDirectEntry = exisitingUserActivity[0].Referrers_visitorsFromDirectEntry_percent;
 
+        /*Average on time site */
+        this.todayAvgTimeOnSite = exisitingUserActivity[1].avg_time_on_site;
+        this.yesterdayAvgTimeOnSite = exisitingUserActivity[0].avg_time_on_site;
 
         /*Calculation of Visitors */
         this.calVisitorPercent(this.yesterdayVisitor, this.todayVisitor);
@@ -182,8 +209,14 @@ export class UserTrackComponent implements OnInit{
         /*Calculation of New Signed-up */
         this.calNewSignUpPercent(this.yesterdayNewSignedUp, this.todayNewSignedUp)
 
+        /*Calculation of Bounce Rate */
         this.calBouncePercent(this.yesterdayBounceRate, this.todayBounceRate);
 
+        /*Calculation of Direct Entry*/
+        this.calDirectEntryPercent(this.yesterdayDirectEntry, this.todayDirectEntry);
+
+        /*Calculation of Average time on site */
+        this.calAvgTimeOnSitePercent(this.yesterdayAvgTimeOnSite, this.todayAvgTimeOnSite);
 
       }
 
@@ -197,6 +230,7 @@ export class UserTrackComponent implements OnInit{
   calVisitorPercent(yesterdayVisitor, todayVisitor){
      //var a =  this.getTydVisit();
      //var b = this.getYtdVisit();
+
      var a = todayVisitor;
      var b = yesterdayVisitor;
      var c = (a/b * 100) - 100
@@ -258,36 +292,99 @@ export class UserTrackComponent implements OnInit{
    console.log("Calculated New Signup: ",this.signedUpPercent);
  }
 
- //Calculate for New signed-up Percentage
- calBouncePercent(yesterdayBounceRate, todayBounceRate){
-  //var a =  this.getTydAction();
-  //var b = this.getYtdAction();
-  var a = parseFloat(todayBounceRate);
-  var b = parseFloat(yesterdayBounceRate);
-  var c = (a/b * 100) - 100;
+  //Calculate for New signed-up Percentage
+  calBouncePercent(yesterdayBounceRate, todayBounceRate){
+    //var a =  this.getTydAction();
+    //var b = this.getYtdAction();
+    var a = parseFloat(todayBounceRate);
+    var b = parseFloat(yesterdayBounceRate);
+    var c = (a/b * 100) - 100;
 
-  if(c==NaN){
-    this.bouncePercent = '0';
-  }
-  else{
-    this.bouncePercent = c.toFixed(1);
-  }
+    if(c==NaN){
+      this.bouncePercent = '0';
+    }
+    else{
+      this.bouncePercent = c.toFixed(1);
+    }
 
 
-  if (c < 0.0){
-    this.arrowBounce="fas fa-caret-down fas_icon_3";
+    if (c < 0.0){
+      this.arrowBounce="fas fa-caret-down fas_icon_3";
+    }
+    else if (c > 0.0){
+    this.arrowBounce="fas fa-caret-up";
+    }
+    else if (c==NaN){
+      this.arrowBounce="fas fa-caret-down fas_icon_3";
+    }
+    else{
+    this.arrowBounce="";
+    }
+  console.log("Calculated Bounce Rate: ",this.bouncePercent);
   }
-  else if (c > 0.0){
-   this.arrowBounce="fas fa-caret-up";
+
+   /*Calculate for Direct Entry Percentage*/
+   calDirectEntryPercent(yesterdayDirectEntry, todayDirectEntry){
+    //var a =  this.getTydAction();
+    //var b = this.getYtdAction();
+    var a = parseFloat(todayDirectEntry);
+    var b = parseFloat(yesterdayDirectEntry);
+    var c = (a/b * 100) - 100;
+
+    if(c==NaN){
+      this.directPercent = '0';
+    }
+    else{
+      this.directPercent = c.toFixed(1);
+    }
+
+
+    if (c < 0.0){
+      this.arrowDirect="fas fa-caret-down fas_icon_3";
+    }
+    else if (c > 0.0){
+    this.arrowDirect="fas fa-caret-up";
+    }
+    else if (c==NaN){
+      this.arrowDirect="fas fa-caret-down fas_icon_3";
+    }
+    else{
+    this.arrowDirect="";
+    }
+  console.log("Calculated Bounce Rate: ",this.directPercent);
   }
-  else if (c==NaN){
-    this.arrowBounce="fas fa-caret-down fas_icon_3";
+
+  /*Calculate for Direct Entry Percentage*/
+  calAvgTimeOnSitePercent(yesterdayAvgTimeOnSite, todayAvgTimeOnSite){
+    //var a =  this.getTydAction();
+    //var b = this.getYtdAction();
+    var a = parseFloat(todayAvgTimeOnSite);
+    var b = parseFloat(yesterdayAvgTimeOnSite);
+    var c = (a/b * 100) - 100;
+
+    if(c==NaN){
+      this.onSitePercent = '0';
+    }
+    else{
+      this.onSitePercent = c.toFixed(1);
+    }
+
+
+    if (c < 0.0){
+      this.arrowOnSite="fas fa-caret-down fas_icon_3";
+    }
+    else if (c > 0.0){
+    this.arrowOnSite="fas fa-caret-up";
+    }
+    else if (c==NaN){
+      this.arrowOnSite="fas fa-caret-down fas_icon_3";
+    }
+    else{
+    this.arrowOnSite="";
+    }
+  console.log("Calculated Bounce Rate: ",this.onSitePercent);
   }
-  else{
-   this.arrowBounce="";
-  }
- console.log("Calculated Bounce Rate: ",this.bouncePercent);
-}
+
 
 }
 
@@ -314,6 +411,65 @@ export interface BehaviorList{
   segment: string,
   sum_time_spent: number,
   url: string,
+}
+
+@Component({
+  selector: 'platform-dialog',
+  templateUrl: './platform-dialog.html',
+  styleUrls: ['./platform-dialog.scss'],
+})
+export class DialogPlatform implements OnInit {
+
+  constructor(private matomoService:MatomoService){ }
+   /*Subscription Variables */
+  platformBrowserSub: Subscription;
+  platformOSSub: Subscription;
+
+  isLoading;
+  firstLoad;
+
+  todayDate;
+
+
+  displayedColumns: string[] = ['logo','label','visitors'];
+  dataSource = new MatTableDataSource<any>();
+
+  displayedColumnsOS: string[] = ['logo','label','visitors'];
+  dataSourceOS = new MatTableDataSource<any>();
+
+  ngOnInit(): void{
+    this.getPlatformBrowser();
+    this.getPlatformOS();
+
+    this.todayDate = this.matomoService.getTodayDate();
+  }
+
+  ngOnDestroy() {
+    //this.todayVisitorSub.unsubscribe();
+    //this.yesterdayVisitorSub.unsubscribe();
+    //this.behaviorSub.unsubscribe();
+    //this.allUserActivityMatomoSub.unsubscribe();
+  }
+
+  getPlatformOS(){
+    this.matomoService.getPlatformOS(this.matomoService.getYesterdayDate());
+    this.platformOSSub = this.matomoService.getPlatformOSListener()
+    .subscribe((res)=>{
+      console.log('Platform Browser:', res);
+      this.dataSourceOS = new MatTableDataSource<any>(res);
+
+    });
+  }
+
+  getPlatformBrowser(){
+    this.matomoService.getPlatformBrowser(this.matomoService.getYesterdayDate());
+    this.platformBrowserSub = this.matomoService.getPlatformBrowserListener()
+    .subscribe((res)=>{
+      console.log('Platform OS:', res);
+      this.dataSource = new MatTableDataSource<any>(res);
+
+    });
+  }
 }
 
 /* ----  Old coding codes ---- */

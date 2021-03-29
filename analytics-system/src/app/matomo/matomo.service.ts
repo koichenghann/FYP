@@ -26,6 +26,10 @@ export class MatomoService {
   /**Traffic */
   private trafficSourceListener = new Subject<any>();
 
+  /*Platform */
+  private platformBrowserListener = new Subject<any>();
+  private platformOSListener = new Subject<any>();
+
 
 
   /* Return today's date */
@@ -241,6 +245,33 @@ export class MatomoService {
     return this.trafficSourceListener.asObservable();
   }
 
+  getPlatformBrowser(todayDate){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?date='+todayDate+'&expanded=1&filter_limit=10&format=JSON&idSite=1&method=DevicesDetection.getBrowsers&module=API&period=day&segment=&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      ).subscribe(res => {
+        console.log('Platform got from service:', res);
+
+        this.platformBrowserListener.next(res);
+    })
+  }
+
+  getPlatformBrowserListener(){
+    return this.platformBrowserListener.asObservable();
+  }
+
+  getPlatformOS(todayDate){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?date='+todayDate+'&expanded=1&filter_limit=10&format=JSON&idSite=1&method=DevicesDetection.getOsVersions&module=API&period=day&segment=&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      ).subscribe(res => {
+        console.log('Traffic Channel got from service:', res);
+
+        this.platformOSListener.next(res);
+    })
+  }
+
+  getPlatformOSListener(){
+    return this.platformOSListener.asObservable();
+  }
 
 
 

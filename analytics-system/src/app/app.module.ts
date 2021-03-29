@@ -123,6 +123,9 @@ import { DashboardFypComponent } from './sellers/dashboard-fyp/dashboard-fyp.com
 import { TopProductsTableComponent } from './sellers/dashboard-fyp/top-products-table/top-products-table.component';
 import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kpi-list-table.component';
 
+import { DialogPlatform } from './webPerformDashboard/user-track/user-track.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -192,6 +195,7 @@ import { KpiListTableComponent } from './sellers/dashboard-fyp/kpi-list-table/kp
     DashboardFypComponent,
     TopProductsTableComponent,
     KpiListTableComponent,
+    DialogPlatform
 
 
 
