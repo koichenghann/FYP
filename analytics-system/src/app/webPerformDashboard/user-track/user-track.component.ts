@@ -15,65 +15,332 @@ export class UserTrackComponent implements OnInit{
   constructor(private matomoService:MatomoService, private http: HttpClient){}
 
   //numOfVisitors;
-  todayVisitorSub: Subscription;
-  yesterdayVisitorSub: Subscription;
 
-  todayActionsSub: Subscription;
-  yesterdayActionsSub: Subscription;
 
+  /*Subscription Variables */
+  allUserActivityMatomoSub: Subscription;
   behaviorSub: Subscription;
 
 
-
-
-
-  //todayVisitor: TodayVisitor[] = [];
-  //Number of Today and Yesterday Visitor
+  /*Number of Today and Yesterday Visitor*/
   todayVisitor: number;
   yesterdayVisitor: number;
 
-   //Number of Today and Yesterday Action
+   /*Number of Today and Yesterday Action*/
   todayAction: number;
   yesterdayAction: number;
+
+  /*Number of new signed up */
+  todayNewSignedUp: number;
+  yesterdayNewSignedUp: number;
+
 
   todayBehaviorList: BehaviorList[] =[];
   yesterdayBehaviorList: BehaviorList[] =[];
 
-  //today user behavior summary
+  /*Variable of today's user behavior summary*/
   todayBounceRate;
   todayExitRate;
   todayAvgTimeOnPage;
-  todayConvrtRate;
 
+  /*Variable of yesterday's user behavior summary*/
   yesterdayBounceRate;
   yesterdayExitRate;
   yesterdayAvgTimeOnPage;
-  yesterdayConvrtRate;
 
-  ytdVisitVal: number;
-  tdyVisitVal: number;
-  ytdActionVal: number;
-  tdyActionVal: number;
+  /*Calculated Percentange */
   visitPercent: string;
   actionPercent: string;
+  signedUpPercent: string;
+  bouncePercent: string;
+
+  /* Icon dynamically */
   arrow: string;
   arrowAct: string;
+  arrowSignup: string;
+  arrowBounce: string;
+
+  /*Get today date */
   todayDate: Date = new Date();
 
-  ngOnInit(): void{
+  ngOnDestroy() {
+    //this.todayVisitorSub.unsubscribe();
+    //this.yesterdayVisitorSub.unsubscribe();
+    //this.behaviorSub.unsubscribe();
+    this.allUserActivityMatomoSub.unsubscribe();
+  }
 
+  ngOnInit(): void{
     //console.log(this.matomoService.getNumOfVisitors());
     //this.matomoService.getTodayVisits();
 
     //var numOfVisitors = this.matomoService.getVisitsRetrievedListener();
 
     //console.log('Number of Visitors:', this.matomoService.getTodayVisits());
+    this.getMetricData();
+    console.log('Yesterday date:' ,this.matomoService.getYesterdayDate());
 
+
+
+  }
+
+  getMetricData(){
+    this.matomoService.getAllUserMetricByMatomo(this.matomoService.getYesterdayDate(), this.matomoService.getTodayDate());
+    this.allUserActivityMatomoSub = this.matomoService.getAllUserMetricByMatomoListener()
+    .subscribe((res)=>{
+      console.log('All User Activity Data from Matomo: ', res);
+      console.log(Object.keys(res));
+      //console.log(res['2021-03-22']);
+
+      if(res!=undefined){
+
+        var userActivityModified = [];
+
+        var keyOfUA = Object.keys(res);
+
+        var dateWithRecord = [];
+        var exisitingUserActivity = []
+
+        /*Converting JSON data to usable data*/
+        for(var i in res){
+
+          userActivityModified.push(res[i]);
+
+        }
+
+        for(var i in userActivityModified){
+          if(!Array.isArray(userActivityModified[i])){
+            dateWithRecord.push(keyOfUA[i]);
+          }
+        }
+
+        for (var i in userActivityModified){
+          if(!Array.isArray(userActivityModified[i])){
+
+            console.log('Adding Item:',userActivityModified[i]);
+            exisitingUserActivity.push(userActivityModified[i]);
+            //exisitingUserActivity[i].data['date'] =  keyOfUA[i];
+          }
+
+        }
+
+        for (var i in exisitingUserActivity){
+          exisitingUserActivity[i] = Object.assign(exisitingUserActivity[i], {date:dateWithRecord[i]});
+        }
+
+        //this.dataSource = new MatTableDataSource<AllUserMetricMatomo>(exisitingUserActivity);
+        //this.sortAndPaginator();
+
+        //console.log('After Modified: ',userActivityModified);
+        //console.log('Converted of Key:', keyOfUA);
+        //console.log('First item of Data:',keyOfUA[0]);
+        console.log('Remove empty array record:', exisitingUserActivity);
+        //console.log('Date with Record: ', dateWithRecord);
+        //console.log('Detect Array:',Array.isArray(userActivityModified[2]));
+
+        /** -- Set data to dashboard -- */
+        /*Number of Visitors */
+        this.todayVisitor = exisitingUserActivity[1].nb_visits;
+        this.yesterdayVisitor = exisitingUserActivity[0].nb_visits;
+
+        /*Number of Actions */
+        this.todayAction = exisitingUserActivity[1].nb_actions;
+        this.yesterdayAction = exisitingUserActivity[0].nb_actions;
+
+
+        /*Number of new signed-up*/
+        if(exisitingUserActivity[0].nb_users_new==null){
+          this.yesterdayNewSignedUp = 0;
+        }
+        else{
+          this.yesterdayNewSignedUp = exisitingUserActivity[0].nb_users_new;
+        }
+
+        if(exisitingUserActivity[1].nb_users_new==null){
+          this.todayNewSignedUp = 0;
+        }
+        else{
+          this.todayNewSignedUp = exisitingUserActivity[1].nb_users_new;
+        }
+
+        /*Bounce rate */
+        this.todayBounceRate = exisitingUserActivity[1].bounce_rate;
+        this.yesterdayBounceRate = exisitingUserActivity[0].bounce_rate;
+        console.log(exisitingUserActivity[1].bounce_rate);
+        console.log(exisitingUserActivity[0].bounce_rate);
+
+        //this.todayNewSignedUp = exisitingUserActivity[1].nb_users_new;
+        //this.yesterdayNewSignedUp = exisitingUserActivity[0].nb_users_new;
+
+
+        /*Calculation of Visitors */
+        this.calVisitorPercent(this.yesterdayVisitor, this.todayVisitor);
+
+        /*Calculation of Actions */
+        this.calActionPercent(this.yesterdayAction, this.todayAction);
+
+        /*Calculation of New Signed-up */
+        this.calNewSignUpPercent(this.yesterdayNewSignedUp, this.todayNewSignedUp)
+
+        this.calBouncePercent(this.yesterdayBounceRate, this.todayBounceRate);
+
+
+      }
+
+
+      //this.dataSource = new MatTableDataSource<any>(Object.keys(res));
+
+    });
+  }
+
+  /*Calculate for Visitor Percentage*/
+  calVisitorPercent(yesterdayVisitor, todayVisitor){
+     //var a =  this.getTydVisit();
+     //var b = this.getYtdVisit();
+     var a = todayVisitor;
+     var b = yesterdayVisitor;
+     var c = (a/b * 100) - 100
+     this.visitPercent = c.toFixed(1);
+
+     if (c < 0.0){
+      this.arrow="fas fa-caret-down fas_icon_3";
+     }
+     else if (c > 0.0){
+      this.arrow="fas fa-caret-up";
+     }
+     else{
+      this.arrow="";
+     }
+
+    console.log("Calculated: ",this.visitPercent);
+
+  }
+
+  /*Calculate for Action Percentage*/
+  calActionPercent(yesterdayAction, todayAction){
+    //var a =  this.getTydAction();
+    //var b = this.getYtdAction();
+    var a = todayAction;
+    var b = yesterdayAction;
+    var c = (a/b * 100) - 100
+    this.actionPercent = c.toFixed(1);
+
+    if (c < 0.0){
+     this.arrowAct="fas fa-caret-down fas_icon_3";
+    }
+    else if (c > 0.0){
+     this.arrowAct="fas fa-caret-up";
+    }
+    else{
+     this.arrowAct="";
+    }
+   console.log("Calculated action: ",this.actionPercent);
+ }
+
+  //Calculate for New signed-up Percentage
+  calNewSignUpPercent(yesterdayNewSignedUp, todayNewSignedUp){
+    //var a =  this.getTydAction();
+    //var b = this.getYtdAction();
+    var a = todayNewSignedUp;
+    var b = yesterdayNewSignedUp;
+    var c = (a/b * 100) - 100
+    this.signedUpPercent = c.toFixed(1);
+
+    if (c < 0.0){
+      this.arrowSignup="fas fa-caret-down fas_icon_3";
+    }
+    else if (c > 0.0){
+     this.arrowSignup="fas fa-caret-up";
+    }
+    else{
+     this.arrowSignup="";
+    }
+   console.log("Calculated New Signup: ",this.signedUpPercent);
+ }
+
+ //Calculate for New signed-up Percentage
+ calBouncePercent(yesterdayBounceRate, todayBounceRate){
+  //var a =  this.getTydAction();
+  //var b = this.getYtdAction();
+  var a = parseFloat(todayBounceRate);
+  var b = parseFloat(yesterdayBounceRate);
+  var c = (a/b * 100) - 100;
+
+  if(c==NaN){
+    this.bouncePercent = '0';
+  }
+  else{
+    this.bouncePercent = c.toFixed(1);
+  }
+
+
+  if (c < 0.0){
+    this.arrowBounce="fas fa-caret-down fas_icon_3";
+  }
+  else if (c > 0.0){
+   this.arrowBounce="fas fa-caret-up";
+  }
+  else if (c==NaN){
+    this.arrowBounce="fas fa-caret-down fas_icon_3";
+  }
+  else{
+   this.arrowBounce="";
+  }
+ console.log("Calculated Bounce Rate: ",this.bouncePercent);
+}
+
+}
+
+export interface BehaviorList{
+  avg_page_load_time: number,
+  avg_time_on_page: number,
+  avg_time_server: number,
+  bounce_rate: string,
+  entry_bounce_count: string,
+  entry_nb_actions: string,
+  entry_nb_uniq_visitors: string,
+  entry_nb_visits: string,
+  entry_sum_visit_length: string,
+  exit_nb_uniq_visitors: string,
+  exit_nb_visits: string,
+  exit_rate: string,
+  label: string,
+  max_time_server: string,
+  min_time_server: string,
+  nb_hits: number,
+  nb_hits_with_time_server: string,
+  nb_uniq_visitors: number,
+  nb_visits: number,
+  segment: string,
+  sum_time_spent: number,
+  url: string,
+}
+
+/* ----  Old coding codes ---- */
+
+    /*Old variables */
+      /*
+      todayVisitorSub: Subscription;
+      yesterdayVisitorSub: Subscription;
+      todayActionsSub: Subscription;
+      yesterdayActionsSub: Subscription;
+     */
+
+
+      /*Unused variable */
+      //ytdVisitVal: number;
+      //tdyVisitVal: number;
+      //ytdActionVal: number;
+      //tdyActionVal: number;
+
+
+    /*
     this.matomoService.getTodayVisits();
     this.matomoService.getYesterdayVisits();
 
     this.matomoService.getTodayActions();
     this.matomoService.getYesterdayActions();
+
 
 
 
@@ -179,12 +446,7 @@ export class UserTrackComponent implements OnInit{
 
     });
 
-
-
-    console.log('Yesterday date:' ,this.matomoService.getYesterdayDate());
-
-
-  }
+    */
 
   /*
 
@@ -222,98 +484,17 @@ export class UserTrackComponent implements OnInit{
 
   */
 
+    /*
+
   //getter for each metric
 
+  getBounceVal(){
+    return this.todayBounceRate;
+  }
 
   //setter for each metric
   setBounceVal(data){
     this.todayBounceRate = data;
   }
 
-
-  getBounceVal(){
-    return this.todayBounceRate;
-  }
-
-  //Calculate for Visitor Percentage
-  calVisitorPercent(){
-     //var a =  this.getTydVisit();
-     //var b = this.getYtdVisit();
-     var a = this.todayVisitor;
-     var b = this.yesterdayVisitor;
-     var c = (a/b * 100) - 100
-     this.visitPercent = c.toFixed(1);
-
-     if (c < 0.0){
-      this.arrow="fas fa-caret-down fas_icon_3";
-     }
-     else if (c > 0.0){
-      this.arrow="fas fa-caret-up";
-     }
-     else{
-      this.arrow="";
-     }
-
-    console.log("Calculated: ",this.visitPercent);
-
-  }
-
-  //Calculate for Action Percentage
-  calActionPercent(){
-    //var a =  this.getTydAction();
-    //var b = this.getYtdAction();
-    var a = this.todayAction;
-    var b = this.yesterdayAction;
-    var c = (a/b * 100) - 100
-    this.actionPercent = c.toFixed(1);
-
-    if (c < 0.0){
-     this.arrowAct="fas fa-caret-down fas_icon_3";
-    }
-    else if (c > 0.0){
-     this.arrowAct="fas fa-caret-up";
-    }
-    else{
-     this.arrowAct="";
-    }
-   console.log("Calculated action: ",this.actionPercent);
- }
-
-
-
-  ngOnDestroy() {
-    this.todayVisitorSub.unsubscribe();
-    this.yesterdayVisitorSub.unsubscribe();
-    this.behaviorSub.unsubscribe();
-  }
-
-
-
-
-
-}
-
-export interface BehaviorList{
-  avg_page_load_time: number,
-  avg_time_on_page: number,
-  avg_time_server: number,
-  bounce_rate: string,
-  entry_bounce_count: string,
-  entry_nb_actions: string,
-  entry_nb_uniq_visitors: string,
-  entry_nb_visits: string,
-  entry_sum_visit_length: string,
-  exit_nb_uniq_visitors: string,
-  exit_nb_visits: string,
-  exit_rate: string,
-  label: string,
-  max_time_server: string,
-  min_time_server: string,
-  nb_hits: number,
-  nb_hits_with_time_server: string,
-  nb_uniq_visitors: number,
-  nb_visits: number,
-  segment: string,
-  sum_time_spent: number,
-  url: string,
-}
+  */
