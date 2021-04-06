@@ -1,0 +1,5 @@
+<p *ngIf="data.message">
+    <ngb-alert [type]="data.messageType" [dismissible]="true" *ngIf="!closed" (close)="onClose()">
+      {{ data.message }}
+    </ngb-alert>
+  </p>

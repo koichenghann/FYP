@@ -1,0 +1,436 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5>Add a user</h5>
+                </div>
+                <div class="card-body tab2-card">
+                    <ngb-tabset class="tab-coupon">
+                        <ngb-tab title="Account">
+                            <ng-template ngbTabContent>
+                                <div class="tab-pane fade active show" id="account" role="tabpanel"
+                                    aria-labelledby="account-tab">
+                                    <form [formGroup]="registrationForm" class="needs-validation user-add" (ngSubmit)="register()">
+                                        <h4>Account Details</h4>
+
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">First Name</label>
+                                            <input type="text" class="form-control col-xl-8 col-md-7"
+                                                placeholder="e.g. Mark" required
+                                                formControlName="firstName">
+                                            <p *ngIf="formControls.firstName.invalid &&
+                                                formControls.firstName.errors &&
+                                                (formControls.firstName.dirty || formControls.firstName.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.firstName.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.firstName.hasError('minlength')">
+                                                    The minimum length for this field is
+                                                    {{formControls.firstName.errors.minlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.firstName.hasError('maxlength')">
+                                                    The maximum length for this field is
+                                                    {{formControls.firstName.errors.maxlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                            </p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Last Name</label>
+                                            <input type="text" class="form-control col-xl-8 col-md-7"
+                                                placeholder="e.g. Zuckerberg" required=""
+                                                formControlName="lastName">
+                                            <p *ngIf="formControls.lastName.invalid &&
+                                                formControls.lastName.errors &&
+                                                (formControls.lastName.dirty || formControls.lastName.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.lastName.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.lastName.hasError('minlength')">
+                                                    The minimum length for this field is
+                                                    {{formControls.lastName.errors.minlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.lastName.hasError('maxlength')">
+                                                    The maximum length for this field is
+                                                    {{formControls.lastName.errors.maxlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                            </p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Username</label>
+                                            <input type="text" class="form-control col-xl-8 col-md-7"
+                                                placeholder="e.g. markzuckerberg99" required=""
+                                                formControlName="userName">
+                                            <p *ngIf="formControls.userName.invalid &&
+                                                formControls.userName.errors &&
+                                                (formControls.userName.dirty || formControls.userName.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.userName.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.userName.hasError('minlength')">
+                                                    The minimum length for this field is
+                                                    {{formControls.userName.errors.minlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.userName.hasError('maxlength')">
+                                                    The maximum length for this field is
+                                                    {{formControls.userName.errors.maxlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                            </p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Email</label>
+                                            <input type="text" class="form-control col-xl-8 col-md-7"
+                                                [ngClass]="{ 'has-error': isSubmitted && formControls.email.errors }"
+                                                placeholder="e.g. helpmerchandizestore@gmail.com" required=""
+                                                formControlName="email">
+                                                <p *ngIf="formControls.email.invalid &&
+                                                formControls.email.errors &&
+                                                (formControls.email.dirty || formControls.email.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.email.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                <small class="text-danger"
+                                                *ngIf="formControls.email.hasError('email')">
+                                                Invalid format. Use e.g. 'helpmerchandizestore@gmail.com'.
+                                            </small>
+                                            </p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Password</label>
+                                            <input type="password" class="form-control col-xl-8 col-md-7"
+                                                [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }"
+                                                placeholder="Combination of letters, numbers & symbols" required=""
+                                                formControlName="password">
+                                            <p style='color:rgb(216, 12, 12)' class="offset-xl-3 offset-md-4"
+                                                *ngIf="formControls.password.value != formControls.confirmPassword.value">
+                                                Password does not match</p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Confirm Password</label>
+                                            <input type="password" class="form-control col-xl-8 col-md-7"
+                                                [ngClass]="{ 'has-error': isSubmitted && formControls.confirmPassword.errors }"
+                                                placeholder="Enter same as above" required=""
+                                                formControlName="confirmPassword">
+                                            <p style='color:rgb(216, 12, 12)' class="offset-xl-3 offset-md-4"
+                                                *ngIf="formControls.password.value != formControls.confirmPassword.value">
+                                                Password does not match</p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Mobile</label>
+                                            <input type="text" class="form-control col-xl-8 col-md-7"
+                                                [ngClass]="{ 'has-error': isSubmitted && formControls.phoneNo.errors }"
+                                                placeholder="e.g. 0123456789" required=""
+                                                formControlName="phoneNo">
+                                                <p *ngIf="formControls.phoneNo.invalid &&
+                                                formControls.phoneNo.errors &&
+                                                (formControls.phoneNo.dirty || formControls.phoneNo.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.phoneNo.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.phoneNo.hasError('pattern')">
+                                                    Invalid format. Use e.g. '0123456789'.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.phoneNo.hasError('minlength')">
+                                                    The minimum length for this field is
+                                                    {{formControls.phoneNo.errors.minlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.phoneNo.hasError('maxlength')">
+                                                    The maximum length for this field is
+                                                    {{formControls.phoneNo.errors.maxlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                                </p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Address</label>
+                                            <input type="text" class="form-control col-xl-8 col-md-7"
+                                                [ngClass]="{ 'has-error': isSubmitted && formControls.address.errors }"
+                                                placeholder="e.g. 35, Jalan Sultan Shah, Taman Lake Ville." required="" formControlName="address">
+                                                <p *ngIf="formControls.address.invalid &&
+                                                formControls.address.errors &&
+                                                (formControls.address.dirty || formControls.address.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.address.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                <small class="text-danger"
+                                                *ngIf="formControls.address.hasError('minlength')">
+                                                The minimum length for this field is
+                                                {{formControls.address.errors.minlength.requiredLength}}
+                                                characters.
+                                            </small>
+                                                </p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Postal Code</label>
+                                            <input type="text" class="form-control col-xl-8 col-md-7"
+                                                [ngClass]="{ 'has-error': isSubmitted && formControls.postalCode.errors }"
+                                                placeholder="e.g. 52200" required=""
+                                                formControlName="postalCode">
+                                                <p *ngIf="formControls.postalCode.invalid &&
+                                                formControls.postalCode.errors &&
+                                                (formControls.postalCode.dirty || formControls.postalCode.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.postalCode.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.postalCode.hasError('pattern')">
+                                                    Invalid format. Use e.g. '52200'.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.postalCode.hasError('minlength')">
+                                                    The minimum length for this field is
+                                                    {{formControls.postalCode.errors.minlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.postalCode.hasError('maxlength')">
+                                                    The maximum length for this field is
+                                                    {{formControls.postalCode.errors.maxlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                                </p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">City</label>
+                                            <input type="text" class="form-control col-xl-8 col-md-7"
+                                                placeholder="e.g. Kuala Lumpur" required=""
+                                                formControlName="city">
+                                                <p *ngIf="formControls.city.invalid &&
+                                                formControls.city.errors &&
+                                                (formControls.city.dirty || formControls.city.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.city.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.city.hasError('minlength')">
+                                                    The minimum length for this field is
+                                                    {{formControls.city.errors.minlength.requiredLength}}
+                                                    characters.
+                                                </small>
+                                                </p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="validationCustom1" class="col-xl-3 col-md-4">
+                                                State</label>
+                                            <select class="custom-select form-control col-xl-8 col-md-7"
+                                                (change)="changeState($event)" formControlName="state"
+                                                name="type">
+                                                <option [ngValue]="null"> --Select a state--</option>
+                                                <option *ngFor="let state of States" >{{state}}
+                                                </option>
+                                            </select>
+                                            <p *ngIf="formControls.state.invalid &&
+                                                formControls.state.errors &&
+                                                (formControls.state.dirty || formControls.state.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.state.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                </p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="validationCustom1" class="col-xl-3 col-md-4">
+                                                Role</label>
+                                                <select class="custom-select form-control col-xl-8 col-md-7"
+                                                (change)="changeRole($event)" formControlName="userType"
+                                                name="type">
+                                                <option [ngValue]="null"> --Select role--</option>
+                                                <option *ngFor="let role of UserType">{{role}}
+                                                </option>
+                                            </select>
+                                            <p *ngIf="formControls.userType.invalid &&
+                                                formControls.userType.errors &&
+                                                (formControls.userType.dirty || formControls.userType.touched)"
+                                                class="offset-xl-3 offset-md-4">
+                                                <small class="text-danger"
+                                                    *ngIf="formControls.userType.hasError('required')">
+                                                    This field is required.
+                                                </small>
+                                                </p>
+                                        </div>
+                                        <div class="pull-right">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                        <!--
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>Permission
+                                <ng-template ngbTabContent>
+                                    <form [formGroup]="permissionForm" class="needs-validation user-add" novalidate="">
+                                        <div class="permission-block">
+                                            <div class="attribute-blocks">
+                                                <h5 class="f-w-600 mb-3">Product Related Permission </h5>
+                                                <div class="row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label>Add Product</label>
+                                                    </div>
+                                                    <div class="col-xl-9 col-sm-8">
+                                                        <div
+                                                            class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                            <label class="d-block" for="edo-ani1">
+                                                                <input class="radio_animated" id="edo-ani1" type="radio"
+                                                                    name="rdo-ani" checked="">
+                                                                Allow
+                                                            </label>
+                                                            <label class="d-block" for="edo-ani2">
+                                                                <input class="radio_animated" id="edo-ani2" type="radio"
+                                                                    name="rdo-ani">
+                                                                Deny
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label>Update Product</label>
+                                                    </div>
+                                                    <div class="col-xl-9 col-sm-8">
+                                                        <div
+                                                            class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                            <label class="d-block" for="edo-ani3">
+                                                                <input class="radio_animated" id="edo-ani3" type="radio"
+                                                                    name="rdo-ani1" checked="">
+                                                                Allow
+                                                            </label>
+                                                            <label class="d-block" for="edo-ani4">
+                                                                <input class="radio_animated" id="edo-ani4" type="radio"
+                                                                    name="rdo-ani1">
+                                                                Deny
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label>Delete Product</label>
+                                                    </div>
+                                                    <div class="col-xl-9 col-sm-8">
+                                                        <div
+                                                            class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                            <label class="d-block" for="edo-ani5">
+                                                                <input class="radio_animated" id="edo-ani5" type="radio"
+                                                                    name="rdo-ani2" checked="">
+                                                                Allow
+                                                            </label>
+                                                            <label class="d-block" for="edo-ani6">
+                                                                <input class="radio_animated" id="edo-ani6" type="radio"
+                                                                    name="rdo-ani2">
+                                                                Deny
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label class="mb-0 sm-label-radio">Create Coupon</label>
+                                                    </div>
+                                                    <div class="col-xl-9 col-sm-8">
+                                                        <div
+                                                            class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated pb-0">
+                                                            <label class="d-block mb-0" for="edo-ani7">
+                                                                <input class="radio_animated" id="edo-ani7" type="radio"
+                                                                    name="rdo-ani3" checked="">
+                                                                Allow
+                                                            </label>
+                                                            <label class="d-block mb-0" for="edo-ani8">
+                                                                <input class="radio_animated" id="edo-ani8" type="radio"
+                                                                    name="rdo-ani3">
+                                                                Deny
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="attribute-blocks">
+                                                <h5 class="f-w-600 mb-3">User Related Permission </h5>
+                                                <div class="row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label>Deactivate Account</label>
+                                                    </div>
+                                                    <div class="col-xl-9 col-sm-8">
+                                                        <div
+                                                            class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                            <label class="d-block" for="edo-ani11">
+                                                                <input class="radio_animated" id="edo-ani11"
+                                                                    type="radio" name="rdo-ani5" checked="">
+                                                                Allow
+                                                            </label>
+                                                            <label class="d-block" for="edo-ani12">
+                                                                <input class="radio_animated" id="edo-ani12"
+                                                                    type="radio" name="rdo-ani5">
+                                                                Deny
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-3 col-sm-4">
+                                                        <label>Delete Account</label>
+                                                    </div>
+                                                    <div class="col-xl-9 col-sm-8">
+                                                        <div
+                                                            class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                                            <label class="d-block" for="edo-ani13">
+                                                                <input class="radio_animated" id="edo-ani13"
+                                                                    type="radio" name="rdo-ani6" checked="">
+                                                                Allow
+                                                            </label>
+                                                            <label class="d-block" for="edo-ani14">
+                                                                <input class="radio_animated" id="edo-ani14"
+                                                                    type="radio" name="rdo-ani6">
+                                                                Deny
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </ng-template>
+                            </ng-template>
+                        </ngb-tab>-->
+                    </ngb-tabset>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

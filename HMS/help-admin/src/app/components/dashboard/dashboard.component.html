@@ -1,0 +1,629 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-warning card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'dollar-sign'" class="font-warning"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">Total Transactions</span>
+                            <h3 class="mb-0">RM <span class="counter" [CountTo]="8985.75" [from]="0"
+                                    [duration]="2">8985.75</span><small> This Month</small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden  widget-cards">
+                <div class="bg-secondary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'box'" class="font-secondary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">Products Sold</span>
+                            <h3 class="mb-0"> <span class="counter" [CountTo]="657" [from]="0"
+                                    [duration]="2">657</span><small> This Month</small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-primary card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'message-square'" class="font-primary"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">Total Enquiries</span>
+                            <h3 class="mb-0"> <span class="counter" [CountTo]="389" [from]="0"
+                                    [duration]="2">389</span><small> This Month</small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card o-hidden widget-cards">
+                <div class="bg-danger card-body">
+                    <div class="media static-top-widget row">
+                        <div class="icons-widgets col-4">
+                            <div class="align-self-center text-center">
+                                <app-feather-icons [icon]="'user-plus'" class="font-danger"></app-feather-icons>
+                            </div>
+                        </div>
+                        <div class="media-body col-8"><span class="m-0">New Users</span>
+                            <h3 class="mb-0"> <span class="counter" [CountTo]="178" [from]="0"
+                                    [duration]="2">178</span><small> This Month</small></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 xl-100">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Monthly Cost / Revenue</h5>
+                </div>
+                <div class="card-body">
+                    <div class="market-chart">
+                        <x-chartist class="board-chart ct-golden-section" [data]="chart3.data" [type]="chart3.type"
+                            [options]="chart3.options" [events]="chart3.events">
+                        </x-chartist>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 xl-100">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Latest Orders</h5>
+                </div>
+                <div class="card-body">
+                    <div class="user-status table-responsive latest-order-table">
+                        <table class="table table-bordernone">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Order Total</th>
+                                    <th scope="col">Payment Method</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#51243</td>
+                                    <td class="digits">RM 120.65</td>
+                                    <td>GrabPay</td>
+                                    <td class="digits font-warning">Awaiting Authentication</td>
+                                </tr>
+                                <tr>
+                                    <td>#51242</td>
+                                    <td class="digits">RM 90.10</td>
+                                    <td>Online banking</td>
+                                    <td class="digits font-danger">Shipped</td>
+                                </tr>
+                                <tr>
+                                    <td>#51241</td>
+                                    <td class="digits">RM 240.25</td>
+                                    <td>Debit Card</td>
+                                    <td class="digits font-secondary">Delivered</td>
+                                </tr>
+                                <tr>
+                                    <td>#51240</td>
+                                    <td class="digits">RM 120.70</td>
+                                    <td>Credit Card</td>
+                                    <td  class="font-primary">Cancelled</td>
+                                </tr>
+                                <tr>
+                                    <td>#51239</td>
+                                    <td class="digits">RM 50.90</td>
+                                    <td>Debit Card</td>
+                                    <td class="digits  font-secondary">Delivered</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a [routerLink]="'/sales/orders'" class="btn btn-primary">View All Orders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card order-graph sales-carousel">
+                <div class="card-header">
+                    <h6>Total Sales</h6>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="small-chartjs">
+                                <canvas baseChart id="small-graph-1" height="60vw" width="140vw"
+                                    [datasets]="smallLineChartData" [labels]="smallLineChartLabels"
+                                    [options]="smallLineChartOptions" [colors]="smallLineChartColors"
+                                    [legend]="smallLineChartLegend" [chartType]="smallLineChartType"
+                                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="value-graph">
+                                <h3>42% <span><i class="fa fa-angle-up font-primary"></i></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <span>Sales Last Month</span>
+                            <h2 class="mb-0">28</h2>
+                            <p>0.25% <span><i class="fa fa-angle-up"></i></span></p>
+                            <h5 class="f-w-600">Gross sales of August</h5>
+                            <p>Figures are derived without deduction of tax or other contributions; total.</p>
+                        </div>
+                        <div class="bg-primary b-r-8">
+                            <div class="small-box">
+
+                                <i data-feather="briefcase"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card order-graph sales-carousel">
+                <div class="card-header">
+                    <h6>Total purchase</h6>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="small-chartjs">
+                                <canvas baseChart id="small-graph-2" height="60vw" width="140vw"
+                                    [datasets]="smallLine2ChartData" [labels]="smallLine2ChartLabels"
+                                    [options]="smallLine2ChartOptions" [colors]="smallLine2ChartColors"
+                                    [legend]="smallLine2ChartLegend" [chartType]="smallLine2ChartType"
+                                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="value-graph">
+                                <h3>20% <span><i class="fa fa-angle-up font-secondary"></i></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <span>Monthly purchase</span>
+                            <h2 class="mb-0">37</h2>
+                            <p>0.13% <span><i class="fa fa-angle-up"></i></span></p>
+                            <h5 class="f-w-600">Avg Gross purchase</h5>
+                            <p>Figures are derived without deduction of tax or other contributions; total.</p>
+                        </div>
+                        <div class="bg-secondary b-r-8">
+                            <div class="small-box">
+                                <i data-feather="credit-card"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card order-graph sales-carousel">
+                <div class="card-header">
+                    <h6>Total online transaction</h6>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="small-chartjs">
+                                <canvas baseChart id="small-graph-3" height="60vw" width="140vw"
+                                    [datasets]="smallLine3ChartData" [labels]="smallLine3ChartLabels"
+                                    [options]="smallLine3ChartOptions" [colors]="smallLine3ChartColors"
+                                    [legend]="smallLine3ChartLegend" [chartType]="smallLine3ChartType"
+                                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="value-graph">
+                                <h3>28% <span><i class="fa fa-angle-up font-warning"></i></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <span>To be released</span>
+                            <h2 class="mb-0">RM 8985.75</h2>
+                            <p>0.8% <span><i class="fa fa-angle-up"></i></span></p>
+                            <h5 class="f-w-600">Release date</h5>
+                            <p>The next released date is scheduled on the 01-12-2020.</p>
+                        </div>
+                        <div class="bg-warning b-r-8">
+                            <div class="small-box">
+                                <i data-feather="shopping-cart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 xl-50">
+            <div class="card order-graph sales-carousel">
+                <div class="card-header">
+                    <h6>Daily Sales</h6>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="small-chartjs">
+                                <canvas baseChart id="small-graph-4" height="60vw" width="140vw"
+                                    [datasets]="smallLine4ChartData" [labels]="smallLine4ChartLabels"
+                                    [options]="smallLine4ChartOptions" [colors]="smallLine4ChartColors"
+                                    [legend]="smallLine4ChartLegend" [chartType]="smallLine4ChartType"
+                                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="value-graph">
+                                <h3>75% <span><i class="fa fa-angle-up font-danger"></i></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <span>Daily purchase</span>
+                            <h2 class="mb-0">8</h2>
+                            <p>0.25% <span><i class="fa fa-angle-up"></i></span></p>
+                            <h5 class="f-w-600">Avg Gross purchase</h5>
+                            <p>Figures are derived without deduction of tax or other contributions; total.</p>
+                        </div>
+                        <div class="bg-danger b-r-8">
+                            <div class="small-box">
+                                <i data-feather="calendar"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Buy / Sell</h5>
+                </div>
+                <div class="card-body sell-graph">
+                    <canvas baseChart id="myGraph" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 xl-100">
+            <div class="card height-equal">
+                <div class="card-header">
+                    <h5>Best-selling Products</h5>
+                </div>
+                <div class="card-body">
+                    <div class="user-status table-responsive products-table">
+                        <table class="table table-bordernone mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Rank</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Quantity Sold</th>
+                                    <th scope="col">Price/unit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="digits">1</td>
+                                    <td>PINENG Powerbank</td>
+                                    <td class="digits">324</td>
+                                    <td class="digits">RM 49.90</td>
+                                </tr>
+                                <tr>
+                                    <td class="digits">2</td>
+                                    <td>USB-C Fast Charger</td>
+                                    <td class="digits">292</td>
+                                    <td class="digits">RM 38.80</td>
+                                </tr>
+                                <tr>
+                                    <td class="digits">3</td>
+                                    <td>Wildlife Iphone X Case</td>
+                                    <td class="digits">256</td>
+                                    <td class="digits">RM 19.90</td>
+                                </tr>
+                                <tr>
+                                    <td class="digits">4</td>
+                                    <td>Anti-BlueRay Screen Protector</td>
+                                    <td class="digits">201</td>
+                                    <td class="digits">RM 29.70</td>
+                                </tr>
+                                <tr>
+                                    <td class="digits">5</td>
+                                    <td>Iphone 11 Clear Tempered Class</td>
+                                    <td class="digits">155</td>
+                                    <td class="digits">RM 99.50</td>
+                                </tr>
+                                <tr>
+                                    <td class="digits">6</td>
+                                    <td>Reebook Twin-Colour Socks</td>
+                                    <td class="digits">138</td>
+                                    <td class="digits">RM 15.90</td>
+                                </tr>
+                                <tr>
+                                    <td class="digits">7</td>
+                                    <td>Mi Air Humidifier</td>
+                                    <td class="digits">126</td>
+                                    <td class="digits">RM 59.90</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 xl-100">
+            <div class="card height-equal">
+                <div class="card-header">
+                    <h5>Recent Ratings</h5>
+                </div>
+                <div class="card-body">
+                    <div class="user-status table-responsive products-table">
+                        <table class="table table-bordernone mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Designation</th>
+                                    <th scope="col">Rating</th>
+                                    <th scope="col">Comments</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="bd-t-none u-s-tb">
+                                        <div class="align-middle image-sm-size"><img
+                                                class="img-radius align-top m-r-15 rounded-circle"
+                                                src="assets/images/dashboard/profile.png" alt="" data-original-title=""
+                                                title="">
+                                            <div class="d-inline-block">
+                                                <h6>Choo Jia Long <span class="text-muted digits">(28 minutes ago)</span></h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Student</td>
+                                    <td>
+                                        <div class="progress-showcase">
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-primary" role="progressbar"
+                                                    style="width: 30%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="digits">Late delivery.</td>
+                                </tr>
+                                <tr>
+                                    <td class="bd-t-none u-s-tb">
+                                        <div class="align-middle image-sm-size"><img
+                                                class="img-radius align-top m-r-15 rounded-circle"
+                                                src="assets/images/dashboard/profile.png" alt="" data-original-title=""
+                                                title="">
+                                            <div class="d-inline-block">
+                                                <h6>Lee Keat Hong <span class="text-muted digits">(1 hour ago)</span></h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Student</td>
+                                    <td>
+                                        <div class="progress-showcase">
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width: 70%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="digits">Value for money!</td>
+                                </tr>
+                                <tr>
+                                    <td class="bd-t-none u-s-tb">
+                                        <div class="align-middle image-sm-size"><img
+                                                class="img-radius align-top m-r-15 rounded-circle"
+                                                src="assets/images/dashboard/profile.png" alt="" data-original-title=""
+                                                title="">
+                                            <div class="d-inline-block">
+                                                <h6>Liew Cai Juan <span class="text-muted digits">(1 day ago)</span></h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Staff</td>
+                                    <td>
+                                        <div class="progress-showcase">
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width: 100%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="digits">Great deal!</td>
+                                </tr>
+                                <tr>
+                                    <td class="bd-t-none u-s-tb">
+                                        <div class="align-middle image-sm-size"><img
+                                                class="img-radius align-top m-r-15 rounded-circle"
+                                                src="assets/images/dashboard/profile.png" alt="" data-original-title=""
+                                                title="">
+                                            <div class="d-inline-block">
+                                                <h6>Lee Zhen Xiong <span class="text-muted digits">(5 days ago)</span>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Student</td>
+                                    <td>
+                                        <div class="progress-showcase">
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-primary" role="progressbar"
+                                                    style="width: 30%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="digits">Poor packaging.</td>
+                                </tr>
+                                <tr>
+                                    <td class="bd-t-none u-s-tb">
+                                        <div class="align-middle image-sm-size"><img
+                                                class="img-radius align-top m-r-15 rounded-circle"
+                                                src="assets/images/dashboard/profile.png" alt=""
+                                                data-original-title="" title="">
+                                            <div class="d-inline-block">
+                                                <h6>Chin Lean Keat <span class="text-muted digits">(1 week ago)</span></h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Staff</td>
+                                    <td>
+                                        <div class="progress-showcase">
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width: 90%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="digits">Friendly seller.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Sales Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-6 xl-50">
+                            <div class="order-graph">
+                                <h6>Orders By Location</h6>
+                                <div class="chart-block chart-vertical-center">
+                                    <ngx-charts-pie-chart class="pie-colours-1" [view]="view"
+                                        [scheme]="doughnutChartColorScheme" [results]="pieData" [explodeSlices]="false"
+                                        [labels]="doughnutChartShowLabels" [arcWidth]=0.50 [doughnut]="true"
+                                        [animations]="false" [tooltipDisabled]="doughnutChartTooltip"
+                                        [gradient]="doughnutChartGradient">
+                                    </ngx-charts-pie-chart>
+                                </div>
+                                <div class="order-graph-bottom">
+                                    <div class="media">
+                                        <div class="order-color-primary"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0">Kuala Lumpur <span class="pull-right">RM 3157</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-color-secondary"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0">Selangor <span class="pull-right">RM 2569</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-color-danger"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0">Perak <span class="pull-right">RM 1894</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-color-warning"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0">Seremban <span class="pull-right">RM 1636</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-color-success"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0">Melaka <span class="pull-right">RM 1330</span></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 xl-50">
+                            <div class="order-graph sm-order-space">
+                                <h6>Sales By Location</h6>
+                                <div class="peity-chart-dashboard text-center chart-vertical-center">
+                                    <ngx-charts-pie-chart class="pie-colours-1" [view]="view"
+                                        [scheme]="doughnutChartColorScheme" [results]="doughnutData"
+                                        [explodeSlices]="false" [labels]="doughnutChartShowLabels" [arcWidth]=0.99
+                                        [doughnut]="true" [animations]="false" [tooltipDisabled]="doughnutChartTooltip"
+                                        [gradient]="doughnutChartGradient">
+                                    </ngx-charts-pie-chart>
+                                </div>
+                                <div class="order-graph-bottom sales-location">
+                                    <div class="media">
+                                        <div class="order-shape-primary"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0 mr-0">Kuala Lumpur <span class="pull-right">55%</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-shape-secondary"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0 mr-0">Selangor <span class="pull-right">20%</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-shape-danger"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0 mr-0">Perak <span class="pull-right">10%</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-shape-warning"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0 mr-0">Seremban <span class="pull-right">10%</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="order-shape-success"></div>
+                                        <div class="media-body">
+                                            <h6 class="mb-0 mr-0">Melaka <span class="pull-right">5%</span></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <br><br><br><br>
+                        </div>
+                        <div class="col-xl-6 xl-100">
+                            <div class="order-graph xl-space">
+                                <h6>Monthly Visitors</h6>
+                                <div class="ct-4 flot-chart-container">
+                                    <x-chartist [type]="chart5.type" [data]="chart5.data" [options]="chart5.options">
+                                    </x-chartist>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Container-fluid Ends-->

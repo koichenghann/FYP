@@ -1,0 +1,228 @@
+<div class="container-fluid">
+    <div class="row product-adding">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>General</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="productForm" enctype="multipart/form-data" (ngSubmit)="addProduct()" class="needs-validation user-add">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group">
+                                <label for="validationCustom01" class="col-form-label pt-0"><span>*</span> Product
+                                    Name</label>
+                                <input class="form-control" id="validationCustom01" type="text"
+                                    formControlName="productName">
+                                <p *ngIf="pf.productName.invalid &&
+                                                pf.productName.errors &&
+                                                (pf.productName.dirty || pf.productName.touched)"
+                                    >
+                                    <small class="text-danger" *ngIf="pf.productName.hasError('required')">
+                                        This field is required.
+                                    </small>
+                                    <small class="text-danger" *ngIf="pf.productName.hasError('minlength')">
+                                        The minimum length for this field is
+                                        {{pf.productName.errors.minlength.requiredLength}}
+                                        characters.
+                                    </small>
+                                    <small class="text-danger" *ngIf="pf.productName.hasError('maxlength')">
+                                        The maximum length for this field is
+                                        {{pf.productName.errors.maxlength.requiredLength}}
+                                        characters.
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> Product Description</label>
+                                <textarea rows="5" cols="12" formControlName="productDescription"></textarea>
+                                <p *ngIf="pf.productDescription.invalid &&
+                                                pf.productDescription.errors &&
+                                                (pf.productDescription.dirty || pf.productDescription.touched)"
+                                    >
+                                    <small class="text-danger" *ngIf="pf.productDescription.hasError('required')">
+                                        This field is required.
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span>*</span> Categories</label>
+                                <select class="custom-select" formControlName="category" (change)="changeCat($event)">
+                                    <option value="null">--Select a category--</option>
+                                    <option *ngFor="let category of categories">
+                                        {{category}} </option>
+
+                                </select>
+                                <p *ngIf="pf.category.touched">
+                                    <small class="text-danger"
+                                        *ngIf="pf.category.hasError('required') || pf.category.value == 'null'">
+                                        This field is required.
+                                    </small>
+                                </p>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="validationCustomtitle" class="col-form-label pt-0"><span>*</span>
+                                    Brand</label>
+                                <input class="form-control" id="validationCustomtitle" type="text"
+                                    formControlName="brand" required="">
+                                <p *ngIf="pf.brand.invalid &&
+                                                pf.brand.errors &&
+                                                (pf.brand.dirty || pf.brand.touched)" >
+                                    <small class="text-danger" *ngIf="pf.brand.hasError('required')">
+                                        This field is required.
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label for="validationCustom02" class="col-form-label"><span>*</span> Price</label>
+                                <input class="form-control" id="validationCustom02" type="text" formControlName="price"
+                                    required="">
+                                <p *ngIf="pf.price.invalid &&
+                                                pf.price.errors &&
+                                                (pf.price.dirty || pf.price.touched)" >
+                                    <small class="text-danger" *ngIf="pf.price.hasError('required')">
+                                        This field is required.
+                                    </small>
+                                    <small class="text-danger" *ngIf="pf.price.hasError('pattern')">
+                                        Only numbers are allowed.
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label for="validationCustom02" class="col-form-label"><span>*</span> Stock</label>
+                                <input class="form-control" id="validationCustom02" type="text" formControlName="stock"
+                                    required="">
+                                <p *ngIf="pf.stock.invalid &&
+                                pf.stock.errors &&
+                                (pf.stock.dirty || pf.stock.touched)" >
+                                    <small class="text-danger" *ngIf="pf.stock.hasError('required')">
+                                        This field is required.
+                                    </small>
+                                    <small class="text-danger" *ngIf="pf.stock.hasError('pattern')">
+                                        Only numbers are allowed.
+                                    </small>
+                                </p>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="col-form-label"><span>*</span> Status</label>
+                                <div class="m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                    <label class="d-block" for="edo-ani">
+                                        <input class="radio_animated" id="edo-ani" type="radio" name="rdo-ani">
+                                        Enable
+                                    </label>
+                                    <label class="d-block" for="edo-ani1">
+                                        <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">
+                                        Disable
+                                    </label>
+                                </div>
+                            </div> -->
+                            <br><br>
+                            <!-- <label class="col-form-label pt-0"> Product Upload</label>
+                            <div class="card-body dropzone-custom p-0">
+                                <div class="dropzone dropzone-primary" [dropzone]="config1"
+                                    (error)="onUploadError($event)" (success)="onUploadSuccess($event)">
+                                    <div class="dz-message needsclick">
+                                        <i class="fa fa-cloud-upload"></i>
+                                        <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <button type="submit" class="btn btn-secondary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Shipping</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="productForm" enctype="multipart/form-data" (ngSubmit)="addProduct()" class="needs-validation user-add">
+                        <div class="digital-add needs-validation">
+                            <div class="form-group mb-0">
+                                <label class="col-form-label"><span>*</span> Weight (kg)</label>
+                                <input class="form-control" id="validationCustom02" type="text" formControlName="weight"
+                                    required="">
+                                <p *ngIf="pf.weight.invalid &&
+                        pf.weight.errors &&
+                        (pf.weight.dirty || pf.weight.touched)" >
+                                    <small class="text-danger" *ngIf="pf.weight.hasError('required')">
+                                        This field is required.
+                                    </small>
+                                    <small class="text-danger" *ngIf="pf.weight.hasError('pattern')">
+                                        Only numbers are allowed.
+                                    </small>
+                                </p>
+                            </div>
+                            <br>
+                            <div class="form-group mb-0">
+                                <label class="col-form-label"> Parcel length (cm)</label>
+                                <input class="form-control" id="validationCustom02" type="text"
+                                    formControlName="parcelLength" required="">
+                                <p *ngIf="pf.parcelLength.invalid &&
+                        pf.parcelLength.errors &&
+                        (pf.parcelLength.dirty || pf.parcelLength.touched)" >
+                                    <small class="text-danger" *ngIf="pf.parcelLength.hasError('required')">
+                                        This field is required.
+                                    </small>
+                                    <small class="text-danger" *ngIf="pf.parcelLength.hasError('pattern')">
+                                        Only numbers are allowed.
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="col-form-label"> Parcel width (cm)</label>
+                                <input class="form-control" id="validationCustom02" type="text"
+                                    formControlName="parcelWidth" required="">
+                                <p *ngIf="pf.parcelWidth.invalid &&
+                        pf.parcelWidth.errors &&
+                        (pf.parcelWidth.dirty || pf.parcelWidth.touched)" >
+                                    <small class="text-danger" *ngIf="pf.parcelWidth.hasError('required')">
+                                        This field is required.
+                                    </small>
+                                    <small class="text-danger" *ngIf="pf.parcelWidth.hasError('pattern')">
+                                        Only numbers are allowed.
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label class="col-form-label"> Parcel height (cm)</label>
+                                <input class="form-control" id="validationCustom02" type="text"
+                                    formControlName="parcelHeight" required="">
+                                <p *ngIf="pf.parcelHeight.invalid &&
+                        pf.parcelHeight.errors &&
+                        (pf.parcelHeight.dirty || pf.parcelHeight.touched)" >
+                                    <small class="text-danger" *ngIf="pf.parcelHeight.hasError('required')">
+                                        This field is required.
+                                    </small>
+                                    <small class="text-danger" *ngIf="pf.parcelHeight.hasError('pattern')">
+                                        Only numbers are allowed.
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <!-- <div class="card-header">
+                    <h5>Product upload</h5>
+                </div> -->
+                <div class="card-body">
+                    <div class="card-body dropzone-custom p-0">
+                        <div class="dropzone dropzone-primary" [dropzone]="config1" (error)="onUploadError($event)"
+                            (success)="onUploadSuccess($event)">
+                            <div class="dz-message needsclick">
+                                <i class="fa fa-cloud-upload"></i>
+                                <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+Second Milestone (14/03/2021):
+1. Add / Delete / Edit / Get Products for Seller  //completed
+2. Add / Edit / Delete / Get Shipment for Seller
+3. Add / Delete Bank Account for Seller
+4. Get finances for Seller
+
+buyer workflow::::
+- manage catergories
+- get product by id 
+- get shipment details & ui change (dropdown menu)
+- generate order
+
+

@@ -1,0 +1,24 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid bulk-cate">
+
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Active Campaigns</h5>
+        </div>
+
+        <div class="card-body">
+
+          <div class="btn-popup pull-right">
+            <a class="btn btn-secondary" [routerLink]="'/media/create-campaign'">Create Campaign</a>
+          </div>
+
+            <div id="batchDelete" class="category-table custom-datatable media-datatable">
+                <div class="table-responsive">
+                    <ng2-smart-table [settings]="settings" [source]="media" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

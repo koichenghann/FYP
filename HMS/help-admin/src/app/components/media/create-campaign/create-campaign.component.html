@@ -1,0 +1,91 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5>Add a Campaign</h5>
+                </div>
+                <div class="card-body tab2-card">
+                    <ngb-tabset class="tab-coupon">
+                        <ngb-tab title="Account">
+                            <ng-template ngbTabContent>
+                                <div class="tab-pane fade active show" id="account" role="tabpanel"
+                                    aria-labelledby="account-tab">
+                                    <form [formGroup]="registrationForm" enctype="multipart/form-data"
+                                        class="needs-validation user-add" (ngSubmit)="register()">
+                                        <h4>Campaign  Details</h4>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Campaign Name</label>
+                                            <div class="input-group col-xl-8 col-md-7">
+                                                <input class="form-control" type="text" placeholder="e.g. HELP 10th Anniversary Sale" required
+                                                    formControlName="name">
+                                                <p *ngIf="formControls.name.invalid &&
+                                                formControls.name.errors &&
+                                                (formControls.name.dirty || formControls.name.touched)"
+                                                    class="offset-xl-3 offset-md-4">
+                                                    <small class="text-danger"
+                                                        *ngIf="formControls.name.hasError('required')">
+                                                        This field is required.
+                                                    </small>
+                                                    <small class="text-danger"
+                                                        *ngIf="formControls.name.hasError('minlength')">
+                                                        The minimum length for this field is
+                                                        {{formControls.name.errors.minlength.requiredLength}}
+                                                        characters.
+                                                    </small>
+                                                    <small class="text-danger"
+                                                        *ngIf="formControls.name.hasError('maxlength')">
+                                                        The maximum length for this field is
+                                                        {{formControls.name.errors.maxlength.requiredLength}}
+                                                        characters.
+                                                    </small>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">Start date</label>
+                                            <div class="input-group col-xl-8 col-md-7">
+                                                <input class="form-control" formControlName="startDate"
+                                                    placeholder="YYYY-MM-DD" name="date" ngbDatepicker
+                                                    #d="ngbDatepicker">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary calendar"
+                                                        (click)="d.toggle()" type="button"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="review" class="col-xl-3 col-md-4">End date</label>
+                                            <div class="input-group col-xl-8 col-md-7">
+                                                <input class="form-control" formControlName="endDate"
+                                                    placeholder="YYYY-MM-DD" name="dp" ngbDatepicker #e="ngbDatepicker">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary calendar"
+                                                        (click)="e.toggle()" type="button"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <label class="col-xl-3 col-md-4">Upload Image</label>
+                                            <div class="input-group col-xl-8 col-md-7">
+                                                <input type="file" class="form-control-file" accept="image/*"
+                                                    name="image" (change)="onUploadSuccess($event)">
+                                            </div>
+                                        </div>
+                                        <div class="pull-right">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->

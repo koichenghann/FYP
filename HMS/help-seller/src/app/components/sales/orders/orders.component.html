@@ -1,0 +1,39 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Order Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="custom-datatable">
+                        <input type='text' class="filter-ngx form-control" placeholder='Search...'
+                            (keyup)='updateFilter($event)' />
+                        <ngx-datatable class="bootstrap" [rows]="order" [columnMode]="'force'" [headerHeight]="50"
+                            [footerHeight]="50" [rowHeight]="'auto'" [limit]="5">
+                            <ngx-datatable-column prop="orderId"></ngx-datatable-column>
+                            <ngx-datatable-column prop="productName"></ngx-datatable-column>
+                            <ngx-datatable-column prop="quantity"></ngx-datatable-column>
+                            <ngx-datatable-column prop="paymentMethod"></ngx-datatable-column>
+                            <ngx-datatable-column prop="orderStatus"></ngx-datatable-column>
+                            <ngx-datatable-column prop="orderDate"></ngx-datatable-column>
+                            <ngx-datatable-column prop="amountPaid"></ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+<!-- 
+    {
+        "order id": "#51240",
+        "product": "PINENG Power Bank",
+        "quantity": "1",
+        "payment method": "Online Banking",
+        "payment status": "<span class='badge badge-warning'>Awaiting Authentication</span>",
+        "date": "24-10-2020",
+        "total": "RM 104.95",
+        "order status": "<span class='badge badge-warning'>Processing</span>",
+    }, -->

@@ -1,0 +1,66 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Manage Shipping Method</h5>
+                </div>
+                <div class="card-body">
+                    <div class="btn-popup pull-right">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-original-title="test"
+                            data-target="#exampleModal" (click)="open(content)">Add Shipping Method</button>
+                        <ng-template #content let-modal>
+                            <div class="modal-header">
+                                <h5 class="modal-title f-w-600" id="exampleModalLabel">Add A Shipping Method</h5>
+                                <button type="button" class="close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form class="needs-validation" #myForm="ngForm" (ngSubmit)="onSubmit(myForm.form.value)">
+                                <div class="modal-body">
+                                    <div class="form">
+                                        <div class="form-group">
+                                            <label for="validationCustom02"><span>*</span> Courier Provider :</label>
+                                            <select class="form-control" name="id" [(ngModel)]="id"
+                                                required>
+                                                <option *ngFor="let pow of powers" [value]="pow.id">{{pow.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="validationCustom02"><span>*</span> Price :</label>
+                                            <input type="text" class="form-control" required
+                                                ngModel name="price">
+                                        </div>
+                                        <!-- <div class="form-group mb-0">
+                                            <label for="validationCustom02" class="mb-1">Status :</label>
+                                            <div class="checkbox checkbox-primary col-xl-9 col-md-8">
+                                                <input id="checkbox-primary-2" type="checkbox" name="status" 
+                                                ngModel data-original-title=""
+                                                    title="">
+                                                <label for="checkbox-primary-2">Enable Shipping Method</label>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" [disabled]="!myForm.form.valid" class="btn btn-secondary">Add</button>
+                                    <button class="btn btn-primary" type="button" data-dismiss="modal"
+                                        (click)="modal.dismiss('Cross click')">Cancel</button>
+                                </div>
+                            </form>
+                        </ng-template>
+                    </div>
+                    <div id="batchDelete" class="category-table custom-datatable">
+                        <div class="table-responsive">
+                            <ng2-smart-table [settings]="settings" [source]="categories" 
+                            (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
