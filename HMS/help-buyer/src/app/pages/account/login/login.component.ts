@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestapiService } from '../../../restapi.service';
 import { DataService } from '../../../data.service';
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ btnDisabled = false;
     private router: Router,
   private rest: RestapiService,
   public data: DataService,
+  private angulartics2: Angulartics2
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +51,10 @@ btnDisabled = false;
           },
         );
         if (data['success']) {
+          //this.angulartics2.setSuperProperties.complete
+          //resetUserId
+          console.log('UserID = ',this.userName);
+          this.angulartics2.setUsername.next(this.userName);
           localStorage.setItem('token', data['token']);
           this.router.navigate(['/home/fashion']);
         } else {

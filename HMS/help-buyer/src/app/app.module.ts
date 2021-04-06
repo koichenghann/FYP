@@ -9,7 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
@@ -26,6 +26,11 @@ export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
 
+//matomo
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2Piwik } from 'angulartics2/piwik';
+import { routing } from './app.routing';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ElementsComponent
   ],
   imports: [
+    routing,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
@@ -53,7 +59,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         }
     }),
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Angulartics2Module.forRoot(),
   ],
   providers: [RestapiService, DataService],
   bootstrap: [AppComponent]
