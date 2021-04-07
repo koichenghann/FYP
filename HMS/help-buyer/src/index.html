@@ -8,49 +8,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-			<!--Matomo Tracking API-->
-			<script  type="text/javascript">
-				matomoTracker();
-				function matomoTracker(){
-				console.log('Matomo-tracking is running now.');
-				};
-		
-				var _paq = window._paq = window._paq || [];
-		
-				_paq.push(['setReferrerUrl', previousPageUrl]);
-		
-				/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-				_paq.push(['trackPageView']);
-				_paq.push(['enableLinkTracking']);
-		
-				// accurately measure the time spent in the visit
-				_paq.push(['enableHeartBeatTimer']);
-		
-		
-				// _paq.push(['setUserId', 'USER_ID']);
-		
-				// User has just logged out, we reset the User ID
-				//_paq.push(['resetUserId']);
-		
-				// we also force a new visit to be created for the pageviews after logout
-				_paq.push(['appendToTrackingUrl', 'new_visit=1']);
-		
-				// we finally make sure to not again create a new visit afterwards (important for Single Page Applications)
-				_paq.push(['appendToTrackingUrl', '']);
-		
-				//var USER_ID = localStorage.getItem('login_id');
-				//console.log(USER_ID);
-		
-				console.log('msg: From Index.html');
-				
-				(function() {
-				var u="//localhost/matomo/";
-				_paq.push(['setTrackerUrl', u+'matomo.php']);
-				_paq.push(['setSiteId', '1']);
-				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-				g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-				})();
-			</script>
+	<!-- Matomo -->
+<script type="text/javascript">
+
+	var _paq = window._paq = window._paq || [];
+	/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	_paq.push(['trackPageView']);
+	_paq.push(['enableLinkTracking']);
+  
+	// accurately measure the time spent in the visit
+	_paq.push(['enableHeartBeatTimer']);
+  
+  
+   // _paq.push(['setUserId', 'USER_ID']);
+	// User has just logged out, we reset the User ID
+	//_paq.push(['resetUserId']);
+  
+	// we also force a new visit to be created for the pageviews after logout
+	_paq.push(['appendToTrackingUrl', 'new_visit=1']);
+  
+	// we finally make sure to not again create a new visit afterwards (important for Single Page Applications)
+	_paq.push(['appendToTrackingUrl', '']);
+  
+  
+  
+	(function() {
+	  var u="//localhost/matomo/";
+	  _paq.push(['setTrackerUrl', u+'matomo.php']);
+	  _paq.push(['setSiteId', '1']);
+	  var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	  g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	})();
+  </script>
+  <!-- End Matomo Code -->
+			
 </head>
 
 <body class="ltr">
@@ -74,5 +65,52 @@
 	</div>
 	<!-- facebook chat section end -->
 </body>
+
+<!--Matomo Tracking API-->
+
+<!--
+<script type="text/javascript">
+	matomoTracker();
+	function matomoTracker(){
+	console.log('Matomo-tracking is running now.');
+	};
+
+	var _paq = window._paq = window._paq || [];
+
+	_paq.push(['setReferrerUrl', previousPageUrl]);
+
+	/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	_paq.push(['trackPageView']);
+	_paq.push(['enableLinkTracking']);
+
+	// accurately measure the time spent in the visit
+	_paq.push(['enableHeartBeatTimer']);
+
+
+	//_paq.push(['setUserId', 'USER_ID']);
+
+	// User has just logged out, we reset the User ID
+	//_paq.push(['resetUserId']);
+
+	// we also force a new visit to be created for the pageviews after logout
+	_paq.push(['appendToTrackingUrl', 'new_visit=1']);
+
+	// we finally make sure to not again create a new visit afterwards (important for Single Page Applications)
+	_paq.push(['appendToTrackingUrl', '']);
+
+	//var USER_ID = localStorage.getItem('login_id');
+	//console.log(USER_ID);
+
+	console.log('msg: From Index.html');
+	
+	(function() {
+	var u="//localhost/matomo/";
+	_paq.push(['setTrackerUrl', u+'matomo.php']);
+	_paq.push(['setSiteId', '1']);
+	var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	})();
+</script>
+-->
 
 </html>
