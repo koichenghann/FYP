@@ -3,6 +3,7 @@ import { FormBuilder,FormGroup,AbstractControl, Validators } from '@angular/form
 import { Router } from '@angular/router';
 import { RestapiService } from '../../../restapi.service';
 import { DataService } from '../../../data.service';
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private rest: RestapiService,
     private data: DataService,
+    private angulartics2: Angulartics2,
     ) { }
   registrationForm: FormGroup;
   isSubmitted  =  false;
@@ -64,6 +66,9 @@ export class RegisterComponent implements OnInit {
       if (data['success']) {
         localStorage.setItem('token', data['token']);
         this.data.success('Registration successful!');
+        this.registrationForm.value.userName;
+        this.angulartics2.setUsername.next(this.registrationForm.value.userName);
+        console.log('New User ID tracked!',this.registrationForm.value.userName);
         this.router.navigate(['/home/fashion']);
       } else {
         this.data.error(data['message']);
