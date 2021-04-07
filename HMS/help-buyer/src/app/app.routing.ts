@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { Angulartics2Module } from 'angulartics2';
 
+
 import { ShopComponent } from './shop/shop.component';
 import { PagesComponent } from './pages/pages.component';
 import { ElementsComponent } from './elements/elements.component';
+
+import { MatomoInjector } from 'ngx-matomo';
 
 const routes: Routes = [
   {

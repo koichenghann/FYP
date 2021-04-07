@@ -30,6 +30,8 @@ export class MatomoService {
   private platformBrowserListener = new Subject<any>();
   private platformOSListener = new Subject<any>();
 
+  /*Matomo token */
+  token = 'e7e134eae39f79244e27fc2eea5e76bb';
 
 
   /* Return today's date */
@@ -73,7 +75,7 @@ export class MatomoService {
 
   /*Device Platform Metric */
   getDevices(){
-    this.http.get<any>('http://localhost/matomo/?module=API&method=DevicesDetection.getModel&idSite=1&period=month&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    this.http.get<any>('http://localhost/matomo/?module=API&method=DevicesDetection.getModel&idSite=1&period=month&date=today&format=json&token_auth='+this.token)
     .subscribe(response => {
         console.log(response);
     })
@@ -82,7 +84,7 @@ export class MatomoService {
   /*Get all main metric from today to yesterday */
   getAllMainMetric(fromDate,toDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?date='+fromDate+','+toDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=1&method=API.get&module=API&period=day&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      'http://localhost/matomo/index.php?date='+fromDate+','+toDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=1&method=API.get&module=API&period=day&token_auth='+this.token
       ).subscribe(res => {
         console.log('Visitor Actions:', res);
 
@@ -92,7 +94,7 @@ export class MatomoService {
 
   /*Today's visitor number */
   getTodayVisits(){
-    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getVisits&idSite=1&period=day&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getVisits&idSite=1&period=day&date=today&format=json&token_auth='+this.token)
     .subscribe(res => {
       console.log(res['value']);
       this.todayVisitsRetrievedListener.next(res['value']);
@@ -105,7 +107,7 @@ export class MatomoService {
 
   /*Yesterday's visitor number */
   getYesterdayVisits(){
-    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getVisits&idSite=1&period=day&date=yesterday&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getVisits&idSite=1&period=day&date=yesterday&format=json&token_auth='+this.token)
     .subscribe(res => {
       console.log(res['value']);
       this.yesterdayVisitsRetrievedListener.next(res['value']);
@@ -118,7 +120,7 @@ export class MatomoService {
 
   /*Today's Action number */
   getTodayActions(){
-    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getActions&idSite=1&period=day&date=today&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getActions&idSite=1&period=day&date=today&format=json&token_auth='+this.token)
     .subscribe(res => {
       console.log(res['value']);
       this.todayActionsRetrievedListener.next(res['value']);
@@ -131,7 +133,7 @@ export class MatomoService {
 
   /*Today's yesterday number */
   getYesterdayActions(){
-    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getActions&idSite=1&period=day&date=yesterday&format=json&token_auth=ceaaf0c1264ab574e8fecd343feabe46')
+    this.http.get<any>('http://localhost/matomo/?module=API&method=VisitsSummary.getActions&idSite=1&period=day&date=yesterday&format=json&token_auth='+this.token)
     .subscribe(res => {
       console.log(res['value']);
       this.yesterdayActionsRetrievedListener.next(res['value']);
@@ -145,7 +147,7 @@ export class MatomoService {
   //Get Action (Behavior)
   getBehaviors(selectedDate){
     this.http.get<any>(
-    'http://localhost/matomo/index.php?date='+selectedDate+'&filter_limit=-1&flat=1&format=JSON&idSite=1&method=Actions.getPageUrls&module=API&period=day&segment=&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+    'http://localhost/matomo/index.php?date='+selectedDate+'&filter_limit=-1&flat=1&format=JSON&idSite=1&method=Actions.getPageUrls&module=API&period=day&segment=&token_auth='+this.token
     ).subscribe(res => {
       console.log(res);
       this.behavioursRetrievedListener.next(res);
@@ -161,7 +163,7 @@ export class MatomoService {
 
   getActions(selectedDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?module=API&method=Actions.get&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      'http://localhost/matomo/index.php?module=API&method=Actions.get&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth='+this.token
       ).subscribe(res => {
         console.log(res);
         this.actionsRetrievedListener.next(res);
@@ -176,7 +178,7 @@ export class MatomoService {
 
   getActiveUsers(selectedDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?module=API&method=VisitsSummary.getUsers&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      'http://localhost/matomo/index.php?module=API&method=VisitsSummary.getUsers&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth='+this.token
       ).subscribe(res => {
         console.log('Active Users:', res);
         this.activeUsersRetrievedListener.next(res);
@@ -189,7 +191,7 @@ export class MatomoService {
 
   getVisitActions(selectedDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?module=API&method=VisitsSummary.getActions&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      'http://localhost/matomo/index.php?module=API&method=VisitsSummary.getActions&idSite=1&period=day&date='+selectedDate+'&format=JSON&token_auth='+this.token
       ).subscribe(res => {
         console.log('Visitor Actions:', res);
         this.visitActionsRetrievedListener.next(res);
@@ -202,7 +204,7 @@ export class MatomoService {
 
   getAllUserMetricByDate(selectedDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?date='+selectedDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=1&method=API.get&module=API&period=day&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      'http://localhost/matomo/index.php?date='+selectedDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=1&method=API.get&module=API&period=day&token_auth='+this.token
       ).subscribe(res => {
         console.log('Visitor Actions:', res);
 
@@ -217,7 +219,7 @@ export class MatomoService {
 
   getAllUserMetricByMatomo(fromDate, toDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?date='+fromDate+','+toDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=1&method=API.get&module=API&period=day&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      'http://localhost/matomo/index.php?date='+fromDate+','+toDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=1&method=API.get&module=API&period=day&token_auth='+this.token
       ).subscribe(res => {
         console.log('Visitor Actions:', res);
 
@@ -233,7 +235,7 @@ export class MatomoService {
   /**Traffic Source area */
   getTrafficSourceChannel(selectedDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?date='+selectedDate+'&expanded=1&filter_limit=-1&format=JSON&idSite=1&method=Referrers.getReferrerType&module=API&period=day&segment=&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      'http://localhost/matomo/index.php?date='+selectedDate+'&expanded=1&filter_limit=-1&format=JSON&idSite=1&method=Referrers.getReferrerType&module=API&period=day&segment=&token_auth='+this.token
       ).subscribe(res => {
         console.log('Traffic Channel got from service:', res);
 
@@ -247,7 +249,7 @@ export class MatomoService {
 
   getPlatformBrowser(todayDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?date='+todayDate+'&expanded=1&filter_limit=10&format=JSON&idSite=1&method=DevicesDetection.getBrowsers&module=API&period=day&segment=&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      'http://localhost/matomo/index.php?date='+todayDate+'&expanded=1&filter_limit=10&format=JSON&idSite=1&method=DevicesDetection.getBrowsers&module=API&period=day&segment=&token_auth='+this.token
       ).subscribe(res => {
         console.log('Platform got from service:', res);
 
@@ -261,7 +263,7 @@ export class MatomoService {
 
   getPlatformOS(todayDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?date='+todayDate+'&expanded=1&filter_limit=10&format=JSON&idSite=1&method=DevicesDetection.getOsVersions&module=API&period=day&segment=&token_auth=ceaaf0c1264ab574e8fecd343feabe46'
+      'http://localhost/matomo/index.php?date='+todayDate+'&expanded=1&filter_limit=10&format=JSON&idSite=1&method=DevicesDetection.getOsVersions&module=API&period=day&segment=&token_auth='+this.token
       ).subscribe(res => {
         console.log('Traffic Channel got from service:', res);
 

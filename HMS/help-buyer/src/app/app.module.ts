@@ -30,6 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2Piwik } from 'angulartics2/piwik';
 import { routing } from './app.routing';
+import { MatomoModule } from 'ngx-matomo';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { routing } from './app.routing';
         }
     }),
     SharedModule,
+    MatomoModule,
     AppRoutingModule,
     Angulartics2Module.forRoot(),
   ],

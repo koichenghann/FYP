@@ -99,9 +99,6 @@ export class UserTrackComponent implements OnInit{
     //console.log('Number of Visitors:', this.matomoService.getTodayVisits());
     this.getMetricData();
     console.log('Yesterday date:' ,this.matomoService.getYesterdayDate());
-
-
-
   }
 
 
@@ -113,6 +110,8 @@ export class UserTrackComponent implements OnInit{
       console.log('All User Activity Data from Matomo: ', res);
       console.log(Object.keys(res));
       //console.log(res['2021-03-22']);
+
+
 
       if(res!=undefined){
         this.isLoading = false;
@@ -161,44 +160,86 @@ export class UserTrackComponent implements OnInit{
         //console.log('Date with Record: ', dateWithRecord);
         //console.log('Detect Array:',Array.isArray(userActivityModified[2]));
 
-        /** -- Set data to dashboard -- */
-        /*Number of Visitors */
-        this.todayVisitor = exisitingUserActivity[1].nb_visits;
-        this.yesterdayVisitor = exisitingUserActivity[0].nb_visits;
+        /*To detect empty list of yesterday, if yesterday = [ ] */
+        if(exisitingUserActivity.length=1){
+          console.log('Yesteryday No data: True!');
+            /** -- Set data to dashboard -- */
+          /*Number of Visitors */
+          this.todayVisitor = exisitingUserActivity[0].nb_visits;
+          this.yesterdayVisitor = 0;
+          console.log('Today visitor:', this.todayVisitor);
 
-        /*Number of Actions */
-        this.todayAction = exisitingUserActivity[1].nb_actions;
-        this.yesterdayAction = exisitingUserActivity[0].nb_actions;
+          /*Number of Actions */
+          this.todayAction = exisitingUserActivity[0].nb_actions;
+          this.yesterdayAction = 0
 
 
-        /*Number of new signed-up*/
-        if(exisitingUserActivity[0].nb_users_new==null){
+          /*Number of new signed-up*/
+          this.todayNewSignedUp = exisitingUserActivity[0].nb_users_new
           this.yesterdayNewSignedUp = 0;
+
+
+
+          /*Bounce rate */
+          this.todayBounceRate = exisitingUserActivity[0].bounce_rate;
+          this.yesterdayBounceRate = "No Record";
+          //console.log(exisitingUserActivity[1].bounce_rate);
+          //console.log(exisitingUserActivity[0].bounce_rate);
+
+          /*Direct Entry */
+          this.todayDirectEntry = exisitingUserActivity[0].Referrers_visitorsFromDirectEntry_percent;
+          this.yesterdayDirectEntry = "No Record"
+
+          /*Average on time site */
+          this.todayAvgTimeOnSite = exisitingUserActivity[0].avg_time_on_site;
+          this.yesterdayAvgTimeOnSite = "No Record";
+
         }
         else{
-          this.yesterdayNewSignedUp = exisitingUserActivity[0].nb_users_new;
-        }
+          console.log('Yes No data: False!');
+           /** -- Set data to dashboard -- */
+          /*Number of Visitors */
+          this.todayVisitor = exisitingUserActivity[1].nb_visits;
+          this.yesterdayVisitor = exisitingUserActivity[0].nb_visits;
+          console.log('Today visitor:', this.todayVisitor);
 
-        if(exisitingUserActivity[1].nb_users_new==null){
-          this.todayNewSignedUp = 0;
-        }
-        else{
-          this.todayNewSignedUp = exisitingUserActivity[1].nb_users_new;
-        }
+          /*Number of Actions */
+          this.todayAction = exisitingUserActivity[1].nb_actions;
+          this.yesterdayAction = exisitingUserActivity[0].nb_actions;
 
-        /*Bounce rate */
-        this.todayBounceRate = exisitingUserActivity[1].bounce_rate;
-        this.yesterdayBounceRate = exisitingUserActivity[0].bounce_rate;
-        //console.log(exisitingUserActivity[1].bounce_rate);
-        //console.log(exisitingUserActivity[0].bounce_rate);
 
-        /*Direct Entry */
-        this.todayDirectEntry = exisitingUserActivity[1].Referrers_visitorsFromDirectEntry_percent;
-        this.yesterdayDirectEntry = exisitingUserActivity[0].Referrers_visitorsFromDirectEntry_percent;
+          /*Number of new signed-up*/
+          if(exisitingUserActivity[0].nb_users_new==null){
+            this.yesterdayNewSignedUp = 0;
+          }
+          else{
+            this.yesterdayNewSignedUp = exisitingUserActivity[0].nb_users_new;
+          }
 
-        /*Average on time site */
-        this.todayAvgTimeOnSite = exisitingUserActivity[1].avg_time_on_site;
-        this.yesterdayAvgTimeOnSite = exisitingUserActivity[0].avg_time_on_site;
+          if(exisitingUserActivity[1].nb_users_new==null){
+            this.todayNewSignedUp = 0;
+          }
+          else{
+            this.todayNewSignedUp = exisitingUserActivity[1].nb_users_new;
+          }
+
+          /*Bounce rate */
+          this.todayBounceRate = exisitingUserActivity[1].bounce_rate;
+          this.yesterdayBounceRate = exisitingUserActivity[0].bounce_rate;
+          //console.log(exisitingUserActivity[1].bounce_rate);
+          //console.log(exisitingUserActivity[0].bounce_rate);
+
+          /*Direct Entry */
+          this.todayDirectEntry = exisitingUserActivity[1].Referrers_visitorsFromDirectEntry_percent;
+          this.yesterdayDirectEntry = exisitingUserActivity[0].Referrers_visitorsFromDirectEntry_percent;
+
+          /*Average on time site */
+          this.todayAvgTimeOnSite = exisitingUserActivity[1].avg_time_on_site;
+          this.yesterdayAvgTimeOnSite = exisitingUserActivity[0].avg_time_on_site;
+
+       }
+
+
 
         /*Calculation of Visitors */
         this.calVisitorPercent(this.yesterdayVisitor, this.todayVisitor);
@@ -445,14 +486,14 @@ export class DialogPlatform implements OnInit {
   }
 
   ngOnDestroy() {
-    //this.todayVisitorSub.unsubscribe();
-    //this.yesterdayVisitorSub.unsubscribe();
+    this.platformOSSub.unsubscribe();
+    this.platformBrowserSub.unsubscribe();
     //this.behaviorSub.unsubscribe();
     //this.allUserActivityMatomoSub.unsubscribe();
   }
 
   getPlatformOS(){
-    this.matomoService.getPlatformOS(this.matomoService.getYesterdayDate());
+    this.matomoService.getPlatformOS(this.matomoService.getTodayDate());
     this.platformOSSub = this.matomoService.getPlatformOSListener()
     .subscribe((res)=>{
       console.log('Platform Browser:', res);
@@ -462,7 +503,7 @@ export class DialogPlatform implements OnInit {
   }
 
   getPlatformBrowser(){
-    this.matomoService.getPlatformBrowser(this.matomoService.getYesterdayDate());
+    this.matomoService.getPlatformBrowser(this.matomoService.getTodayDate());
     this.platformBrowserSub = this.matomoService.getPlatformBrowserListener()
     .subscribe((res)=>{
       console.log('Platform OS:', res);
