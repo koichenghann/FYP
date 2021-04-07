@@ -54,11 +54,11 @@ router.route('/products')
             let products = await Product.find({})
                 .populate({ path: 'categoryDetails', match: { status: 'A' } })
                 .exec()
-            console.log(products)
+            // console.log(products)
             let filtered_array = _.filter(
                 products, function (o) {
                     if (o.categoryDetails != null)
-                        console.log(o.productName);
+                        // console.log(o.productName);
                         return o;
 
                 }
