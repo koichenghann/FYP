@@ -22,7 +22,7 @@ export class RecommendationService {
       response => {
         // alert(JSON.stringify(response))
         this.recommendations_retrieved_listener.next(response)
-        console.log(response);
+        // console.log(response);
         // this.fetchedProducts = response
       }
     );
@@ -33,6 +33,7 @@ export class RecommendationService {
     const uid = localStorage.getItem('uid');
     this.http.post(this.configUrl + '/rate', {product: product, user: uid, rating: rating }).subscribe(
       response => {
+        this.getRecommendations()
       }
     );
   }

@@ -26,7 +26,7 @@ btnDisabled = false;
   ) { }
 
   ngOnInit(): void {
-    
+
   }
 
   validate() {
@@ -59,6 +59,7 @@ btnDisabled = false;
           console.log('UserID = ',this.userName);
           this.angulartics2.setUsername.next(this.userName);
          // this.matomoTracker.setUserId(this.userName);
+          localStorage.setItem('uid', data['uid'])
           localStorage.setItem('token', data['token']);
           // localStorage.setItem('uid', data['uid']);
           this.router.navigate(['/home/fashion']);

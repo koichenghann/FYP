@@ -1,6 +1,7 @@
 <app-breadcrumb [title]="product?.title" [breadcrumb]="'Product'"></app-breadcrumb>
 <!-- section start -->
 <section class="section-b-space">
+
   <div class="collection-wrapper">
     <div class="container">
         <div class="row">
@@ -9,8 +10,8 @@
                     <ng-container *ngFor="let image of product.images; index as i">
                         <ng-template carouselSlide [id]="i">
                             <div>
-                                <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                   [lazyLoad]="image.src" 
+                                <img [defaultImage]="'assets/images/product/placeholder.jpg'"
+                                   [lazyLoad]="image.src"
                                    [alt]="image.alt" class="img-fluid" [src]="image.src">
                             </div>
                         </ng-template>
@@ -23,8 +24,8 @@
                                 <ng-container *ngFor="let image of product.images; index as i">
                                     <ng-template carouselSlide [id]="i">
                                         <div class="owl-thumb" [class.active]="i == activeSlide">
-                                        <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                           [lazyLoad]="image.src" 
+                                        <img [defaultImage]="'assets/images/product/placeholder.jpg'"
+                                           [lazyLoad]="image.src"
                                            [alt]="image.alt" class="img-fluid" [src]="image.src" (click)="owlCar.to(activeSlide = i.toString())">
                                         </div>
                                     </ng-template>
@@ -45,7 +46,7 @@
                         {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
                     </h3>
                     <ul class="color-variant" *ngIf="Color(product?.variants).length">
-                        <li [class]="color" [class.active]="activeSlide == i.toString()" *ngFor="let color of Color(product?.variants); index as i" 
+                        <li [class]="color" [class.active]="activeSlide == i.toString()" *ngFor="let color of Color(product?.variants); index as i"
                             [ngStyle]="{'background-color': color}"
                             (click)="owlCar.to(activeSlide = i.toString())">
                         </li>

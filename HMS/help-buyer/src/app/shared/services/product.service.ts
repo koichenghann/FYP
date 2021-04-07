@@ -36,11 +36,11 @@ export class ProductService {
 
   // Product
   private get products(): Observable<Product[]> {
-    console.log('get products ran')
+    // console.log('get products ran')
     this.Products = this.http.get<Product[]>(environment.serverIP+'api/products').pipe(map(data => data));
     this.Products.subscribe(next => {
       localStorage['products'] = JSON.stringify(next);
-      console.log(next)
+      // console.log(next)
     });
     return this.Products = this.Products.pipe(startWith(JSON.parse(localStorage['products'] || '[]')));
   }

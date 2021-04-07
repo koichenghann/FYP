@@ -26,7 +26,17 @@ export class RelatedProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.recommendations_retrieved_listener = this.recoService.get_recommendations_retrieved_listener().subscribe(response => {
-      // this.products = response
+      var sortedProducts = []
+      // console.log(response)
+      for (const id of response) {
+        // console.log(this.products.find(x => x['_id'].toString() == "606d617e645ec853feff5ea6"))
+        sortedProducts.push(this.products.find(e => e['_id'].toString() == id))
+      }
+      this.products = sortedProducts;
+      // console.log('name is here')
+      // console.log(sortedProducts)
+      // console.log(sortedProducts.map(a => a['productName']));
+      // this.products = respons
       // alert(JSON.stringify(response))
       this.loading = false;
     })

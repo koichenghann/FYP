@@ -7,7 +7,7 @@
         <div class="col-sm-3">
           <div class="collection-filter" [class.openFilterbar]="mobileSidebar">
             <div class="collection-filter-block">
-                <!--<div class="collection-mobile-back" (click)="toggleMobileSidebar()"> 
+                <!--<div class="collection-mobile-back" (click)="toggleMobileSidebar()">
                   <span class="filter-back">
                     <i class="fa fa-angle-left" aria-hidden="true"></i> back
                   </span>
@@ -17,8 +17,8 @@
             <div class="collection-filter-block">
                 <app-services></app-services>
             </div>
-                <app-product-box-vertical-slider 
-                  [title]="'New product'" 
+                <app-product-box-vertical-slider
+                  [title]="'New product'"
                   [type]="product?.type">
                 </app-product-box-vertical-slider>
           </div>
@@ -40,8 +40,8 @@
                     <ng-container *ngFor="let image of product?.images; index as i">
                         <ng-template carouselSlide [id]="i">
                             <div>
-                              <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                   [lazyLoad]="[image.src]" 
+                              <img [defaultImage]="'assets/images/product/placeholder.jpg'"
+                                   [lazyLoad]="[image.src]"
                                    [alt]="image.alt" class="img-fluid">
                             </div>
                         </ng-template>
@@ -53,9 +53,9 @@
                             <ng-container *ngFor="let image of product?.images; index as i">
                                 <ng-template carouselSlide [id]="i">
                                     <div class="owl-thumb" [class.active]="i == activeSlide">
-                                      <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
-                                           [lazyLoad]="[image.src]" 
-                                           [alt]="image.alt" class="img-fluid" 
+                                      <img [defaultImage]="'assets/images/product/placeholder.jpg'"
+                                           [lazyLoad]="[image.src]"
+                                           [alt]="image.alt" class="img-fluid"
                                            (click)="owlCar.to(activeSlide = i.toString())">
                                     </div>
                                 </ng-template>
@@ -75,8 +75,8 @@
                       {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
                   </h3>
                   <ul class="color-variant" *ngIf="Color(product?.variants).length">
-                    <li [class]="color" [class.active]="activeSlide == i.toString()" 
-                        *ngFor="let color of Color(product?.variants); index as i" 
+                    <li [class]="color" [class.active]="activeSlide == i.toString()"
+                        *ngFor="let color of Color(product?.variants); index as i"
                         [ngStyle]="{'background-color': color}"
                         (click)="owlCar.to(activeSlide = i.toString())">
                     </li>
@@ -91,7 +91,7 @@
                     </h6>
                     <div class="size-box" *ngIf="Size(product.variants).length">
                       <ul>
-                          <li [class.active]="selectedSize == size" 
+                          <li [class.active]="selectedSize == size"
                               *ngFor="let size of Size(product.variants)">
                               <a href="javascript:void(0)" (click)="selectSize(size)">
                                 {{ size | titlecase }}
