@@ -13,6 +13,7 @@ export class ProductTabsComponent implements OnInit {
 
   constructor(public productService: ProductService) { 
     this.productService.getProducts.subscribe(response => this.products = response);
+    console.log(this.productService.getProducts.subscribe(response => this.products = response));
   }
 
   ngOnInit(): void {
