@@ -31,7 +31,7 @@ export class MatomoService {
   private platformOSListener = new Subject<any>();
 
   /*Matomo token */
-  token = 'e7e134eae39f79244e27fc2eea5e76bb';
+  token = '4ab71bdf918bde168663a412df869c52';
 
 
   /* Return today's date */
@@ -288,12 +288,3 @@ export class MatomoService {
 
 
 }
-
-
-
-
-
-
-
-
-

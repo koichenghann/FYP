@@ -56,7 +56,7 @@ router.route('/products')
                 .exec()
             let filtered_array = _.filter(
                 products, function (o) {
-                    if (o.categoryDetails != null && o.sellerName != 'koichenghann')
+                    if (o.categoryDetails != null)
                         // console.log(o.productName);
                         return o;
 
