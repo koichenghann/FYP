@@ -29,7 +29,7 @@ export class MatomoService {
   /*Platform */
   private platformBrowserListener = new Subject<any>();
   private platformOSListener = new Subject<any>();
-
+  //'4ab71bdf918bde168663a412df869c52' my token
   /*Matomo token */
   token = '4ab71bdf918bde168663a412df869c52';
 

@@ -22,6 +22,7 @@ export class RecommendationService {
       response => {
         // alert(JSON.stringify(response))
         this.recommendations_retrieved_listener.next(response)
+        console.log(response);
         // this.fetchedProducts = response
       }
     );
