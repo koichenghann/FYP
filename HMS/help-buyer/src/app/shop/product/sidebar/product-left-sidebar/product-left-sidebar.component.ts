@@ -29,7 +29,10 @@ export class ProductLeftSidebarComponent implements OnInit {
   public ProductDetailsThumbConfig: any = ProductDetailsThumbSlider;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    public productService: ProductService, public recoService: RecommendationService) {
+    public productService: ProductService, public recoService: RecommendationService,
+    private angulartics2: Angulartics2 ,
+    private angulartics2Piwik:  Angulartics2Piwik,
+    ) {
       this.route.data.subscribe(response => {
         this.product = response.data
         this.recoService.rateProduct(response.data['_id'], 2)
