@@ -58,7 +58,7 @@ btnDisabled = false;
           //resetUserId
           console.log('UserID = ',this.userName);
           this.angulartics2.setUsername.next(this.userName);
-          this.matomoTracker.setUserId(this.userName);
+         // this.matomoTracker.setUserId(this.userName);
           localStorage.setItem('token', data['token']);
           this.router.navigate(['/home/fashion']);
         } else {
