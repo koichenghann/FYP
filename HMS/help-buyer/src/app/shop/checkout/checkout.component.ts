@@ -7,6 +7,8 @@ import { Product } from "../../shared/classes/product";
 import { ProductService } from "../../shared/services/product.service";
 import { OrderService } from "../../shared/services/order.service";
 import { RestapiService } from '../../restapi.service';
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2Piwik } from 'angulartics2/piwik'
 
 @Component({
   selector: 'app-checkout',
@@ -25,7 +27,9 @@ export class CheckoutComponent implements OnInit {
   constructor(private fb: FormBuilder,
     public productService: ProductService,
     private orderService: OrderService,
-    private rest: RestapiService) { 
+    private rest: RestapiService,
+    private angulartics2: Angulartics2 ,
+    private angulartics2Piwik:  Angulartics2Piwik,) { 
     this.checkoutForm = this.fb.group({
       firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
@@ -76,7 +80,21 @@ export class CheckoutComponent implements OnInit {
         // this.router.navigate(['/shop/fashion']);
       })
     })
+
+    console.log(this.amount);
     
+    /*
+    const ecommerceOrder = {
+      orderId: ,
+      grandTotal: this.amount,
+      subTotal: this.amount,
+      tax: 0,
+      shipping: 0,
+      discount: false,
+    };
+    */
+
+    //this.angulartics2.eventTrack.next({action: 'trackEcommerceOrder', properties: ecommerceOrder});
     
     
     // var handler = (<any>window).StripeCheckout.configure({
