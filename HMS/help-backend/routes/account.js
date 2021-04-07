@@ -84,19 +84,19 @@ router.post('/login', async (req, res, next) => {
       return res.status(404).json({ success: false, message: 'Authentication failed. Wrong password' });
     if (user.userType == "Seller")
       await Seller.updateOne({ userName: req.body.userName }, { $set: { lastLogin: new Date() } })
-    else if (user.userType == "Buyer") 
+    else if (user.userType == "Buyer")
       await Buyer.updateOne({ userName: req.body.userName }, { $set: { lastLogin: new Date() } })
-    
+
     var token = jwt.sign({
       user: { userName: user.userName, userType: user.userType }
     }, config.secret, {
       expiresIn: '7d'
     });
-    res.json({ success: true, mesage: "Enjoy your token", token: token });
+    res.json({ success: true, mesage: "Enjoy your token", token: token, uid: user._id });
   } catch (error) {
     next(error)
   }
-  
+
 });
 
 router.route('/profile')

@@ -56,6 +56,7 @@ btnDisabled = false;
           console.log('UserID = ',this.userName);
           this.angulartics2.setUsername.next(this.userName);
           localStorage.setItem('token', data['token']);
+          // localStorage.setItem('uid', data['uid']);
           this.router.navigate(['/home/fashion']);
         } else {
           this.data.error(data['message']);

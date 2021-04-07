@@ -56,8 +56,10 @@ router.route('/products')
                 .exec()
             let filtered_array = _.filter(
                 products, function (o) {
-                    if (o.categoryDetails != null)
+                    if (o.categoryDetails != null && o.sellerName != 'koichenghann')
+                        // console.log(o.productName);
                         return o;
+
                 }
             );
             let result = JSON.parse(JSON.stringify(filtered_array))
