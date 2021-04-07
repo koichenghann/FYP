@@ -28,6 +28,7 @@ export class BundleProductComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    console.log('This is bundle product!');
   }
 
   // Get Product Color

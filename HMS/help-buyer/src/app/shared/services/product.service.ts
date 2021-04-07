@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { NextObserver, Observable } from 'rxjs';
 import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
@@ -38,9 +38,9 @@ export class ProductService {
   private get products(): Observable<Product[]> {
     // console.log('get products ran')
     this.Products = this.http.get<Product[]>(environment.serverIP+'api/products').pipe(map(data => data));
-    this.Products.subscribe(next => {
-      localStorage['products'] = JSON.stringify(next);
-      // console.log(next)
+    this.Products.subscribe(res => {
+      localStorage['products'] = JSON.stringify(res);
+      //console.log('Product from service:', res);
     });
     return this.Products = this.Products.pipe(startWith(JSON.parse(localStorage['products'] || '[]')));
   }

@@ -6,6 +6,10 @@ import { ProductService } from '../../../../shared/services/product.service';
 import { SizeModalComponent } from "../../../../shared/components/modal/size-modal/size-modal.component";
 import { RecommendationService } from 'src/app/shared/services/recommendation.service';
 
+/*Matomo */
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2Piwik } from 'angulartics2/piwik'
+
 @Component({
   selector: 'app-product-left-sidebar',
   templateUrl: './product-left-sidebar.component.html',
@@ -34,6 +38,25 @@ export class ProductLeftSidebarComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    console.log('Yes this at product-left-sidebar');
+    console.log(this.product.title);
+
+    /*
+    for(var i in this.products){
+      console.log(this.products[i]);
+    }*/
+
+    const product = {
+      productSKU: this.product.stock,
+      productName: this.product.title,
+      productCategory: 'fashion',
+      price: this.product.price ,
+    };
+
+    const ecommerceViewDescription = product;
+
+    this.angulartics2.eventTrack.next({action: 'setEcommerceView', properties: ecommerceViewDescription});
+
   }
 
   // Get Product Color
@@ -76,8 +99,11 @@ export class ProductLeftSidebarComponent implements OnInit {
   async addToCart(product: any) {
     product.quantity = this.counter || 1;
     const status = await this.productService.addToCart(product);
-    if(status)
+    if(status){
+      console.log('Added to cart!');
       this.router.navigate(['/shop/cart']);
+    }
+
   }
 
   // Buy Now

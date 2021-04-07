@@ -5,6 +5,9 @@ import { Product } from '../../../shared/classes/product';
 import { ProductService } from '../../../shared/services/product.service';
 import { RestapiService } from '../../../restapi.service';
 import { DataService } from '../../../data.service';
+//import { Angulartics2Piwik } from './piwik';
+import { Angulartics2 } from 'angulartics2';
+import { Angulartics2Piwik } from 'angulartics2/piwik'
 
 
 
@@ -17,10 +20,13 @@ export class FashionOneComponent implements OnInit {
 
   public products: Product[] = [];
   public productCollections: any[] = [];
+  public product: Product;
 
   constructor(public productService: ProductService,
     private rest: RestapiService,
-    private data: DataService
+    private data: DataService,
+    private angulartics2: Angulartics2 ,
+    private angulartics2Piwik:  Angulartics2Piwik,
 
   ) {
     
