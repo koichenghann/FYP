@@ -41,9 +41,9 @@ export class MatomoService {
 
   /* */
   //'e7e134eae39f79244e27fc2eea5e76bb' Jacky token
-  //'4ab71bdf918bde168663a412df869c52' my token
+  //'968b159e2ba2255ecf8b403c253068da' my token
   /*Matomo token */
-  token = '4ab71bdf918bde168663a412df869c52';
+  token = '968b159e2ba2255ecf8b403c253068da';
 
 
   /* Return today's date */
@@ -105,7 +105,7 @@ export class MatomoService {
   /*Get ecommerce summary by date*/
   getEcommerceSummaryByDate(selectedDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?date=today&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idGoal=ecommerceOrder&idSite=1&method=Goals.get&module=API&period=day&segment=&showAllGoalSpecificMetrics=1&token_auth='
+      'http://localhost/matomo/index.php?date=selectedDate&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idGoal=ecommerceOrder&idSite=1&method=Goals.get&module=API&period=day&segment=&showAllGoalSpecificMetrics=1&token_auth='
       +this.token
       ).subscribe(res => {
         //console.log('MetricsByProductName:', res);
