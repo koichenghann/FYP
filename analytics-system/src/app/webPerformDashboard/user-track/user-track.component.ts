@@ -161,7 +161,7 @@ export class UserTrackComponent implements OnInit{
         //console.log('Detect Array:',Array.isArray(userActivityModified[2]));
 
         /*To detect empty list of yesterday, if yesterday = [ ] */
-        if(exisitingUserActivity.length=1){
+        if(exisitingUserActivity.length<2){
           console.log('Yesteryday No data: True!');
             /** -- Set data to dashboard -- */
           /*Number of Visitors */
