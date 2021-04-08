@@ -50,10 +50,11 @@ export class ProductLeftSidebarComponent implements OnInit {
     }*/
 
     const product = {
-      productSKU: this.product.stock,
+      productSKU: this.product.id,
       productName: this.product.title,
-      productCategory: 'fashion',
+      productCategory: this.product.category,
       price: this.product.price ,
+      quantity: this.product.stock
     };
 
     const ecommerceViewDescription = product;
@@ -104,6 +105,15 @@ export class ProductLeftSidebarComponent implements OnInit {
     const status = await this.productService.addToCart(product);
     if(status){
       console.log('Added to cart!');
+      const product = {
+        productSKU: this.product.id,
+        productName: this.product.title,
+        productCategory: this.product.category,
+        price: this.product.price ,
+        quantity: this.product.stock
+      };
+      console.log(product);
+      this.angulartics2.eventTrack.next({action: 'addEcommerceItem', properties: product});
       this.router.navigate(['/shop/cart']);
     }
 
