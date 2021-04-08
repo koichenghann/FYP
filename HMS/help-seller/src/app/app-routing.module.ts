@@ -7,8 +7,8 @@ import { HttpClientModule } from "@angular/common/http";
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'dashboard/default',
+    path: 'dashboard/default',
+    redirectTo: 'sales/order',
     pathMatch: 'full'
   },
   {

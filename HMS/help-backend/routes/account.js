@@ -71,6 +71,7 @@ router.post('/signup', async (req, res, next) => {
 });
 
 router.post('/login', async (req, res, next) => {
+  console.log('username: ' + req.body.userName)
   try {
     const user = await User.findOne({ userName: req.body.userName })
     if (!user)
@@ -207,5 +208,22 @@ router.route('/bankdetails/:id?')
       next(error)
     }
   })
+
+
+  router.post('/getUser', async (req, res, next) => {
+    // console.log('username: ' + req.body.userName)
+    try {
+      const user = await User.findOne({ _id: req.body.uid })
+      if (!user)
+        return res.status(404).json({ success: false, message: 'Authenticated failed, User not found' });
+      if (user.status != "Active")
+        return res.status(404).json({ success: false, message: 'User account deactivated contact admin!' });
+
+      res.json({ success: true, mesage: "user fetched", user: user});
+    } catch (error) {
+      next(error)
+    }
+
+  });
 
 module.exports = router;

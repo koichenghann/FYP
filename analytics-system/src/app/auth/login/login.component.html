@@ -22,10 +22,11 @@
             type="text"
             name="username"
             placeholder="Enter username"
-            ngModel
+            [(ngModel)] = "username"
             required
-            #username="ngModel">
-            <mat-error *ngIf="username.invalid">Username is required</mat-error>
+            >
+            <mat-error *ngIf="username.length == 0">Username is required</mat-error>
+            <!-- <mat-error *ngIf="username.invalid">Username is required</mat-error> -->
         </mat-form-field>
 
         <mat-form-field appearance="outline" fxFlex="100%">
@@ -35,14 +36,16 @@
             type="password"
             name="password"
             placeholder="Enter password"
-            ngModel
+            [(ngModel)]="password"
             required
-            #password="ngModel">
-            <mat-error *ngIf="password.invalid">Password is required</mat-error>
+            >
+            <mat-error *ngIf="password.length == 0">Password is required</mat-error>
         </mat-form-field>
 
         <div class="form-button-group" fxFlex="100%">
-            <button mat-raised-button color="primary" type="submit" id="submitButton" routerLink="/web-performance/dashboard">Login</button>
+            <button mat-raised-button color="primary" type="submit" id="submitButton" (click)="login()">Login</button>
+
+            <!-- <button mat-raised-button color="primary" type="submit" id="submitButton" routerLink="/web-performance/dashboard">Login</button> -->
         </div>
 
       </form>

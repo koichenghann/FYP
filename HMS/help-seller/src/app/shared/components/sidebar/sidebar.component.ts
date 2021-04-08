@@ -38,7 +38,7 @@ export class SidebarComponent implements OnInit {
         }
       })
     })
-    
+
   }
 
   ngOnInit() {
@@ -102,4 +102,15 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+
+  openStaticMach(path) {
+    if(path == '/dashboard/default') {
+      window.open("http://localhost:49620/login?uid=" + localStorage.getItem('uid'), "_blank");
+    }
+    else {
+      this.router.navigate([path]);
+    }
+    // alert(path)
+     // window.open("http://localhost:49620/login?uid=" + localStorage.getItem('uid'), "_blank");
+  }
 }

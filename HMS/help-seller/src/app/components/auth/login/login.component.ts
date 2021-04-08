@@ -101,9 +101,11 @@ export class LoginComponent implements OnInit {
             userType : "Seller"
           },
         ).subscribe((data: any) => {
+          localStorage.setItem('uid', data['uid'])
           localStorage.setItem('token', data['token']);
           this.data.getProfile()
-          this.router.navigate(['/dashboard/default']);
+          // this.router.navigate(['/dashboard/default']);
+          this.router.navigate(['/sales/orders']);
         },(err: any) => {
           this.data.error(err.error['message']);
           });
@@ -141,7 +143,7 @@ export class LoginComponent implements OnInit {
     try {
       console.log('btnDisabled:', this.validateR())
       if (this.validateR()) {
-        this.rest.post( 
+        this.rest.post(
           'accounts/signup',
           {
             userName: this.registerForm.get("userName").value,

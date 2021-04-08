@@ -3,6 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector:'side-navbar',
@@ -17,7 +18,7 @@ export class SideNavbarComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, public router: Router) {}
     userType = 'Patient';
     //userType    = this.getUserType();
 
@@ -49,6 +50,7 @@ export class SideNavbarComponent {
 
     }
     ngOnInit(){
+      if (localStorage.getItem('admin') == null) { this.router.navigate(['/login']);}
 
       if (this.userType=='Patient'){
         this.list_item_1 = 'Dashboard';
@@ -89,6 +91,7 @@ export class SideNavbarComponent {
     }
 
     logout(){
+      localStorage.removeItem('admin')
       //this.auhtService.logout();
     }
 
