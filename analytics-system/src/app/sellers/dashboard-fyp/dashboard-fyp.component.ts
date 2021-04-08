@@ -26,7 +26,9 @@ export class DashboardFypComponent implements OnInit {
 
   /*Subcription */
   todaySummarySub: Subscription;
+  summaryByDateRangeSub: Subscription;
   metricsByProductNameSub: Subscription;
+
 
 
   ngOnInit(): void {
@@ -52,11 +54,19 @@ export class DashboardFypComponent implements OnInit {
       console.log('Metrics by product name from yesterday to today:', res);
     })
 
+    /*Get ecommerce summanry by date range  */
+    this.matomoService.getEcommerceSummaryByDateRange(this.matomoService.getYesterdayDate(),this.matomoService.getTodayDate());
+    this.summaryByDateRangeSub = this.matomoService.getEcommerceSummaryByListenerDateRange()
+    .subscribe((res)=>{
+      console.log('Ecommerce summary by date range:', res);
+    })
+
   }
 
   ngOnDestroy() {
     this.todaySummarySub.unsubscribe();
     this.metricsByProductNameSub.unsubscribe();
+    this.summaryByDateRangeSub.unsubscribe();
   }
 
 }

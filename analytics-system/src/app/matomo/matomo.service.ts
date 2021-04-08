@@ -36,8 +36,8 @@ export class MatomoService {
 
   /*ecommerce summary*/
   private todayEcommerceSummaryListener = new Subject<any>();
-  private ecommerceSummaryListernerByDate = new Subject<any>();
-  //private ecommerceSummaryListernerDateRange = new Subject<any>();
+  private ecommerceSummaryListenerByDate = new Subject<any>();
+  private ecommerceSummaryListenerByDateRange = new Subject<any>();
 
   /* */
   //'e7e134eae39f79244e27fc2eea5e76bb' Jacky token
@@ -105,16 +105,32 @@ export class MatomoService {
   /*Get ecommerce summary by date*/
   getEcommerceSummaryByDate(selectedDate){
     this.http.get<any>(
-      'http://localhost/matomo/index.php?date=selectedDate&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idGoal=ecommerceOrder&idSite=1&method=Goals.get&module=API&period=day&segment=&showAllGoalSpecificMetrics=1&token_auth='
+      'http://localhost/matomo/index.php?date='+selectedDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idGoal=ecommerceOrder&idSite=1&method=Goals.get&module=API&period=day&segment=&showAllGoalSpecificMetrics=1&token_auth='
       +this.token
       ).subscribe(res => {
         //console.log('MetricsByProductName:', res);
-        this.ecommerceSummaryListernerByDate.next(res);
+        this.ecommerceSummaryListenerByDate.next(res);
     })
   }
 
-  getEcommerceSummaryByListener(selectedDate) {
-    return this.ecommerceSummaryListernerByDate.asObservable();
+  getEcommerceSummaryByListener() {
+    return this.ecommerceSummaryListenerByDate.asObservable();
+  }
+
+
+  /*Get ecommerce summary by date range */
+  getEcommerceSummaryByDateRange(fromDate,toDate){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?date='+fromDate+','+toDate+'&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idGoal=ecommerceOrder&idSite=1&method=Goals.get&module=API&period=day&segment=&showAllGoalSpecificMetrics=1&token_auth='
+      +this.token
+      ).subscribe(res => {
+        //console.log('MetricsByProductName:', res);
+        this.ecommerceSummaryListenerByDateRange.next(res);
+    })
+  }
+
+  getEcommerceSummaryByListenerDateRange() {
+    return this.ecommerceSummaryListenerByDateRange.asObservable();
   }
 
 
