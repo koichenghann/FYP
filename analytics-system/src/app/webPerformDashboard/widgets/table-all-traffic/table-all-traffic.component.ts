@@ -61,16 +61,18 @@ export interface Source {
   ip: string
 }
 
+
+
 const sources: Source[] = [
-  {referrer: 'facebook.com', sessions: '1015',  percentOfTraffic: '35.8%', trend:  '1.6%' , icon: 'fas fa-caret-up',ip:'199.106.121.249'},
-  {referrer:  'google.com', sessions: '439',  percentOfTraffic: '17.6%', trend:  '0.9%', icon: 'fas fa-caret-up',ip:'29.83.168.65'},
-  {referrer:  'instagram.com', sessions: '258',  percentOfTraffic: '12.8%', trend:  '0.8%', icon: 'fas fa-caret-down',ip:'169.118.102.230'},
-  {referrer:  'twitter.com', sessions: '129',  percentOfTraffic: '9.6%', trend:  '1.5%', icon: 'fas fa-caret-down',ip:'126.118.171.148'},
-  {referrer:  'images.google.com', sessions: '103',  percentOfTraffic: '9.2%', trend:  '0.5%', icon: 'fas fa-caret-up',ip:'1.32.237.172'},
-  {referrer:  'help.edu.my', sessions: '98',  percentOfTraffic: '8.4%', trend:  '0.7%', icon: 'fas fa-caret-down',ip:'59.16.52.136'},
+  {referrer: 'localhost:4200', sessions: '387',  percentOfTraffic: '99.8%', trend:  '100%' , icon: 'fas fa-caret-up',ip:'127.0.0.1:4200'},
+  {referrer:  'localhost:49620', sessions: '5',  percentOfTraffic: '0.2%', trend:  '0.0%', icon: 'fas fa-caret-down',ip:'127.0.0.1:49620'},
+  /*{referrer:  'help.edu.my', sessions: '258',  percentOfTraffic: '12.8%', trend:  '0.0%', icon: 'fas fa-caret-down',ip:'-'},
+  {referrer:  'hlms.help.edu.my', sessions: '129',  percentOfTraffic: '9.6%', trend:  '0.0%', icon: 'fas fa-caret-down',ip:'-'},
+  {referrer:  'www.facebook.com', sessions: '103',  percentOfTraffic: '9.2%', trend:  '0.0%', icon: 'fas fa-caret-up',ip:'-'},*/
+  /*{referrer:  'help.edu.my', sessions: '98',  percentOfTraffic: '8.4%', trend:  '0.7%', icon: 'fas fa-caret-down',ip:'59.16.52.136'},
   {referrer:  'university.help.edu.my', sessions: '34',  percentOfTraffic: '4.3%', trend:  '0.6%', icon: 'fas fa-caret-up',ip:'11.154.136.99'},
   {referrer:  'hlms.help.edu.my', sessions: '34',  percentOfTraffic: '4.3%', trend:  '0.6%', icon: 'fas fa-caret-up',ip:'200.7.95.241'},
   {referrer:  'thestar.com.my', sessions: '34',  percentOfTraffic: '4.3%', trend:  '0.6%', icon: 'fas fa-caret-up',ip:'95.83.241.57'},
   {referrer:  'mail.google.com', sessions: '34',  percentOfTraffic: '4.3%', trend:  '0.6%', icon: 'fas fa-caret-up',ip:'89.241.93.51'}
-
+  */
 ];
