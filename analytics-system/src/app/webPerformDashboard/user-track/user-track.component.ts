@@ -319,17 +319,25 @@ export class UserTrackComponent implements OnInit{
     var a = todayNewSignedUp;
     var b = yesterdayNewSignedUp;
     var c = (a/b * 100) - 100
-    this.signedUpPercent = c.toFixed(1);
 
-    if (c < 0.0){
-      this.arrowSignup="fas fa-caret-down fas_icon_3";
-    }
-    else if (c > 0.0){
-     this.arrowSignup="fas fa-caret-up";
+    console.log();
+    if(!isNaN(c)){
+      this.signedUpPercent = c.toFixed(1);
+      if (c < 0.0){
+        this.arrowSignup="fas fa-caret-down fas_icon_3";
+      }
+      else if (c > 0.0){
+       this.arrowSignup="fas fa-caret-up";
+      }
+      else{
+       this.arrowSignup="";
+      }
     }
     else{
-     this.arrowSignup="";
+      this.signedUpPercent = '0';
+      this.arrowSignup="fas fa-caret-up";
     }
+
    console.log("Calculated New Signup: ",this.signedUpPercent);
  }
 
