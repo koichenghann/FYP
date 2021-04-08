@@ -6,11 +6,11 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { HttpClientModule } from "@angular/common/http";
 
 const routes: Routes = [
-  {
-    path: 'dashboard/default',
-    redirectTo: 'sales/order',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: 'dashboard/default',
+  //   redirectTo: 'sales/order',
+  //   pathMatch: 'full'
+  // },
   {
     path: '',
     component: ContentLayoutComponent,

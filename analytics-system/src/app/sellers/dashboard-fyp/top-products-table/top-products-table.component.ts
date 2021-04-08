@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
+import { RecommendationServiceService } from 'src/app/services/recommendation-service.service';
 import { ProductsService } from '../../products/products.service';
 
 
@@ -12,63 +14,126 @@ import { ProductsService } from '../../products/products.service';
 })
 export class TopProductsTableComponent implements OnInit {
 
-  constructor(public productsService: ProductsService) { }
 
-  ngOnInit(): void {
-  }
+    refresh: Subscription;
+    displayedColumns: string[] = ['productName', 'lastSold', 'quantity', 'percentage', 'revenue'];//'status'
+    dataSource;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+    orders_retrieved: Subscription;
 
-  displayedColumns: string[] = ['productId', 'name', 'price', 'sold', 'revenue'];
-  dataSource = new MatTableDataSource<Product>(this.productsService.getProducts());
+    constructor(  public recoService: RecommendationServiceService) { }
+    ngOnInit(): void {
+      // this.orders_retrieved = this.recoService.get_orders_retrieved_listener().subscribe((res) => {
+      //   this.getProductsPerformance(res['orders']);
+      //
+      //
+      // })
+      // this.recoService.getOrders();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+      this.refresh = this.recoService.get_refreh_listener().subscribe((res)=>{
+        if (res.chart == 'product-table') {
+          // alert('helo')
+          this.getProductsPerformance(res.data)
+        }
+      })
     }
-  }
+    ngOnDestroy(){
+      this.orders_retrieved.unsubscribe();
+    }
 
+    ngAfterViewInit() {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }
+
+    applyFilter(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+    }
+
+
+    getProductsPerformance(orders) {
+      var products = []
+      var totalRevenue = 0.0
+      for (let order of orders) {
+        totalRevenue += parseFloat(order['amountPaid'])
+        if (products.find(x => x.productName == order['productName'])) {
+          let newDate
+          const index = products.indexOf(products.find(x => x.productName == order['productName']))
+          products[index].quantity += order['quantity'];
+          products[index].revenue = parseFloat(products[index].revenue) + parseFloat(order['amountPaid']);
+          if (products[index].lastSold.slice(0, 10) < order['orderDate'].slice(0, 10)) {
+            products[index].lastSold = order['orderDate']
+          }
+
+        } else {
+          products.push({productName: order['productName'], quantity: order['quantity'], revenue: order['amountPaid'], lastSold: order['orderDate'], percentage: 0.0})
+        }
+      }
+      // console.log(products)
+
+
+      for (let prod of products){
+        prod.percentage = (prod.revenue/totalRevenue)*100
+      }
+
+
+      // var newList = []
+      // for (let a of orders){
+      //   newList.push({productName: a['productName'], quantity: a['quantity'], revenue: a['amountPaid'], lastSold: a['orderDate']})
+      // }
+      // console.log(orders)
+      // console.log(newList)
+      this.dataSource = new MatTableDataSource(products)
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+    }
+    // amountPaid: "30"
+    // buyerUserName: "testbuyer001"
+    // orderDate: "2021-04-07 12:25:17.813000"
+    // productName: "Sample - HELP T-shirt (White)"
+    // quantity: 1
+    // _id:: "606da68560710a1c0c34c51d"
 }
 
 
-export interface Product {
-  productId: string,
-  name: string,
-  price: number,
-  oriStock: number,
-  sold: number,
-  inStock: number,
-  revenue: number
-}
 
-const Product: Product[] = [
-  {productId: 'P001', name: 'Pilot G2',             price: 5, oriStock: 100, sold: 30, inStock: 70, revenue: 150},
-  {productId: 'P002', name: 'Stabilo 2B Pencil',    price: 12, oriStock: 100, sold: 30, inStock: 70, revenue: 360},
-  {productId: 'P003', name: 'Vacuum Flask',         price: 30, oriStock: 100, sold: 30, inStock: 70, revenue: 900},
-  {productId: 'P004', name: 'Plastic Ruler',        price: 1, oriStock: 100, sold: 30, inStock: 70, revenue: 30},
-  {productId: 'P005', name: 'Plain T-Shirt',        price: 10, oriStock: 100, sold: 30, inStock: 70, revenue: 300},
-  {productId: 'P006', name: 'Graphic T-Shirt',      price: 20, oriStock: 100, sold: 30, inStock: 70, revenue: 600},
-  {productId: 'P007', name: 'Table Clock',          price: 15, oriStock: 100, sold: 30, inStock: 70, revenue: 450},
-  {productId: 'P008', name: 'Alarm Clock',          price: 30, oriStock: 100, sold: 30, inStock: 70, revenue: 900},
-  {productId: 'P008', name: 'Analog Watch',         price: 50, oriStock: 100, sold: 30, inStock: 70, revenue: 1500},
-  {productId: 'P010', name: 'Digital Watch',        price: 50, oriStock: 100, sold: 30, inStock: 70, revenue: 1500},
-  {productId: 'P011', name: 'Summer Flip Flop',     price: 20, oriStock: 100, sold: 30, inStock: 70, revenue: 600},
-  {productId: 'P012', name: '3D Pen',               price: 100, oriStock: 100, sold: 30, inStock: 70, revenue: 3000},
-  {productId: 'P013', name: '32GB SD memory card',  price: 20, oriStock: 100, sold: 30, inStock: 70, revenue: 600},
-  {productId: 'P014', name: '500GB SSD 2.5"',       price: 250, oriStock: 100, sold: 30, inStock: 70, revenue: 7500},
-  {productId: 'P015', name: '256GB M.2 SSD',        price: 300, oriStock: 100, sold: 30, inStock: 70, revenue: 9000},
-  {productId: 'P016', name: 'A4 Paper 100gsm',      price: 20, oriStock: 100, sold: 30, inStock: 70, revenue: 600},
-  {productId: 'P017', name: 'Steel Bottle 800ml',   price: 30, oriStock: 100, sold: 30, inStock: 70, revenue: 900},
-  {productId: 'P018', name: 'BPA free Bottle 1L',   price: 30, oriStock: 100, sold: 30, inStock: 70, revenue: 900},
-  {productId: 'P019', name: 'Present Wrap',         price: 5, oriStock: 100, sold: 30, inStock: 70, revenue: 150},
-  {productId: 'P020', name: 'Hot Glue',             price: 5, oriStock: 100, sold: 30, inStock: 70, revenue: 150}
-];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

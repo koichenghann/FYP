@@ -37,7 +37,7 @@ export class OrderService {
     //   this.recoService.rateProduct(prod._id, 5)
     // }
     for (let i = 0; i < product.length; i++){
-      alert(product[i].productName)
+      // alert(product[i].productName)
       this.recoService.rateProduct(product[i]._id, 5)
     }
     var item = {

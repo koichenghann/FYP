@@ -26,13 +26,13 @@ export class ProductNoSidebarComponent implements OnInit {
     public productService: ProductService) {
       this.route.data.subscribe(response => {
         this.product = response.data
-        alert('response.data')
+        // alert('response.data')
         console.log('hello')
       } );
     }
 
   ngOnInit(): void {
-    alert('response.data')
+    // alert('response.data')
   }
 
   // Get Product Color

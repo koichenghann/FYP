@@ -160,10 +160,11 @@ router.route('/shipment/:id?')
         const shipmentDetails = await Shipment.find({}, { _id: false, __v: false })
         res.json({ success: true, message: "Success", shipmentDetails })
     })
-
+// currentDate: 2021-04-08T00:00:00.000Z
 // post order
 router.route('/order/:id?')
     .get(checkJWT, async (req, res) => {
+      // console.log(new Date())
       const orderDetails = await Order.find({ buyerUserName : req.decoded.user.userName}, { _id: false, __v: false })
       res.json({ success: true, message: "Success", orderDetails })
     })

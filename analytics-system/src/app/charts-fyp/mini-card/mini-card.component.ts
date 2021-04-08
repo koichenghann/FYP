@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
+import { Subscription } from 'rxjs';
+import { RecommendationServiceService } from 'src/app/services/recommendation-service.service';
 
 
 @Component({
@@ -17,6 +19,7 @@ export class MiniCardComponent implements OnInit {
   @ViewChild('percentage') percent;
   @ViewChild('icon') icon;
 
+  // @Input() total: number;
   @Input() label: string;
   @Input() total: number;
   @Input() suffix: string;
@@ -25,6 +28,7 @@ export class MiniCardComponent implements OnInit {
   @Input() colorTheme: string;
   @Input() data: number[];
   @Input() hideIcon: boolean;
+  @Input() date: [];
 
 
 
@@ -35,7 +39,9 @@ export class MiniCardComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(public recoService: RecommendationServiceService) { }
+  orders_retrieved: Subscription;
+  refresh2: Subscription;
 
   ngAfterViewInit() {
 
@@ -48,9 +54,38 @@ export class MiniCardComponent implements OnInit {
   else {
     this.customColor = 'blue';
   }
+
   }
 
   ngOnInit(): void {
+    // alert(this.date)
+
+    this.refresh2 = this.recoService.get_refreh_listener2().subscribe((res)=>{
+      if(this.label == 'Revenue') {
+        this.data = res[0]
+      } else if( this.label == 'Orders') {
+        this.data = res[1]
+      } else if( this.label == 'Item Sold') {
+        this.data = res[2]
+      } else if( this.label == 'Conversion Rate') {
+        this.data = res[3]
+      }
+      this.percentage = (this.data[3]-this.data[2])/this.data[2]*100;
+      if (Number.isNaN(this.percentage)){
+        this.percentage = 0
+      }
+      if (Number.isNaN(this.total)) {
+        this.total = 0
+      }
+      this.loadChart()
+      console.log(this.data)
+    })
+
+
+
+  }
+
+  loadChart() {
     this.displayPercent = Math.abs(Math.round(this.percentage));
     if ( this.percentage > 0 ) {
       this.customColor = this.colorTheme;
@@ -90,6 +125,7 @@ export class MiniCardComponent implements OnInit {
           enabled: false
         },
         xAxis: {
+          categories: this.date,
           labels: {
             enabled: false,
 
@@ -133,7 +169,8 @@ export class MiniCardComponent implements OnInit {
         },
 
         series: [{
-          data: this.data
+          data: this.data,
+          name: 'val'
         }]
     };
 
@@ -144,7 +181,10 @@ export class MiniCardComponent implements OnInit {
         new Event('resize')
       );
     },300);
-
   }
+  ngOnDestroy(){
+    this.refresh2.unsubscribe();
+  }
+
 
 }

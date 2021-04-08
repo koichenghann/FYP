@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
+import { Subscription } from 'rxjs';
+import { RecommendationServiceService } from 'src/app/services/recommendation-service.service';
 
 @Component({
   selector: 'app-abandonment-rate',
@@ -11,11 +13,27 @@ export class AbandonmentRateComponent implements OnInit {
 
   chartOptions: {};
   Highcharts = Highcharts;
+  refresh: Subscription;
 
-  constructor() { }
+  abandonedCarts = 0
+  abandonedRevenue = 0
+
+
+  constructor(public recoService: RecommendationServiceService) { }
 
   ngOnInit(): void {
+    this.refresh = this.recoService.get_refreh_listener().subscribe((res)=>{
+      if (res.chart == 'pie-chart') {
+        // alert('helo')
+        this.loadChart(res.data.totalCarts, res.data.abandonmentRate, res.data.abandonedCarts, res.data.abandonedRevenue);
+        this.abandonedCarts = res.data.abandonedCarts;
+        this.abandonedRevenue = res.data.abandonedRevenue
+        // console.log(res)
+      }
+    })
+  }
 
+  loadChart(totalCarts, abandonmentRate, abandonedCarts, abandonedRevenue) {
     this.chartOptions = {
       chart: {
         type: 'pie',
@@ -30,7 +48,7 @@ export class AbandonmentRateComponent implements OnInit {
                 spacingRight: 0,
       },
       title: {
-          text: '30%<br>Abandonment<br>Rate',
+          text: abandonmentRate + '%<br>Abandonment<br>Rate',
           align: 'center',
           verticalAlign: 'middle',
           y: 14
@@ -70,8 +88,8 @@ export class AbandonmentRateComponent implements OnInit {
           name: 'Percentage',
           innerSize: '80%',
           data: [
-              ['Sold', 30],
-              ['In Stock', 70],
+              ['Abandoned', abandonedCarts],
+              ['Sold', totalCarts - abandonedCarts],
           ]
       }]
     };
@@ -83,7 +101,10 @@ export class AbandonmentRateComponent implements OnInit {
         new Event('resize')
       );
     },300);
+  }
 
+  ngOnDestroy(){
+    this.refresh.unsubscribe();
   }
 
 }

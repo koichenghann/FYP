@@ -5,12 +5,15 @@
       <div  fxLayout="row">
         <div class="custom-page-header">
           Dashboard
+          <span id="username"> - {{username}}</span>
         </div>
         <div class="filler"></div>
         <div class="custom-date-range">
-          from: <input type="date" name="" value="2020-11-12">
+          from: <input type="date" name="" [(ngModel)]="startDate">
           &nbsp;&nbsp;&nbsp;
-          to: <input type="date" name="" value="2020-11-18">
+          to: <input type="date" name="" [(ngModel)]="endDate">
+          &nbsp;&nbsp;&nbsp;
+          <button (click)="filterByDate()" type="button" name="button" id="apply">apply</button>
         </div>
       </div>
     </div>
@@ -19,16 +22,16 @@
     <div class="main-wrapper">
       <div  fxLayout="row" class="card-array-wrapper">
         <div id="card-1" class="mini-card-wrapper">
-          <app-mini-card label="Revenue" suffix="MYR" [percentage]="revenuePercentage" colorTheme="#03bf00" [data]="revenueData"></app-mini-card>
+          <app-mini-card label="Revenue" suffix="MYR" [percentage]="revenuePercentage" colorTheme="#03bf00" [data]="revenueData" [total]="revenue" [date]="last4day"></app-mini-card>
         </div>
         <div id="card-2" class="mini-card-wrapper">
-          <app-mini-card label="Orders" [percentage]="ordersPercentage" colorTheme="#03bf00" [data]="ordersData"></app-mini-card>
+          <app-mini-card label="Orders" [percentage]="ordersPercentage" colorTheme="#03bf00" [data]="ordersData" [total]="order" [date]="last4day"></app-mini-card>
         </div>
         <div id="card-2" class="mini-card-wrapper">
-          <app-mini-card label="Visitors"  suffix="" [percentage]="salesGrowthPercentage" colorTheme="#03bf00" [data]="salesGrowthData"></app-mini-card>
+          <app-mini-card label="Item Sold"  suffix="" [percentage]="productSoldPercentage" colorTheme="#03bf00" [data]="productSoldData" [total]="productSold" [date]="last4day"></app-mini-card>
         </div>
         <div id="card-1" class="mini-card-wrapper">
-          <app-mini-card label="Conversion Rate"  suffix="%" [percentage]="avgOrdersValuePercentage" colorTheme='#1441c9' [data]="avgOrdersValueData"></app-mini-card>
+          <app-mini-card label="Conversion Rate"  suffix="%" [percentage]="conversionRatePercentage" colorTheme='#1441c9' [data]="conversionRateData" [total]="conversionRate" [date]="last4day"></app-mini-card>
         </div>
       </div>
     </div>
@@ -39,7 +42,8 @@
     <div class="main-wrapper">
       <div  fxLayout="row">
         <div class="medium-card-wrapper">
-         <app-combined-data></app-combined-data>
+          <app-sales-orders></app-sales-orders>
+         <!-- <app-combined-data></app-combined-data> -->
         </div>
         <div class="medium-card-wrapper">
           <app-abandonment-rate></app-abandonment-rate>
@@ -55,11 +59,25 @@
         <div class="medium-card-wrapper">
           <app-top-products-table></app-top-products-table>
         </div>
-        <div class="medium-card-wrapper">
+        <!-- <div class="medium-card-wrapper">
           <app-kpi-list-table></app-kpi-list-table>
-        </div>
+        </div> -->
       </div>
     </div>
+
+
+    <div class="main-wrapper">
+      <div  fxLayout="row">
+        <div class="medium-card-wrapper">
+          <app-order-table></app-order-table>
+        </div>
+        <!-- <div class="medium-card-wrapper">
+          <app-kpi-list-table></app-kpi-list-table>
+        </div> -->
+      </div>
+    </div>
+
+
 
 
   </div>

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
+import { Subscription } from 'rxjs';
+import { RecommendationServiceService } from 'src/app/services/recommendation-service.service';
 
 @Component({
   selector: 'app-sales-orders',
@@ -8,14 +10,29 @@ import HC_exporting from 'highcharts/modules/exporting';
   styleUrls: ['./sales-orders.component.scss']
 })
 export class SalesOrdersComponent implements OnInit {
+  @Input() data = []
+  //date
+  //revenue
+  //Order
+  //Item sold
+  //Average Order Revenue
 
   chartOptions: {};
   Highcharts = Highcharts;
+  refresh: Subscription;
 
-  constructor() { }
+  constructor(public recoService: RecommendationServiceService) { }
 
   ngOnInit(): void {
+    this.refresh = this.recoService.get_refreh_listener().subscribe((res)=>{
+      if (res.chart == 'spline-chart') {
+        // alert('helo')
+        this.loadChart(res.data.date, res.data.revenue, res.data.order, res.data.quantity, res.data.avgOrderVal)
+      }
+    })
+  }
 
+  loadChart(date, revenue, order, quantity, avgOrderVal) {
     this.chartOptions = {
         chart: {
             type: 'areaspline',
@@ -54,13 +71,20 @@ export class SalesOrdersComponent implements OnInit {
           }
         },
         xAxis: {
+          min:0.5,
+          max:5.5,
+          tickInterval:1,
+          maxPadding:0,
+          endOnTick:false,
+          startOnTick:false,
+          categories: date,
           // reversed: false,
           gridLineWidth: 1,
           title: {
             text: null
           },
           labels: {
-            format: "Nov {value}"
+            format: "{value}"
           }
         },
         plotOptions: {
@@ -68,7 +92,7 @@ export class SalesOrdersComponent implements OnInit {
               label: {
                   connectorAllowed: false
               },
-              pointStart: 12,
+              // pointStart: 0,
               marker: {
                 enabled: false,
                 // fillColor: '#1441c9',
@@ -86,14 +110,28 @@ export class SalesOrdersComponent implements OnInit {
           tooltip: {
             valueSuffix: ' MYR',
           },
-          data: [50, 150, 90, 190, 160, 220, 110]
+          data: revenue
         },
         {
           name: 'Order',
           tooltip: {
             valueSuffix: ' Orders',
           },
-          data: [5, 15, 9, 19, 16, 22, 11]
+          data: order
+        },
+        {
+          name: 'Item Sold',
+          tooltip: {
+            valueSuffix: ' Item Sold',
+          },
+          data: quantity
+        },
+        {
+          name: 'Average Order Revenue',
+          tooltip: {
+            valueSuffix: ' Average Order Revenue',
+          },
+          data: avgOrderVal
         }]
     };
 
@@ -104,6 +142,9 @@ export class SalesOrdersComponent implements OnInit {
         new Event('resize')
       );
     },300);
+  }
 
+  ngOnDestroy(){
+    this.refresh.unsubscribe();
   }
 }

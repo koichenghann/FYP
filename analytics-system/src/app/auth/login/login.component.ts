@@ -72,6 +72,7 @@ export class LoginComponent implements OnInit {
          },
        ).then((data: any) => {
          console.log(data)
+        localStorage.setItem('username', this.username)
          localStorage.setItem('uid', data['uid'])
          localStorage.setItem('token', data['token']);
          this.router.navigate(['/dashboard-fyp']);
@@ -97,6 +98,7 @@ export class LoginComponent implements OnInit {
        ).then((data: any) => {
          // console.log(data)
          this.username = data['user']['userName']
+         localStorage.setItem('username', data['user']['userName'])
          // localStorage.setItem('uid', data['uid'])
          // this.data.getProfile()
          // this.router.navigate(['/dashboard/default']);

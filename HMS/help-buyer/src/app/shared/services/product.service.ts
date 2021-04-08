@@ -39,6 +39,7 @@ export class ProductService {
 
   // Product
   private get products(): Observable<Product[]> {
+    console.log(new Date())
     // console.log('get products ran')
     this.Products = this.http.get<Product[]>(environment.serverIP+'api/products').pipe(map(data => data));
     this.Products.subscribe(res => {
@@ -266,6 +267,10 @@ export class ProductService {
   // }
 
   public removeCartItem(product: Product): any {
+
+    // alert('deleted from cart: ' + product['_id'])
+    this.recoService.rateProduct(product['_id'], 0);
+
     const index = state.cart.indexOf(product);
     state.cart.splice(index, 1);
     this.token = localStorage.getItem("token")

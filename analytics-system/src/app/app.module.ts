@@ -114,7 +114,7 @@ import { VisitorComponent } from './sellers/visitor/visitor.component';
 import { SalesComponent } from './sellers/sales/sales.component';
 import { VisitorsTableComponent } from './sellers/visitor/visitors-table/visitors-table.component';
 import { CustomerTableComponent } from './sellers/visitor/customer-table/customer-table.component';
-import { OrderTableComponent } from './sellers/sales/order-table/order-table.component';
+import { OrderTableComponent } from './sellers/dashboard-fyp/order-table/order-table.component';
 import { VisitorsCustomersComponent } from './charts-fyp/visitors-customers/visitors-customers.component';
 import { SalesOrdersComponent } from './charts-fyp/sales-orders/sales-orders.component';
 import { CombinedDataComponent } from './charts-fyp/combined-data/combined-data.component';

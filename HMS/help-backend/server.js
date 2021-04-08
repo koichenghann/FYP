@@ -5,6 +5,10 @@ const GridFsStorage = require("multer-gridfs-storage");
 const cors = require('cors')
 const Counter = require('./model/counter').Counter
 const config = require('./config')
+
+// process.env.TZ = "Asia/Kuala_Lumpur";
+
+
 const app = express()
 app.use(express.json({limit: '50mb'}))
 app.use(express.urlencoded({ extended: true,limit: '50mb' }))
@@ -22,10 +26,17 @@ mongoose.connect(config.database, err => {
     if (err)
         console.log("Error in database connection")
     else {
- 
+
         mongoose.connection.db.listCollections({ name: 'counters' })
             .next(function (err, collinfo) {
                 if (collinfo) {
+
+                  console.log("test ...")
+                  let d = new Date()
+                  console.log("UTC time " + d)
+                  console.log(new Date().toString())
+
+
                     console.log("database connection successful")
                 } else {
                     let data = [
@@ -39,7 +50,7 @@ mongoose.connect(config.database, err => {
 })
 
 
-  
+
 
 const userRoutes = require('./routes/account')
 const adminRoutes = require('./routes/admin')
@@ -54,7 +65,7 @@ app.use('/api', buyerRoutes)
 app.use((error, req, res, next) => {
     console.log('error:', error.message)
     if(error.code == "11000") res.status(400).send({status: 400, message : error.errmsg})
-    else 
+    else
     res.status(error.code || 500).send({
         status: error.code || 500,
         message: error.message || 'Internal Server Error'
@@ -64,4 +75,3 @@ app.use((error, req, res, next) => {
 app.listen(config.port, (err) => {
     console.log('listening on port' + config.port)
 })
-
