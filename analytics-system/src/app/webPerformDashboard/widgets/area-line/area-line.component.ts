@@ -13,7 +13,18 @@ export class AreaLineComponent implements OnInit {
   Highcharts = Highcharts;
   constructor() {};
 
-  ngOnInit(){
+
+  dateIndex;
+  listDateofPastSixMonths = []
+  listOfPastSixMonths = []
+
+  ngOnInit():void{
+
+    this.getPreviousSixMonth();
+
+
+
+
     this.chartOptions = {
       chart: {
           type: 'line'
@@ -25,7 +36,7 @@ export class AreaLineComponent implements OnInit {
           text: ''
       },
       xAxis: {
-          categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']
+          categories: this.listOfPastSixMonths,
       },
       yAxis: {
           title: {
@@ -46,7 +57,44 @@ export class AreaLineComponent implements OnInit {
       },
       series: [{
           name: "Visitors",
-          data: [9800, 8700, 11000, 12400, 13900, 12900]
+          data: [0, 0, 0, 41, 31, 27]
       }]
+    }
   }
-}}
+
+
+  getPreviousSixMonth(){
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var monthIndex = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+    var today = new Date();
+    var d;
+    var month;
+    var previousSixMonths;
+    var dateOfPreviousSixMonths;
+    var year;
+
+
+    /*Get dateIndex of previous 6 months */
+    for(var i = 5; i >=0; i -= 1) {
+      d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+      month = monthIndex[d.getMonth()];
+      previousSixMonths =  monthNames[d.getMonth()];
+      year = d.getFullYear();
+      //console.log(month);
+      //console.log(year);
+
+      dateOfPreviousSixMonths = year+'-'+month+'-02';
+
+      this.dateIndex = year+'-'+month+'-02';
+      this.listOfPastSixMonths.push(previousSixMonths);
+      this.listDateofPastSixMonths.push(dateOfPreviousSixMonths);
+
+      //this.getActionsByMonth(month)
+    }
+
+    console.log(this.listOfPastSixMonths);
+    console.log(this.listDateofPastSixMonths);
+  }
+
+
+}

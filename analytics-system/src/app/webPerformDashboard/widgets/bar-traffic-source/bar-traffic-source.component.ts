@@ -25,12 +25,12 @@ export class BarTrafficSourceComponent implements OnInit {
           text: ''
       },
       xAxis: {
-          categories: ['university.help.edu.my',
-                        'google.com',
-                        'facebook.com',
+          categories: ['localhost:4200',
+                        'localhost:49620',
                         'help.edu.my',
-                        'images.google.my',
-                        'hlms.help.edu.my'],
+                        'hlms.help.edu.my',
+                        'www.facebook.com'
+                        ],
           title: {
               text: null
           }
@@ -38,7 +38,7 @@ export class BarTrafficSourceComponent implements OnInit {
       yAxis: {
           min: 0,
           title: {
-              text: 'Sessions',
+              text: 'Number of traffics',
               align: 'high'
           },
           labels: {
@@ -72,8 +72,8 @@ export class BarTrafficSourceComponent implements OnInit {
           enabled: false
       },
       series: [{
-          name: ['Sessions'],
-          data: [1250, 860, 635, 286, 211, 105]
+          name: ['Number of Traffics'],
+          data: [387, 5, 0, 0, 0]
       }]
   }
   }

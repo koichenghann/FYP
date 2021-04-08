@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatomoService } from '../../matomo/matomo.service';
-import { TodayVisitor } from '../../matomo/todayVisitor.model';
+
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';

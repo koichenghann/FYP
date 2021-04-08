@@ -13,12 +13,22 @@ export class LineUserMetricComponent implements OnInit {
   Highcharts = Highcharts;
   constructor() {};
 
+  dateIndex;
+  listDateofPastSixMonths = []
+  listOfPastSixMonths = []
+  currentYear;
+
+
+
   ngOnInit(){
+
+    this.getPreviousSixMonth();
+
     this.chartOptions ={
 
 
       title: {
-          text: "User's activities analysis 2020"
+          text: "User's activities analysis "+this.currentYear
       },
 
       subtitle: {
@@ -32,7 +42,7 @@ export class LineUserMetricComponent implements OnInit {
       },
 
       xAxis: {
-        categories: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov']
+        categories: this.listOfPastSixMonths,
       },
 
       legend: {
@@ -52,19 +62,19 @@ export class LineUserMetricComponent implements OnInit {
 
       series: [{
           name: 'Visitors',
-          data: [43934, 52503, 57177, 69658, 97031, 119931],
+          data: [0, 0, 0, 41, 31, 27],
           color:'#FFCF6A'
       }, {
-          name: 'Sessions',
-          data: [24916, 24064, 29742, 29851, 32490, 45800],
+          name: 'Actions',
+          data: [0, 0, 0, 71, 157, 414],
           color: '#FFBC6A'
       }, {
-          name: 'Pageviews',
-          data: [11744, 17722, 16005, 19771, 20185, 32900],
+          name: 'Uniq. Pageviews',
+          data: [0, 0, 0, 51, 83, 117],
           color: '#FF965B'
       }, {
           name: 'Sign-Up Users',
-          data: [8120,  9830, 7988, 12169, 15112, 22452],
+          data: [0, 0, 0, 2, 3, 7],
           color: '#FF6D6A'
       }],
 
@@ -83,8 +93,43 @@ export class LineUserMetricComponent implements OnInit {
           }]
       }
 
+    }
+
   }
 
+
+  getPreviousSixMonth(){
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var monthIndex = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+    var today = new Date();
+    var d;
+    var month;
+    var previousSixMonths;
+    var dateOfPreviousSixMonths;
+    var year;
+
+
+    /*Get dateIndex of previous 6 months */
+    for(var i = 5; i >=0; i -= 1) {
+      d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+      month = monthIndex[d.getMonth()];
+      previousSixMonths =  monthNames[d.getMonth()];
+      year = d.getFullYear();
+      this.currentYear = year;
+      //console.log(month);
+      //console.log(year);
+
+      dateOfPreviousSixMonths = year+'-'+month+'-02';
+
+      this.dateIndex = year+'-'+month+'-02';
+      this.listOfPastSixMonths.push(previousSixMonths);
+      this.listDateofPastSixMonths.push(dateOfPreviousSixMonths);
+
+      //this.getActionsByMonth(month)
+    }
+
+    console.log(this.listOfPastSixMonths);
+    console.log(this.listDateofPastSixMonths);
   }
 
 }

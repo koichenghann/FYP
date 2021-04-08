@@ -46,24 +46,24 @@ export class PieTrafficChannelComponent implements OnInit{
           colorByPoint: true,
           data: [{
               name: 'Direct',
-              y: 61.41,
+              y: 100.00,
               sliced: true,
               selected: true
           }, {
               name: 'Referral',
-              y: 11.84
+              y: 0.00
           }, {
               name: 'Email',
-              y: 10.85
+              y: 0.00
           }, {
               name: 'Paid Search',
-              y: 4.67
+              y: 0.00
           }, {
               name: 'Search',
-              y: 4.18
+              y: 0.00
           }, {
               name: 'Social Media',
-              y: 7.05
+              y: 0.00
           }]
       }]
   }
