@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
 
   async getUser() {
     // alert('login')
-    if (localStorage.getItem('uid') != null) {
+    if (localStorage.getItem('uid') != null && localStorage.getItem('uid')==this.uid) {
       this.router.navigate(['/dashboard-fyp']);
     } else if (localStorage.getItem('admin') != null) {
       this.router.navigate(['/web-performance/dashboard']);
