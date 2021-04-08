@@ -29,6 +29,18 @@ export class MatomoService {
   /*Platform */
   private platformBrowserListener = new Subject<any>();
   private platformOSListener = new Subject<any>();
+
+  /*Product*/
+  private metricsByProductNameListener = new Subject<any>();
+  private metricsByProductIDListener = new Subject<any>();
+
+  /*ecommerce summary*/
+  private todayEcommerceSummaryListener = new Subject<any>();
+  private ecommerceSummaryListernerByDate = new Subject<any>();
+  //private ecommerceSummaryListernerDateRange = new Subject<any>();
+
+  /* */
+  //'e7e134eae39f79244e27fc2eea5e76bb' Jacky token
   //'4ab71bdf918bde168663a412df869c52' my token
   /*Matomo token */
   token = '4ab71bdf918bde168663a412df869c52';
@@ -72,6 +84,80 @@ export class MatomoService {
     return formattedDate;
 
   }
+
+        /**   Ecommerce metric reporting    **/
+
+
+  /*Get today ecommerce summary*/
+  getTodayEcommerceSummary(){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?date=today&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idGoal=ecommerceOrder&idSite=1&method=Goals.get&module=API&period=day&segment=&showAllGoalSpecificMetrics=1&token_auth='+this.token
+      ).subscribe(res => {
+        //console.log('MetricsByProductName:', res);
+        this.todayEcommerceSummaryListener.next(res);
+    })
+  }
+
+  getTodayEcommerceSummaryListener() {
+    return this.todayEcommerceSummaryListener.asObservable();
+  }
+
+  /*Get ecommerce summary by date*/
+  getEcommerceSummaryByDate(selectedDate){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?date=today&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idGoal=ecommerceOrder&idSite=1&method=Goals.get&module=API&period=day&segment=&showAllGoalSpecificMetrics=1&token_auth='
+      +this.token
+      ).subscribe(res => {
+        //console.log('MetricsByProductName:', res);
+        this.ecommerceSummaryListernerByDate.next(res);
+    })
+  }
+
+  getEcommerceSummaryByListener(selectedDate) {
+    return this.ecommerceSummaryListernerByDate.asObservable();
+  }
+
+
+  /*Get metrics from 'fromData' to 'toDate' by product name*/
+  //http://localhost/matomo/index.php?abandonedCarts=1&date=2021-04-04,2021-04-08&expanded=1&filter_limit=-1&format=JSON&idSite=1&method=Goals.getItemsName&module=API&period=day&token_auth=4ab71bdf918bde168663a412df869c52
+  getMetricsByProductName(fromDate,toDate){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?abandonedCarts=1&date='+fromDate+','+toDate+'&expanded=1&filter_limit=-1&format=JSON&idSite=1&method=Goals.getItemsName&module=API&period=day&token_auth='+this.token
+      ).subscribe(res => {
+        //console.log('MetricsByProductName:', res);
+        this.metricsByProductNameListener.next(res);
+    })
+  }
+
+  getMetricsByProductNameListener() {
+    return this.metricsByProductNameListener.asObservable();
+  }
+
+  /*Get metrics from 'fromData' to 'toDate' by product SKU (productID)*/
+  getMetricsByProductID(fromDate,toDate){
+    this.http.get<any>(
+      'http://localhost/matomo/index.php?abandonedCarts=1&date='+fromDate+','+toDate+'&expanded=1&filter_limit=-1&format=JSON&idSite=1&method=Goals.getItemsSku&module=API&period=day&token_auth='+this.token
+      /*http://localhost/matomo/index.php?abandonedCarts=1&date=2021-04-04,2021-04-08&expanded=1&filter_limit=-1&format=JSON&idSite=1&method=Goals.getItemsSku&module=API&period=day&token_auth=4ab71bdf918bde168663a412df869c52*/
+      ).subscribe(res => {
+        //console.log('MetricsByProductID:', res);
+        this.metricsByProductIDListener.next(res);
+    })
+  }
+
+  getMetricsByProductIDListener() {
+    return this.metricsByProductIDListener.asObservable();
+  }
+
+
+
+
+
+
+
+
+
+
+/**Web performance metric reporting */
 
   /*Device Platform Metric */
   getDevices(){
