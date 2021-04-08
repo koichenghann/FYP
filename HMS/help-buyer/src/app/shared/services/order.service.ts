@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { RecommendationService } from './recommendation.service';
 
 const state = {
   checkoutItems: JSON.parse(localStorage['checkoutItems'] || '[]')
@@ -11,7 +12,7 @@ const state = {
 })
 export class OrderService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public recoService: RecommendationService) { }
 
   // Get Checkout Items
   public get checkoutItems(): Observable<any> {
@@ -24,6 +25,15 @@ export class OrderService {
 
   // Create order
   public createOrder(product: any, details: any, orderId: any, amount: any) {
+    // alert(product[0]._id + '   l: ' + product.length)
+    // for(let prod of product) {
+    //   alert(prod)
+    //   this.recoService.rateProduct(prod._id, 5)
+    // }
+    for (let i = 0; i < product.length; i++){
+      alert(product[i].productName)
+      this.recoService.rateProduct(product[i]._id, 5)
+    }
     var item = {
         shippingDetails: details,
         product: product,
@@ -36,5 +46,5 @@ export class OrderService {
     localStorage.removeItem("cartItems");
     this.router.navigate(['/shop/fashion']);
   }
-  
+
 }

@@ -177,7 +177,8 @@ router.route('/order/:id?')
             paymentMethod: req.body.paymentMethod,
             productId: req.body.productId,
             productName: req.body.productName,
-            courier: req.body.courier
+            courier: req.body.courier,
+            pid: req.body.pid
         });
         await order.save()
         res.status(200).json({ success: true, message: 'product ordered successfully' });

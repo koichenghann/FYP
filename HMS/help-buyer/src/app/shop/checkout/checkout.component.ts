@@ -25,7 +25,7 @@ export class CheckoutComponent implements OnInit {
   constructor(private fb: FormBuilder,
     public productService: ProductService,
     private orderService: OrderService,
-    private rest: RestapiService) { 
+    private rest: RestapiService) {
     this.checkoutForm = this.fb.group({
       firstname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
       lastname: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+[a-zA-Z]$')]],
@@ -49,7 +49,7 @@ export class CheckoutComponent implements OnInit {
     return this.productService.cartTotalAmount();
   }
   public getShipments(){
-    this.rest.getS('shipment').subscribe((res:any) => 
+    this.rest.getS('shipment').subscribe((res:any) =>
       {
         let ship:[any]  = res.shipmentDetails
         ship.map((e,i) => {
@@ -63,22 +63,23 @@ export class CheckoutComponent implements OnInit {
   stripeCheckout() {
     this.products.forEach((e:any)=>{
       let obj:any= {}
-      obj.productId = e.productId 
+      obj.productId = e.productId
       obj.productName = e.productName
       obj.quantity = e.quantity
       obj.sellerUserName = e.sellerName
       obj.amountPaid = e.price * e.quantity
       obj.paymentMethod = this.payment
       obj.courier = this.courier
+      obj.pid = e._id
       this.rest.postS('order',obj).subscribe(res => {
         console.log('res:', res)
         this.orderService.createOrder(this.products, this.checkoutForm.value, "token.id", this.amount);
         // this.router.navigate(['/shop/fashion']);
       })
     })
-    
-    
-    
+
+
+
     // var handler = (<any>window).StripeCheckout.configure({
     //   key: environment.stripe_token, // publishble key
     //   locale: 'auto',
@@ -92,7 +93,7 @@ export class CheckoutComponent implements OnInit {
     //   name: 'Multikart',
     //   description: 'Online Fashion Store',
     //   amount: this.amount * 100
-    // }) 
+    // })
   }
 
   // Paypal Payment Gateway

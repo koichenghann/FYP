@@ -5,6 +5,7 @@ import { map, startWith, delay } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from '../classes/product';
 import { environment } from '../../../environments/environment.prod';
+import { RecommendationService } from './recommendation.service';
 const state = {
   products: JSON.parse(localStorage['products'] || '[]'),
   wishlist: JSON.parse(localStorage['wishlistItems'] || '[]'),
@@ -24,7 +25,9 @@ export class ProductService {
 
   public token;
   constructor(private http: HttpClient,
-    private toastrService: ToastrService) {
+    private toastrService: ToastrService,
+    public recoService: RecommendationService
+  ) {
       this.token = localStorage.getItem("token")
     }
 
@@ -77,6 +80,7 @@ export class ProductService {
 
   // Add to Wishlist
   public addToWishlist(product): any {
+    this.recoService.rateProduct(product._id, 3);
     const wishlistItem = state.wishlist.find(item => item.id === product.id)
     if (!wishlistItem) {
       state.wishlist.push({
@@ -172,6 +176,7 @@ export class ProductService {
 
   // Add to Cart
   public addToCart(product): any {
+    this.recoService.rateProduct(product._id, 4);
     const cartItem = state.cart.find(item => item.id === product.id);
     const qty = product.quantity ? product.quantity : 1;
     const items = cartItem ? cartItem : product;
